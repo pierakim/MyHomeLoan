@@ -9,11 +9,11 @@ class DropDownInputComponent extends StatefulWidget {
       : super(key: key);
 
   @override
-  _DropDownInputComponentState createState() => _DropDownInputComponentState();
+  DropDownInputComponentState createState() => DropDownInputComponentState();
 }
 
 /// This is the private State class that goes with MyStatefulWidget.
-class _DropDownInputComponentState extends State<DropDownInputComponent> {
+class DropDownInputComponentState extends State<DropDownInputComponent> {
   String dropdownValue;
 
   @override
@@ -37,12 +37,7 @@ class _DropDownInputComponentState extends State<DropDownInputComponent> {
               icon: Icon(Icons.arrow_downward),
               iconSize: 24,
               elevation: 32,
-              onChanged: (val) => setState(() {
-                FocusScope.of(context).requestFocus(new FocusNode());
-
-                ///It will clear all focus of the textfield
-                dropdownValue = val;
-              }),
+              onChanged: (val) => updateDropDownValue(val),
               items: <String>[
                 'New South Wales',
                 'Queensland',
@@ -85,5 +80,12 @@ class _DropDownInputComponentState extends State<DropDownInputComponent> {
         ],
       ),
     );
+  }
+
+  void updateDropDownValue(String val) {
+    setState(() {
+      FocusScope.of(context).requestFocus(new FocusNode());
+      dropdownValue = val;
+    });
   }
 }

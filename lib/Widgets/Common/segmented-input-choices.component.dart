@@ -14,11 +14,8 @@ class SegmentedInputChoicesComponent extends StatefulWidget {
       _SegmentInputChoicesComponentState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _SegmentInputChoicesComponentState
     extends State<SegmentedInputChoicesComponent> {
-  // ResidenceType _choice = ResidenceType.PrimaryResidence;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -60,21 +57,21 @@ class _SegmentInputChoicesComponentState
     );
   }
 
-  Widget radio<T>(
-    String title,
-    T value,
-    T groupValue,
-    ValueChanged<T> onChanged,
-  ) {
-    return Flexible(
-      child: RadioListTile<T>(
-        dense: true,
-        contentPadding: EdgeInsets.only(left: 0),
-        value: value,
-        groupValue: groupValue,
-        onChanged: onChanged,
-        title: Text(title),
-      ),
-    );
-  }
+  // Widget radio<T>(
+  //   String title,
+  //   T value,
+  //   T groupValue,
+  //   ValueChanged<T> onChanged,
+  // ) {
+  //   return Flexible(
+  //     child: RadioListTile<T>(
+  //       dense: true,
+  //       contentPadding: EdgeInsets.only(left: 0),
+  //       value: value,
+  //       groupValue: groupValue,
+  //       onChanged: onChanged,
+  //       title: Text(title),
+  //     ),
+  //   );
+  // }
 }

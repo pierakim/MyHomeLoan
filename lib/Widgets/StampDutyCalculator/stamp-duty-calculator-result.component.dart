@@ -24,6 +24,8 @@ class _StampDutyCalculatorResultComponentState
           children: <Widget>[
             Text(args.result.toString()),
             Text(args.state.toString()),
+            Text(args.propertyChoice.toString()),
+            Text(args.isFirstHomeBuyer.toString()),
           ],
         ));
   }

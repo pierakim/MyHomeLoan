@@ -20,13 +20,32 @@ class _StampDutyCalculatorComponentState
     extends State<StampDutyCalculatorComponent> {
   final _formKey = GlobalKey<FormState>();
 
-  final myController = TextEditingController();
+  final GlobalKey<DropDownInputComponentState> _australianStateKey =
+      GlobalKey();
+
+  final GlobalKey<SegmentedInputComponentState> _propertyTypeKey = GlobalKey();
+  final GlobalKey<SegmentedInputComponentState> _firstHomeBuyerKey =
+      GlobalKey();
+
+  final _propertyValueController = TextEditingController();
 
   // init  model
   StampDutyCalculatorResult stampDutyCalculatorResult =
-      StampDutyCalculatorResult(0.0, 'qld');
+      StampDutyCalculatorResult(0.0, '', 0, 0);
 
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
+
+  // Drop Down options for residence type
+  Map<int, Widget> _residenceType = {
+    0: Text('Primary residence'),
+    1: Text('Investment residence'),
+  };
+
+  // Drop Down options for first home buyers
+  Map<int, Widget> _isFirstHomeBuyer = {
+    0: Text('Yes'),
+    1: Text('No'),
+  };
 
   void _handleSubmitted() {
     final form = _formKey.currentState;
@@ -39,7 +58,10 @@ class _StampDutyCalculatorComponentState
         context,
         '/stampDutyResult',
         arguments: new StampDutyCalculatorResult(
-            double.parse(myController.text), 'qld'),
+            double.parse(_propertyValueController.text),
+            _australianStateKey.currentState.dropdownValue,
+            _propertyTypeKey.currentState.currentSelection,
+            _firstHomeBuyerKey.currentState.currentSelection),
       );
     }
   }
@@ -47,30 +69,14 @@ class _StampDutyCalculatorComponentState
   @override
   void initState() {
     super.initState();
-    myController.addListener(_printLatestValue);
-  }
-
-  _printLatestValue() {
-    return myController.text;
   }
 
   @override
   void dispose() {
     // Clean up the controller when the widget is removed from the
-    // widget tree.
-    myController.dispose();
+    _propertyValueController.dispose();
     super.dispose();
   }
-
-  Map<int, Widget> _residenceType = {
-    0: Text('Primary residence'),
-    1: Text('Investment residence'),
-  };
-
-  Map<int, Widget> _isFirstHomeBuyer = {
-    0: Text('Yes'),
-    1: Text('No'),
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +109,7 @@ class _StampDutyCalculatorComponentState
                     inputPrefixText: '\$ ',
                     inputSufixText: 'AUD',
                     validationText: 'Please enter a value',
-                    controller: myController,
+                    controller: _propertyValueController,
                     informationMessage:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                   ),
@@ -111,12 +117,12 @@ class _StampDutyCalculatorComponentState
                   // STATE
                   // **************
                   DropDownInputComponent(
+                    key: _australianStateKey,
                     inputLabelText: 'State',
                     icon: Icon(
                       Icons.not_listed_location_outlined,
                       color: Colors.pink,
                       size: 24.0,
-                      semanticLabel: 'Text to announce in accessibility modes',
                     ),
                     informationMessage:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
@@ -129,13 +135,12 @@ class _StampDutyCalculatorComponentState
                         Icons.foundation,
                         color: Colors.pink,
                         size: 24.0,
-                        semanticLabel:
-                            'Text to announce in accessibility modes',
                       ),
                       informationMessage:
                           "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                       choices: [
                         SegmentedInputComponent(
+                          key: _propertyTypeKey,
                           title: 'Property type',
                           mapping: _residenceType,
                         ),
@@ -148,13 +153,12 @@ class _StampDutyCalculatorComponentState
                         Icons.roofing,
                         color: Colors.pink,
                         size: 24.0,
-                        semanticLabel:
-                            'Text to announce in accessibility modes',
                       ),
                       informationMessage:
                           "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                       choices: [
                         SegmentedInputComponent(
+                          key: _firstHomeBuyerKey,
                           title: 'Are you first time buyer',
                           mapping: _isFirstHomeBuyer,
                         ),

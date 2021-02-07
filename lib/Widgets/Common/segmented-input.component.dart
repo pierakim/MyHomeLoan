@@ -10,12 +10,11 @@ class SegmentedInputComponent extends StatefulWidget {
       : super(key: key);
 
   @override
-  _SegmentedInputComponentState createState() =>
-      _SegmentedInputComponentState();
+  SegmentedInputComponentState createState() => SegmentedInputComponentState();
 }
 
-class _SegmentedInputComponentState extends State<SegmentedInputComponent> {
-  int _currentSelection = 0;
+class SegmentedInputComponentState extends State<SegmentedInputComponent> {
+  int currentSelection;
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +41,14 @@ class _SegmentedInputComponentState extends State<SegmentedInputComponent> {
                 child: MaterialSegmentedControl(
                   horizontalPadding: const EdgeInsets.all(0.0),
                   children: widget.mapping,
-                  selectionIndex: _currentSelection,
+                  selectionIndex: currentSelection,
                   borderColor: Colors.grey,
                   selectedColor: Theme.of(context).colorScheme.primary,
                   unselectedColor: Colors.white,
                   borderRadius: 2.0,
                   onSegmentChosen: (index) {
                     setState(() {
-                      _currentSelection = index;
+                      currentSelection = index;
                     });
                   },
                 ),
