@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_home_loan/Models/payment-calculator-result.dart';
 import 'package:my_home_loan/Models/stamp-duty-calculator-result.dart';
 
 import '../Common/card-information.component.dart';
@@ -17,31 +16,49 @@ class StampDutyCalculatorComponent extends StatefulWidget {
       _StampDutyCalculatorComponentState();
 }
 
-/// This is the private State class that goes with PaymentCalculatorComponent.
 class _StampDutyCalculatorComponentState
     extends State<StampDutyCalculatorComponent> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _propertyValue;
-  TextEditingController _transferFeetValueController;
-  TextEditingController _testController;
-  // ResidenceType _choice = ResidenceType.PrimaryResidence;
+  final myController = TextEditingController();
+
+  // init  model
+  StampDutyCalculatorResult stampDutyCalculatorResult =
+      StampDutyCalculatorResult(0.0, 'qld');
+
+  AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
+
+  void _handleSubmitted() {
+    final form = _formKey.currentState;
+    if (!form.validate()) {
+      _autoValidateMode =
+          AutovalidateMode.always; // Start validating on every change.
+    } else {
+      form.save();
+      Navigator.pushNamed(
+        context,
+        '/stampDutyResult',
+        arguments: new StampDutyCalculatorResult(
+            double.parse(myController.text), 'qld'),
+      );
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    _propertyValue = TextEditingController();
-    _transferFeetValueController = TextEditingController();
-    _testController = TextEditingController();
+    myController.addListener(_printLatestValue);
+  }
+
+  _printLatestValue() {
+    return myController.text;
   }
 
   @override
   void dispose() {
     // Clean up the controller when the widget is removed from the
     // widget tree.
-    _propertyValue.dispose();
-    _transferFeetValueController.dispose();
-    _testController.dispose();
+    myController.dispose();
     super.dispose();
   }
 
@@ -72,6 +89,9 @@ class _StampDutyCalculatorComponentState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  // **************
+                  // PROPERTY VALUE
+                  // **************
                   NumberInputComponent(
                     icon: Icon(
                       Icons.attach_money,
@@ -83,10 +103,13 @@ class _StampDutyCalculatorComponentState
                     inputPrefixText: '\$ ',
                     inputSufixText: 'AUD',
                     validationText: 'Please enter a value',
-                    controller: _propertyValue,
+                    controller: myController,
                     informationMessage:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                   ),
+                  // **************
+                  // STATE
+                  // **************
                   DropDownInputComponent(
                     inputLabelText: 'State',
                     icon: Icon(
@@ -98,6 +121,9 @@ class _StampDutyCalculatorComponentState
                     informationMessage:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
                   ),
+                  // **************
+                  // PROPERTY TYPE
+                  // **************
                   SegmentedInputChoicesComponent(
                       icon: Icon(
                         Icons.foundation,
@@ -114,6 +140,9 @@ class _StampDutyCalculatorComponentState
                           mapping: _residenceType,
                         ),
                       ]),
+                  // **************
+                  // FIRST TIME BUYER
+                  // **************
                   SegmentedInputChoicesComponent(
                       icon: Icon(
                         Icons.roofing,
@@ -134,18 +163,7 @@ class _StampDutyCalculatorComponentState
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: ElevatedButton(
-                        onPressed: () {
-                          final form = _formKey.currentState;
-                          if (form.validate()) {
-                            form.save();
-                            Navigator.pushNamed(
-                              context,
-                              '/stampDutyResult',
-                              arguments: new StampDutyCalculatorResult(
-                                  double.parse(_propertyValue.text), 'test'),
-                            );
-                          }
-                        },
+                        onPressed: _handleSubmitted,
                         child: Padding(
                           padding:
                               const EdgeInsets.only(left: 64.0, right: 64.0),

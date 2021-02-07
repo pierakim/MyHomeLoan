@@ -23,6 +23,7 @@ class _StampDutyCalculatorResultComponentState
         body: Column(
           children: <Widget>[
             Text(args.result.toString()),
+            Text(args.state.toString()),
           ],
         ));
   }

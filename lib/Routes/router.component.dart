@@ -9,7 +9,7 @@ Route<dynamic> getRoute(RouteSettings settings) {
   }
 
   if (settings.name == '/stampDutyResult') {
-    return _buildRoute(settings, new StampDutyCalculatorResultComponent());
+    return _buildRoute(settings, StampDutyCalculatorResultComponent());
   }
 
   return null;
