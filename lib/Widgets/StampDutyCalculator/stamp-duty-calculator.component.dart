@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_home_loan/Models/HomeLoanDatarResult.dart';
+import 'package:my_home_loan/Models/payment-calculator-result.dart';
+import 'package:my_home_loan/Models/stamp-duty-calculator-result.dart';
 
 import '../Common/card-information.component.dart';
 import '../Common/dropdown-input.component.dart';
@@ -21,7 +22,7 @@ class _StampDutyCalculatorComponentState
     extends State<StampDutyCalculatorComponent> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _mortgageValueController;
+  TextEditingController _propertyValue;
   TextEditingController _transferFeetValueController;
   TextEditingController _testController;
   // ResidenceType _choice = ResidenceType.PrimaryResidence;
@@ -29,7 +30,7 @@ class _StampDutyCalculatorComponentState
   @override
   void initState() {
     super.initState();
-    _mortgageValueController = TextEditingController();
+    _propertyValue = TextEditingController();
     _transferFeetValueController = TextEditingController();
     _testController = TextEditingController();
   }
@@ -38,7 +39,7 @@ class _StampDutyCalculatorComponentState
   void dispose() {
     // Clean up the controller when the widget is removed from the
     // widget tree.
-    _mortgageValueController.dispose();
+    _propertyValue.dispose();
     _transferFeetValueController.dispose();
     _testController.dispose();
     super.dispose();
@@ -82,12 +83,12 @@ class _StampDutyCalculatorComponentState
                     inputPrefixText: '\$ ',
                     inputSufixText: 'AUD',
                     validationText: 'Please enter a value',
-                    controller: _mortgageValueController,
+                    controller: _propertyValue,
                     informationMessage:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                   ),
                   DropDownInputComponent(
-                    inputLabelText: 'Choose a state',
+                    inputLabelText: 'State',
                     icon: Icon(
                       Icons.not_listed_location_outlined,
                       color: Colors.pink,
@@ -139,11 +140,9 @@ class _StampDutyCalculatorComponentState
                             form.save();
                             Navigator.pushNamed(
                               context,
-                              '/extractArguments',
-                              arguments: new PaymentResult(
-                                  double.parse(_mortgageValueController.text),
-                                  double.parse(
-                                      _transferFeetValueController.text)),
+                              '/stampDutyResult',
+                              arguments: new StampDutyCalculatorResult(
+                                  double.parse(_propertyValue.text), 'test'),
                             );
                           }
                         },

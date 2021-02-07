@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
-class PaymentResult extends ChangeNotifier {
+class PaymentCalculatorResult extends ChangeNotifier {
   double mortgageValue = 0;
   double transferFeeValue = 0;
 
   double get result => mortgageValue + transferFeeValue;
 
-  PaymentResult(
+  PaymentCalculatorResult(
     this.mortgageValue,
     this.transferFeeValue,
   );

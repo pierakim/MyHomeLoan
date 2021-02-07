@@ -30,7 +30,7 @@ class _DropDownInputComponentState extends State<DropDownInputComponent> {
               decoration: InputDecoration(
                 filled: true,
                 border: const OutlineInputBorder(),
-                labelText: "Choose a state",
+                labelText: widget.inputLabelText,
               ),
               isExpanded: true,
               value: dropdownValue,
