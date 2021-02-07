@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:your_home_loan/Models/HomeLoanDatarResult.dart';
+import 'package:my_home_loan/Models/HomeLoanDatarResult.dart';
 
-import '../number-input-widget.dart';
+import '../Common/number-input.component.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class PaymentCalculatorComponent extends StatefulWidget {
@@ -56,15 +56,16 @@ class _PaymentCalculatorComponentState
                   inputSufixText: 'AUD',
                   validationText: 'Please enter a value',
                   controller: _mortgageValueController,
+                  informationMessage:
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                 ),
                 NumberInputComponent(
-                  icon: const Icon(Icons.attach_money),
-                  inputLabelText: 'Transfer fee value',
-                  inputPrefixText: '\$ ',
-                  inputSufixText: 'AUD',
-                  validationText: 'Please enter a value',
-                  controller: _transferFeetValueController,
-                ),
+                    icon: const Icon(Icons.attach_money),
+                    inputLabelText: 'Transfer fee value',
+                    inputPrefixText: '\$ ',
+                    inputSufixText: 'AUD',
+                    validationText: 'Please enter a value',
+                    controller: _transferFeetValueController),
               ],
             ),
             Center(

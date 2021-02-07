@@ -2,25 +2,42 @@ import 'package:flutter/material.dart';
 
 import 'Routes/router.component.dart';
 import 'Widgets/PaymentCalculator/payment-calculator.component.dart';
+import 'Widgets/StampDutyCalculator/stamp-duty-calculator.component.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static const String _title = 'Your home loan';
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateRoute: getRoute,
-      title: _title,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
-      home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
-        body: PaymentCalculatorComponent(),
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.calculate)),
+                Tab(icon: Icon(Icons.calculate)),
+                Tab(icon: Icon(Icons.calculate)),
+              ],
+            ),
+            title: Text('My Home Loan'),
+            centerTitle: true,
+          ),
+          body: TabBarView(
+            children: [
+              PaymentCalculatorComponent(),
+              StampDutyCalculatorComponent(),
+              Icon(Icons.directions_bike),
+            ],
+          ),
+        ),
       ),
     );
   }

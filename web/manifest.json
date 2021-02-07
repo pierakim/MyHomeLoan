@@ -1,6 +1,6 @@
 {
-    "name": "your_home_loan",
-    "short_name": "your_home_loan",
+    "name": "my_home_loan",
+    "short_name": "my_home_loan",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
