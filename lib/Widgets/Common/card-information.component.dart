@@ -31,10 +31,16 @@ class _CardInformationComponentState extends State<CardInformationComponent> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            ListTile(
-              leading: widget.icon,
-              title: Text(widget.title),
-              subtitle: Text(widget.description),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                leading: widget.icon,
+                title: Text(widget.title),
+                subtitle: Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(widget.description),
+                ),
+              ),
             ),
           ],
         ),

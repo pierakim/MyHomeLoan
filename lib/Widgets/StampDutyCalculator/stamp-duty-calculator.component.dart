@@ -56,104 +56,110 @@ class _StampDutyCalculatorComponentState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          CardInformationComponent(
-            icon: Icon(Icons.home),
-            title: "Stamp duty calculator",
-            description: "Estimate your stamp duty in Australia",
-          ),
-          Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                NumberInputComponent(
-                  icon: Icon(
-                    Icons.attach_money,
-                    color: Colors.pink,
-                    size: 24.0,
-                    semanticLabel: 'Text to announce in accessibility modes',
-                  ),
-                  inputLabelText: 'Property value',
-                  inputPrefixText: '\$ ',
-                  inputSufixText: 'AUD',
-                  validationText: 'Please enter a value',
-                  controller: _mortgageValueController,
-                  informationMessage:
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
-                ),
-                DropDownInputComponent(
-                  inputLabelText: 'Choose a state',
-                  icon: Icon(
-                    Icons.not_listed_location_outlined,
-                    color: Colors.pink,
-                    size: 24.0,
-                    semanticLabel: 'Text to announce in accessibility modes',
-                  ),
-                  informationMessage:
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
-                ),
-                SegmentedInputChoicesComponent(
-                    icon: Icon(
-                      Icons.foundation,
-                      color: Colors.pink,
-                      size: 24.0,
-                      semanticLabel: 'Text to announce in accessibility modes',
-                    ),
-                    informationMessage:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    choices: [
-                      SegmentedInputComponent(
-                        title: 'Property type',
-                        mapping: _residenceType,
-                      ),
-                    ]),
-                SegmentedInputChoicesComponent(
-                    icon: Icon(
-                      Icons.roofing,
-                      color: Colors.pink,
-                      size: 24.0,
-                      semanticLabel: 'Text to announce in accessibility modes',
-                    ),
-                    informationMessage:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    choices: [
-                      SegmentedInputComponent(
-                        title: 'Are you first time buyer',
-                        mapping: _isFirstHomeBuyer,
-                      ),
-                    ]),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        final form = _formKey.currentState;
-                        if (form.validate()) {
-                          form.save();
-                          Navigator.pushNamed(
-                            context,
-                            '/extractArguments',
-                            arguments: new PaymentResult(
-                                double.parse(_mortgageValueController.text),
-                                double.parse(
-                                    _transferFeetValueController.text)),
-                          );
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 64.0, right: 64.0),
-                        child: Text('Tell me!'),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+    return SingleChildScrollView(
+      child: Container(
+        child: Column(
+          children: [
+            CardInformationComponent(
+              icon: Icon(Icons.home),
+              title: "Stamp duty calculator",
+              description:
+                  "Stamp duty is a tax on a property transaction that is charged by each state and territory, the amounts can and do vary.\nThe stamp duty rate will depend on factors such as the value of the property, if it is your primary residence and your residency status.",
             ),
-          ),
-        ],
+            Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  NumberInputComponent(
+                    icon: Icon(
+                      Icons.attach_money,
+                      color: Colors.pink,
+                      size: 24.0,
+                      semanticLabel: 'Text to announce in accessibility modes',
+                    ),
+                    inputLabelText: 'Property value',
+                    inputPrefixText: '\$ ',
+                    inputSufixText: 'AUD',
+                    validationText: 'Please enter a value',
+                    controller: _mortgageValueController,
+                    informationMessage:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
+                  ),
+                  DropDownInputComponent(
+                    inputLabelText: 'Choose a state',
+                    icon: Icon(
+                      Icons.not_listed_location_outlined,
+                      color: Colors.pink,
+                      size: 24.0,
+                      semanticLabel: 'Text to announce in accessibility modes',
+                    ),
+                    informationMessage:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
+                  ),
+                  SegmentedInputChoicesComponent(
+                      icon: Icon(
+                        Icons.foundation,
+                        color: Colors.pink,
+                        size: 24.0,
+                        semanticLabel:
+                            'Text to announce in accessibility modes',
+                      ),
+                      informationMessage:
+                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                      choices: [
+                        SegmentedInputComponent(
+                          title: 'Property type',
+                          mapping: _residenceType,
+                        ),
+                      ]),
+                  SegmentedInputChoicesComponent(
+                      icon: Icon(
+                        Icons.roofing,
+                        color: Colors.pink,
+                        size: 24.0,
+                        semanticLabel:
+                            'Text to announce in accessibility modes',
+                      ),
+                      informationMessage:
+                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                      choices: [
+                        SegmentedInputComponent(
+                          title: 'Are you first time buyer',
+                          mapping: _isFirstHomeBuyer,
+                        ),
+                      ]),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          final form = _formKey.currentState;
+                          if (form.validate()) {
+                            form.save();
+                            Navigator.pushNamed(
+                              context,
+                              '/extractArguments',
+                              arguments: new PaymentResult(
+                                  double.parse(_mortgageValueController.text),
+                                  double.parse(
+                                      _transferFeetValueController.text)),
+                            );
+                          }
+                        },
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 64.0, right: 64.0),
+                          child: Text('Tell me!'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
