@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'alert-dialog.component.dart';
+
 class CardInformationComponent extends StatefulWidget {
   final Icon icon;
   final String title;
@@ -25,23 +27,31 @@ class _CardInformationComponentState extends State<CardInformationComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              flex: 9,
               child: ListTile(
                 leading: widget.icon,
                 title: Text(widget.title),
-                subtitle: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Text(widget.description),
-                ),
               ),
             ),
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                color: Theme.of(context).colorScheme.primary,
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (_) => AlertDialogComponent(
+                          description: widget.description,
+                        )),
+                icon: const Icon(Icons.info_outline),
+              ),
+            )
           ],
         ),
       ),

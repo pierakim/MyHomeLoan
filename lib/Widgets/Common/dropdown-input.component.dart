@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'alert-dialog.component.dart';
+
 class DropDownInputComponent extends StatefulWidget {
   final String inputLabelText;
   final Icon icon;
@@ -19,7 +21,7 @@ class DropDownInputComponentState extends State<DropDownInputComponent> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -57,22 +59,14 @@ class DropDownInputComponentState extends State<DropDownInputComponent> {
               widget.informationMessage.isNotEmpty)
             Expanded(
               flex: 1,
-              child: Tooltip(
-                padding: EdgeInsets.all(20),
-                margin: EdgeInsets.all(40),
-                message: widget.informationMessage,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondaryVariant,
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                ),
-                textStyle: TextStyle(color: Colors.white),
-                preferBelow: true,
-                verticalOffset: 20,
-                child: IconButton(
-                  color: Theme.of(context).colorScheme.primary,
-                  onPressed: () {},
-                  icon: const Icon(Icons.info_outline),
-                ),
+              child: IconButton(
+                color: Theme.of(context).colorScheme.primary,
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (_) => AlertDialogComponent(
+                          description: widget.informationMessage,
+                        )),
+                icon: const Icon(Icons.info_outline),
               ),
             )
           else

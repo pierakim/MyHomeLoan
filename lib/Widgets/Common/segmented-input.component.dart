@@ -25,7 +25,7 @@ class SegmentedInputComponentState extends State<SegmentedInputComponent> {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 5.0),
+                padding: const EdgeInsets.only(bottom: 8),
                 child: Text(
                   widget.title,
                   textScaleFactor: 1.0,

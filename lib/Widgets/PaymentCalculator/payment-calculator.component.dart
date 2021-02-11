@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_home_loan/Models/payment-calculator-result.dart';
+import 'package:my_home_loan/Widgets/Common/alert-dialog.component.dart';
 import 'package:my_home_loan/Widgets/Common/card-information.component.dart';
 
 import '../Common/number-input.component.dart';
@@ -40,7 +41,8 @@ class _PaymentCalculatorComponentState
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             CardInformationComponent(
@@ -49,65 +51,68 @@ class _PaymentCalculatorComponentState
               description:
                   "Estimate your loan repayment including different fees and rates.",
             ),
-            Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ExpansionTile(
-                      title: Text("Bank & Finance"),
-                      subtitle: Text("Your bank and finance information"),
-                      children: <Widget>[
-                        NumberInputComponent(
-                          icon: const Icon(Icons.attach_money),
-                          inputLabelText: 'Mortgage value',
-                          inputPrefixText: '\$ ',
-                          inputSufixText: 'AUD',
-                          validationText: 'Please enter a value',
-                          controller: _mortgageValueController,
-                          informationMessage:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
-                        ),
-                        NumberInputComponent(
+            Card(
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      ExpansionTile(
+                        title: Text("Bank & Finance"),
+                        subtitle: Text("Your bank and finance information"),
+                        children: <Widget>[
+                          NumberInputComponent(
                             icon: const Icon(Icons.attach_money),
-                            inputLabelText: 'Transfer fee value',
+                            inputLabelText: 'Mortgage value',
                             inputPrefixText: '\$ ',
                             inputSufixText: 'AUD',
                             validationText: 'Please enter a value',
-                            controller: _transferFeetValueController),
-                      ],
-                    ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Validate will return true if the form is valid, or false if
-                            // the form is invalid.
-                            final form = _formKey.currentState;
-                            if (form.validate()) {
-                              form.save();
-                              Navigator.pushNamed(
-                                context,
-                                '/extractArguments',
-                                arguments: new PaymentCalculatorResult(
-                                    double.parse(_mortgageValueController.text),
-                                    double.parse(
-                                        _transferFeetValueController.text)),
-                              );
-                            }
-                          },
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 64.0, right: 64.0),
-                            child: Text('Tell me!'),
+                            controller: _mortgageValueController,
+                            informationMessage:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
+                          ),
+                          NumberInputComponent(
+                              icon: const Icon(Icons.attach_money),
+                              inputLabelText: 'Transfer fee value',
+                              inputPrefixText: '\$ ',
+                              inputSufixText: 'AUD',
+                              validationText: 'Please enter a value',
+                              controller: _transferFeetValueController),
+                        ],
+                      ),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Validate will return true if the form is valid, or false if
+                              // the form is invalid.
+                              final form = _formKey.currentState;
+                              if (form.validate()) {
+                                form.save();
+                                Navigator.pushNamed(
+                                  context,
+                                  '/extractArguments',
+                                  arguments: new PaymentCalculatorResult(
+                                      double.parse(
+                                          _mortgageValueController.text),
+                                      double.parse(
+                                          _transferFeetValueController.text)),
+                                );
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 64.0, right: 64.0),
+                              child: Text('Tell me!'),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

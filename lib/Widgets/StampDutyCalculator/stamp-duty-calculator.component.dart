@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_home_loan/Models/ResidenceType.dart';
+import 'package:my_home_loan/Models/first-time-buyer-type.dart';
 import 'package:my_home_loan/Models/stamp-duty-calculator-result.dart';
 
 import '../Common/card-information.component.dart';
@@ -35,18 +37,6 @@ class _StampDutyCalculatorComponentState
 
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
 
-  // Drop Down options for residence type
-  Map<int, Widget> _residenceType = {
-    0: Text('Primary residence'),
-    1: Text('Investment residence'),
-  };
-
-  // Drop Down options for first home buyers
-  Map<int, Widget> _isFirstHomeBuyer = {
-    0: Text('Yes'),
-    1: Text('No'),
-  };
-
   void _handleSubmitted() {
     final form = _formKey.currentState;
     if (!form.validate()) {
@@ -81,105 +71,114 @@ class _StampDutyCalculatorComponentState
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: [
-            CardInformationComponent(
-              icon: Icon(Icons.home),
-              title: "Stamp duty calculator",
-              description:
-                  "Stamp duty is a tax on a property transaction that is charged by each state and territory, the amounts can and do vary.\nThe stamp duty rate will depend on factors such as the value of the property, if it is your primary residence and your residency status.",
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  // **************
-                  // PROPERTY VALUE
-                  // **************
-                  NumberInputComponent(
-                    icon: Icon(
-                      Icons.attach_money,
-                      color: Colors.pink,
-                      size: 24.0,
-                      semanticLabel: 'Text to announce in accessibility modes',
-                    ),
-                    inputLabelText: 'Property value',
-                    inputPrefixText: '\$ ',
-                    inputSufixText: 'AUD',
-                    validationText: 'Please enter a value',
-                    controller: _propertyValueController,
-                    informationMessage:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
-                  ),
-                  // **************
-                  // STATE
-                  // **************
-                  DropDownInputComponent(
-                    key: _australianStateKey,
-                    inputLabelText: 'State',
-                    icon: Icon(
-                      Icons.not_listed_location_outlined,
-                      color: Colors.pink,
-                      size: 24.0,
-                    ),
-                    informationMessage:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
-                  ),
-                  // **************
-                  // PROPERTY TYPE
-                  // **************
-                  SegmentedInputChoicesComponent(
-                      icon: Icon(
-                        Icons.foundation,
-                        color: Colors.pink,
-                        size: 24.0,
-                      ),
-                      informationMessage:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                      choices: [
-                        SegmentedInputComponent(
-                          key: _propertyTypeKey,
-                          title: 'Property type',
-                          mapping: _residenceType,
-                        ),
-                      ]),
-                  // **************
-                  // FIRST TIME BUYER
-                  // **************
-                  SegmentedInputChoicesComponent(
-                      icon: Icon(
-                        Icons.roofing,
-                        color: Colors.pink,
-                        size: 24.0,
-                      ),
-                      informationMessage:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                      choices: [
-                        SegmentedInputComponent(
-                          key: _firstHomeBuyerKey,
-                          title: 'Are you first time buyer',
-                          mapping: _isFirstHomeBuyer,
-                        ),
-                      ]),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: ElevatedButton(
-                        onPressed: _handleSubmitted,
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.only(left: 64.0, right: 64.0),
-                          child: Text('Tell me!'),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          child: Column(
+            children: [
+              CardInformationComponent(
+                icon: Icon(Icons.home),
+                title: "Stamp duty calculator",
+                description:
+                    "Stamp duty is a tax on a property transaction that is charged by each state and territory, the amounts can and do vary.\nThe stamp duty rate will depend on factors such as the value of the property, if it is your primary residence and your residency status.",
               ),
-            ),
-          ],
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 8.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        // **************
+                        // STATE
+                        // **************
+                        DropDownInputComponent(
+                          key: _australianStateKey,
+                          inputLabelText: 'State / Territory of the property',
+                          icon: Icon(
+                            Icons.not_listed_location_outlined,
+                            color: Colors.pink,
+                            size: 24.0,
+                          ),
+                          informationMessage:
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
+                        ),
+                        // **************
+                        // PROPERTY VALUE
+                        // **************
+                        NumberInputComponent(
+                          icon: Icon(
+                            Icons.attach_money,
+                            color: Colors.pink,
+                            size: 24.0,
+                            semanticLabel:
+                                'Text to announce in accessibility modes',
+                          ),
+                          inputLabelText: 'Property value',
+                          inputPrefixText: '\$ ',
+                          inputSufixText: 'AUD',
+                          validationText: 'Please enter a value',
+                          controller: _propertyValueController,
+                          informationMessage:
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
+                        ),
+                        // **************
+                        // PROPERTY TYPE
+                        // **************
+                        SegmentedInputChoicesComponent(
+                            icon: Icon(
+                              Icons.foundation,
+                              color: Colors.pink,
+                              size: 24.0,
+                            ),
+                            informationMessage:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            choices: [
+                              SegmentedInputComponent(
+                                key: _propertyTypeKey,
+                                title: 'Property type',
+                                mapping: residenceType,
+                              ),
+                            ]),
+                        // **************
+                        // FIRST TIME BUYER
+                        // **************
+                        SegmentedInputChoicesComponent(
+                            icon: Icon(
+                              Icons.roofing,
+                              color: Colors.pink,
+                              size: 24.0,
+                            ),
+                            informationMessage:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            choices: [
+                              SegmentedInputComponent(
+                                key: _firstHomeBuyerKey,
+                                title: 'Are you first time buyer',
+                                mapping: isFirstHomeBuyer,
+                              ),
+                            ]),
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: ElevatedButton(
+                              onPressed: _handleSubmitted,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 64.0, right: 64.0),
+                                child: Text('Tell me!'),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
