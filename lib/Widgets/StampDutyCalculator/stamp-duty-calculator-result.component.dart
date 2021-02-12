@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_home_loan/Models/ResidenceType.dart';
 import 'package:my_home_loan/Models/first-time-buyer-type.dart';
+import 'package:my_home_loan/Models/residenceType.dart';
 import 'package:my_home_loan/Models/stamp-duty-calculator-result.dart';
 
 class StampDutyCalculatorResultComponent extends StatefulWidget {
@@ -24,13 +24,11 @@ class _StampDutyCalculatorResultComponentState
     // state input data
     final _stateController = TextEditingController(text: args.state.toString());
 
-    // residence type input data
-    final _residenceTypeController =
-        TextEditingController(text: residenceType[args.propertyChoice].data);
+    final _residenceTypeController = TextEditingController(
+        text: residenceTypeForDisplay[args.propertyChoice].data);
 
-    // first home buyer input data
     final _firstHomeBuyerController = TextEditingController(
-        text: isFirstHomeBuyer[args.isFirstHomeBuyer].data);
+        text: isFirstHomeBuyerForDisplay[args.propertyChoice].data);
 
     // The result
     final _resultController =

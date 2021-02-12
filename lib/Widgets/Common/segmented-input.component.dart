@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:material_segmented_control/material_segmented_control.dart';
 
 class SegmentedInputComponent extends StatefulWidget {
   final String title;
@@ -38,19 +37,17 @@ class SegmentedInputComponentState extends State<SegmentedInputComponent> {
           Row(
             children: [
               Expanded(
-                child: MaterialSegmentedControl(
-                  horizontalPadding: const EdgeInsets.all(0.0),
-                  children: widget.mapping,
-                  selectionIndex: currentSelection,
+                child: CupertinoSegmentedControl<int>(
+                  padding: const EdgeInsets.all(0),
+                  selectedColor: Colors.blue,
                   borderColor: Colors.grey,
-                  selectedColor: Theme.of(context).colorScheme.primary,
-                  unselectedColor: Colors.white,
-                  borderRadius: 2.0,
-                  onSegmentChosen: (index) {
+                  children: widget.mapping,
+                  onValueChanged: (int val) {
                     setState(() {
-                      currentSelection = index;
+                      currentSelection = val;
                     });
                   },
+                  groupValue: currentSelection,
                 ),
               ),
             ],
