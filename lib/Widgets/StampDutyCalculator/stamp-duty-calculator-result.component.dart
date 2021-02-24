@@ -32,7 +32,7 @@ class _StampDutyCalculatorResultComponentState
 
     // The result
     final _resultController =
-        TextEditingController(text: args.result.toString());
+        TextEditingController(text: '\$ ' + args.result.toString());
 
     return Scaffold(
         appBar: AppBar(
@@ -175,6 +175,39 @@ class _StampDutyCalculatorResultComponentState
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                child: Card(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const ListTile(
+                        title: Text('Stamp duty fee'),
+                        subtitle: Text('blablabla blabla bla blablabla'),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Flexible(
+                            child: TextField(
+                              textAlign: TextAlign.end,
+                              controller: _resultController,
+                              decoration: InputDecoration(
+                                suffixText: ' AUD',
+                                border: InputBorder.none,
+                                filled: false,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
         ));
   }

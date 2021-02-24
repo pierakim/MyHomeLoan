@@ -6,8 +6,12 @@ class StampDutyCalculatorResult extends ChangeNotifier {
   int propertyChoice = 0;
   int isFirstHomeBuyer = 0;
 
-  double get result => propertyValue;
+  double get result => queenslandResult();
 
   StampDutyCalculatorResult(this.propertyValue, this.state, this.propertyChoice,
       this.isFirstHomeBuyer);
+}
+
+double queenslandResult() {
+  return 10.0;
 }
