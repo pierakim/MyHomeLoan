@@ -16,33 +16,24 @@ class PaymentCalculatorComponent extends StatefulWidget {
 /// This is the private State class that goes with PaymentCalculatorComponent.
 class _PaymentCalculatorComponentState
     extends State<PaymentCalculatorComponent> {
+  // Form key
   final _formKey = GlobalKey<FormState>();
-
   final GlobalKey<NumberInputComponentState> _value01StateKey = GlobalKey();
-
   final GlobalKey<NumberInputComponentState> _value02StateKey = GlobalKey();
-
-  TextEditingController _value01Controller;
-  TextEditingController _value02Controller;
 
   @override
   void initState() {
     super.initState();
-    _value01Controller = TextEditingController();
-    _value02Controller = TextEditingController();
   }
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
-    _value01Controller.dispose();
-    _value02Controller.dispose();
+    _value01StateKey.currentState.dispose();
+    _value02StateKey.currentState.dispose();
     super.dispose();
   }
 
   Color _textColor;
-
   bool isTile01Valid = false;
   bool isTile01FieldsTouched = false;
 

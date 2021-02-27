@@ -3,19 +3,25 @@ import 'package:flutter/material.dart';
 Map<int, Widget> isFirstHomeBuyer = {
   // 0: Text('Primary residence'),
   0: Container(
-    child: Center(
-      child: Text(
-        'Yes',
-        textAlign: TextAlign.center,
+    child: Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Center(
+        child: Text(
+          'Yes',
+          textAlign: TextAlign.center,
+        ),
       ),
     ),
   ),
   // 1: Text('Investment residence'),
   1: Container(
-    child: Center(
-      child: Text(
-        'No',
-        textAlign: TextAlign.center,
+    child: Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Center(
+        child: Text(
+          'No',
+          textAlign: TextAlign.center,
+        ),
       ),
     ),
   )
