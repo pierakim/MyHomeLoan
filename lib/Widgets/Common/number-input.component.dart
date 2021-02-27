@@ -9,7 +9,6 @@ class NumberInputComponent extends StatefulWidget {
   final String inputSufixText;
   final String validationText;
   final Icon icon;
-  final TextEditingController controller;
   final String informationMessage;
 
   const NumberInputComponent(
@@ -19,16 +18,16 @@ class NumberInputComponent extends StatefulWidget {
       this.inputSufixText,
       this.validationText,
       this.icon,
-      this.controller,
       this.informationMessage})
       : super(key: key);
 
   @override
-  _NumberInputComponentState createState() => _NumberInputComponentState();
+  NumberInputComponentState createState() => NumberInputComponentState();
 }
 
-class _NumberInputComponentState extends State<NumberInputComponent> {
-  double _inputValue;
+class NumberInputComponentState extends State<NumberInputComponent> {
+  double inputValue;
+  bool hasBeenTouched = false;
 
   @override
   void initState() {
@@ -42,10 +41,14 @@ class _NumberInputComponentState extends State<NumberInputComponent> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Expanded(flex: 1, child: Container(child: widget.icon)),
+          Expanded(
+            flex: 1,
+            child: Container(child: widget.icon),
+          ),
           Expanded(
             flex: 8,
             child: TextFormField(
+              onTap: () => setState(() => hasBeenTouched = true),
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(
                 filled: true,
@@ -64,9 +67,8 @@ class _NumberInputComponentState extends State<NumberInputComponent> {
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp('[0-9.,]+')),
               ],
-              controller: widget.controller,
               onChanged: (val) =>
-                  setState(() => _inputValue = double.parse(val)),
+                  setState(() => inputValue = double.parse(val)),
             ),
           ),
           if (widget.informationMessage != null &&
@@ -80,7 +82,10 @@ class _NumberInputComponentState extends State<NumberInputComponent> {
                     builder: (_) => AlertDialogComponent(
                           description: widget.informationMessage,
                         )),
-                icon: const Icon(Icons.info_outline),
+                icon: Icon(
+                  Icons.info_outline,
+                  color: Colors.cyan[600],
+                ),
               ),
             )
           else

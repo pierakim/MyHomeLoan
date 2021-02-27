@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_home_loan/Models/payment-calculator-result.dart';
-import 'package:my_home_loan/Widgets/Common/alert-dialog.component.dart';
 import 'package:my_home_loan/Widgets/Common/card-information.component.dart';
 
 import '../Common/number-input.component.dart';
@@ -19,14 +18,24 @@ class _PaymentCalculatorComponentState
     extends State<PaymentCalculatorComponent> {
   final _formKey = GlobalKey<FormState>();
 
+  final GlobalKey<NumberInputComponentState> _mortgageValueStateKey =
+      GlobalKey();
+
+  final GlobalKey<NumberInputComponentState> _transferFeeValueStateKey =
+      GlobalKey();
+
   TextEditingController _mortgageValueController;
   TextEditingController _transferFeetValueController;
+  TextEditingController _value01Controller;
+  TextEditingController _value02Controller;
 
   @override
   void initState() {
     super.initState();
     _mortgageValueController = TextEditingController();
     _transferFeetValueController = TextEditingController();
+    _value01Controller = TextEditingController();
+    _value02Controller = TextEditingController();
   }
 
   @override
@@ -35,8 +44,14 @@ class _PaymentCalculatorComponentState
     // widget tree.
     _mortgageValueController.dispose();
     _transferFeetValueController.dispose();
+    _value01Controller.dispose();
+    _value02Controller.dispose();
     super.dispose();
   }
+
+  Color _textColor = Colors.green;
+
+  bool isTile01Valid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +61,7 @@ class _PaymentCalculatorComponentState
         child: Column(
           children: [
             CardInformationComponent(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home, color: Colors.cyan[600]),
               title: "Loan repayment calculator",
               description:
                   "Estimate your loan repayment including different fees and rates.",
@@ -59,27 +74,98 @@ class _PaymentCalculatorComponentState
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      // ********
+                      // TILES 01
+                      // ********
                       ExpansionTile(
-                        title: Text("Bank & Finance"),
-                        subtitle: Text("Your bank and finance information"),
+                        onExpansionChanged: (value) {
+                          if (!value) {
+                            // only on closing
+                            isTile01Valid = _mortgageValueStateKey
+                                        .currentState.inputValue !=
+                                    null &&
+                                _transferFeetValueController
+                                    .value.text.isNotEmpty;
+
+                            setState(() {
+                              if (!isTile01Valid) {
+                                _textColor = Theme.of(context).accentColor;
+                                print(_textColor);
+                              }
+                              // _textColor =
+                              //     isTile01Valid ? Colors.amber : Colors.red;
+                            });
+                          }
+                        },
+                        maintainState: true,
+                        title: Text("Bank & Finance",
+                            style: TextStyle(color: _textColor)),
+                        subtitle: Text("Your bank and finance information",
+                            style: TextStyle(color: _textColor)),
                         children: <Widget>[
+                          // **************
+                          // MORTGAGE VALUE
+                          // **************
                           NumberInputComponent(
-                            icon: const Icon(Icons.attach_money),
+                            key: _mortgageValueStateKey,
+                            icon: Icon(
+                              Icons.attach_money,
+                              color: Colors.cyan[600],
+                            ),
                             inputLabelText: 'Mortgage value',
                             inputPrefixText: '\$ ',
                             inputSufixText: 'AUD',
                             validationText: 'Please enter a value',
-                            controller: _mortgageValueController,
                             informationMessage:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                           ),
+                          // *********
+                          // FEE VALUE
+                          // *********
                           NumberInputComponent(
-                              icon: const Icon(Icons.attach_money),
+                              key: _transferFeeValueStateKey,
+                              icon: Icon(Icons.attach_money,
+                                  color: Colors.cyan[600]),
                               inputLabelText: 'Transfer fee value',
                               inputPrefixText: '\$ ',
                               inputSufixText: 'AUD',
-                              validationText: 'Please enter a value',
-                              controller: _transferFeetValueController),
+                              validationText: 'Please enter a value'),
+                        ],
+                      ),
+                      // ********
+                      // TILES 02
+                      // ********
+                      ExpansionTile(
+                        maintainState: true,
+                        title: Text("Another tile"),
+                        subtitle: Text("This is another tile you know."),
+                        children: <Widget>[
+                          // **************
+                          // MORTGAGE VALUE
+                          // **************
+                          NumberInputComponent(
+                            icon: Icon(
+                              Icons.attach_money,
+                              color: Colors.cyan[600],
+                            ),
+                            inputLabelText: 'Value 01',
+                            inputPrefixText: '\$ ',
+                            inputSufixText: 'AUD',
+                            validationText: 'Please enter a value',
+                            informationMessage:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
+                          ),
+                          // *********
+                          // FEE VALUE
+                          // *********
+                          NumberInputComponent(
+                            icon: Icon(Icons.attach_money,
+                                color: Colors.cyan[600]),
+                            inputLabelText: 'Value 02',
+                            inputPrefixText: '\$ ',
+                            inputSufixText: 'AUD',
+                            validationText: 'Please enter a value',
+                          ),
                         ],
                       ),
                       Center(
@@ -96,10 +182,10 @@ class _PaymentCalculatorComponentState
                                   context,
                                   '/extractArguments',
                                   arguments: new PaymentCalculatorResult(
-                                      double.parse(
-                                          _mortgageValueController.text),
-                                      double.parse(
-                                          _transferFeetValueController.text)),
+                                      _mortgageValueStateKey
+                                          .currentState.inputValue,
+                                      _transferFeeValueStateKey
+                                          .currentState.inputValue),
                                 );
                               }
                             },

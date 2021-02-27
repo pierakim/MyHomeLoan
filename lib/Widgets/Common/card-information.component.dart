@@ -49,7 +49,10 @@ class _CardInformationComponentState extends State<CardInformationComponent> {
                     builder: (_) => AlertDialogComponent(
                           description: widget.description,
                         )),
-                icon: const Icon(Icons.info_outline),
+                icon: Icon(
+                  Icons.info_outline,
+                  color: Colors.cyan[600],
+                ),
               ),
             )
           ],

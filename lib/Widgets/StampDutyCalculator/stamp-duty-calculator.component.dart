@@ -25,6 +25,9 @@ class _StampDutyCalculatorComponentState
   final GlobalKey<DropDownInputComponentState> _australianStateKey =
       GlobalKey();
 
+  final GlobalKey<NumberInputComponentState> _propertyValueStateKey =
+      GlobalKey();
+
   final GlobalKey<SegmentedInputComponentState> _propertyTypeKey = GlobalKey();
   final GlobalKey<SegmentedInputComponentState> _firstHomeBuyerKey =
       GlobalKey();
@@ -48,7 +51,7 @@ class _StampDutyCalculatorComponentState
         context,
         '/stampDutyResult',
         arguments: new StampDutyCalculatorResult(
-            double.parse(_propertyValueController.text),
+            _propertyValueStateKey.currentState.inputValue,
             _australianStateKey.currentState.dropdownValue,
             _propertyTypeKey.currentState.currentSelection,
             _firstHomeBuyerKey.currentState.currentSelection),
@@ -98,7 +101,7 @@ class _StampDutyCalculatorComponentState
                           inputLabelText: 'State / Territory of the property',
                           icon: Icon(
                             Icons.not_listed_location_outlined,
-                            color: Colors.pink,
+                            color: Colors.cyan[600],
                             size: 24.0,
                           ),
                           informationMessage:
@@ -108,9 +111,10 @@ class _StampDutyCalculatorComponentState
                         // PROPERTY VALUE
                         // **************
                         NumberInputComponent(
+                          key: _propertyValueStateKey,
                           icon: Icon(
                             Icons.attach_money,
-                            color: Colors.pink,
+                            color: Colors.cyan[600],
                             size: 24.0,
                             semanticLabel:
                                 'Text to announce in accessibility modes',
@@ -119,7 +123,6 @@ class _StampDutyCalculatorComponentState
                           inputPrefixText: '\$ ',
                           inputSufixText: 'AUD',
                           validationText: 'Please enter a value',
-                          controller: _propertyValueController,
                           informationMessage:
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                         ),
@@ -129,7 +132,7 @@ class _StampDutyCalculatorComponentState
                         SegmentedInputChoicesComponent(
                             icon: Icon(
                               Icons.foundation,
-                              color: Colors.pink,
+                              color: Colors.cyan[600],
                               size: 24.0,
                             ),
                             informationMessage:
@@ -147,7 +150,7 @@ class _StampDutyCalculatorComponentState
                         SegmentedInputChoicesComponent(
                             icon: Icon(
                               Icons.roofing,
-                              color: Colors.pink,
+                              color: Colors.cyan[600],
                               size: 24.0,
                             ),
                             informationMessage:
