@@ -18,22 +18,16 @@ class _PaymentCalculatorComponentState
     extends State<PaymentCalculatorComponent> {
   final _formKey = GlobalKey<FormState>();
 
-  final GlobalKey<NumberInputComponentState> _mortgageValueStateKey =
-      GlobalKey();
+  final GlobalKey<NumberInputComponentState> _value01StateKey = GlobalKey();
 
-  final GlobalKey<NumberInputComponentState> _transferFeeValueStateKey =
-      GlobalKey();
+  final GlobalKey<NumberInputComponentState> _value02StateKey = GlobalKey();
 
-  TextEditingController _mortgageValueController;
-  TextEditingController _transferFeetValueController;
   TextEditingController _value01Controller;
   TextEditingController _value02Controller;
 
   @override
   void initState() {
     super.initState();
-    _mortgageValueController = TextEditingController();
-    _transferFeetValueController = TextEditingController();
     _value01Controller = TextEditingController();
     _value02Controller = TextEditingController();
   }
@@ -42,19 +36,19 @@ class _PaymentCalculatorComponentState
   void dispose() {
     // Clean up the controller when the widget is removed from the
     // widget tree.
-    _mortgageValueController.dispose();
-    _transferFeetValueController.dispose();
     _value01Controller.dispose();
     _value02Controller.dispose();
     super.dispose();
   }
 
-  Color _textColor = Colors.green;
+  Color _textColor;
 
   bool isTile01Valid = false;
+  bool isTile01FieldsTouched = false;
 
   @override
   Widget build(BuildContext context) {
+    // _textColor = Theme.of(context).accentColor;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -81,24 +75,34 @@ class _PaymentCalculatorComponentState
                         onExpansionChanged: (value) {
                           if (!value) {
                             // only on closing
-                            isTile01Valid = _mortgageValueStateKey
-                                        .currentState.inputValue !=
-                                    null &&
-                                _transferFeetValueController
-                                    .value.text.isNotEmpty;
+                            isTile01Valid =
+                                _value01StateKey.currentState.inputValue !=
+                                    null;
+
+                            isTile01FieldsTouched = _value01StateKey
+                                    .currentState.hasBeenTouched ||
+                                _value02StateKey.currentState.hasBeenTouched;
 
                             setState(() {
-                              if (!isTile01Valid) {
-                                _textColor = Theme.of(context).accentColor;
-                                print(_textColor);
+                              print(
+                                  "isTile01Valid: " + isTile01Valid.toString());
+                              print("isTile01FieldsTouched: " +
+                                  isTile01FieldsTouched.toString());
+
+                              if (isTile01FieldsTouched) {
+                                if (!isTile01Valid) {
+                                  _textColor = Colors.red;
+                                } else {
+                                  _textColor = Theme.of(context).accentColor;
+                                }
                               }
-                              // _textColor =
-                              //     isTile01Valid ? Colors.amber : Colors.red;
                             });
                           }
                         },
                         maintainState: true,
-                        title: Text("Bank & Finance",
+                        // leading: Text("Bank & Finance",
+                        //     style: TextStyle(color: _textColor)),
+                        title: Text("Your bank and finance information",
                             style: TextStyle(color: _textColor)),
                         subtitle: Text("Your bank and finance information",
                             style: TextStyle(color: _textColor)),
@@ -107,12 +111,12 @@ class _PaymentCalculatorComponentState
                           // MORTGAGE VALUE
                           // **************
                           NumberInputComponent(
-                            key: _mortgageValueStateKey,
+                            key: _value01StateKey,
                             icon: Icon(
                               Icons.attach_money,
                               color: Colors.cyan[600],
                             ),
-                            inputLabelText: 'Mortgage value',
+                            inputLabelText: 'Value 01 (mandatory)',
                             inputPrefixText: '\$ ',
                             inputSufixText: 'AUD',
                             validationText: 'Please enter a value',
@@ -123,49 +127,12 @@ class _PaymentCalculatorComponentState
                           // FEE VALUE
                           // *********
                           NumberInputComponent(
-                              key: _transferFeeValueStateKey,
+                              key: _value02StateKey,
                               icon: Icon(Icons.attach_money,
                                   color: Colors.cyan[600]),
-                              inputLabelText: 'Transfer fee value',
+                              inputLabelText: 'Value 02 (not mandatory)',
                               inputPrefixText: '\$ ',
-                              inputSufixText: 'AUD',
-                              validationText: 'Please enter a value'),
-                        ],
-                      ),
-                      // ********
-                      // TILES 02
-                      // ********
-                      ExpansionTile(
-                        maintainState: true,
-                        title: Text("Another tile"),
-                        subtitle: Text("This is another tile you know."),
-                        children: <Widget>[
-                          // **************
-                          // MORTGAGE VALUE
-                          // **************
-                          NumberInputComponent(
-                            icon: Icon(
-                              Icons.attach_money,
-                              color: Colors.cyan[600],
-                            ),
-                            inputLabelText: 'Value 01',
-                            inputPrefixText: '\$ ',
-                            inputSufixText: 'AUD',
-                            validationText: 'Please enter a value',
-                            informationMessage:
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
-                          ),
-                          // *********
-                          // FEE VALUE
-                          // *********
-                          NumberInputComponent(
-                            icon: Icon(Icons.attach_money,
-                                color: Colors.cyan[600]),
-                            inputLabelText: 'Value 02',
-                            inputPrefixText: '\$ ',
-                            inputSufixText: 'AUD',
-                            validationText: 'Please enter a value',
-                          ),
+                              inputSufixText: 'AUD'),
                         ],
                       ),
                       Center(
@@ -182,10 +149,10 @@ class _PaymentCalculatorComponentState
                                   context,
                                   '/extractArguments',
                                   arguments: new PaymentCalculatorResult(
-                                      _mortgageValueStateKey
-                                          .currentState.inputValue,
-                                      _transferFeeValueStateKey
-                                          .currentState.inputValue),
+                                      _value01StateKey.currentState.inputValue,
+                                      _value02StateKey
+                                              .currentState.inputValue ??
+                                          0.0),
                                 );
                               }
                             },

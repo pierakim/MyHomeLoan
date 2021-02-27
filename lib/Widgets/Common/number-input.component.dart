@@ -48,6 +48,7 @@ class NumberInputComponentState extends State<NumberInputComponent> {
           Expanded(
             flex: 8,
             child: TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               onTap: () => setState(() => hasBeenTouched = true),
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(
@@ -59,7 +60,7 @@ class NumberInputComponentState extends State<NumberInputComponent> {
               ),
               maxLines: 1,
               validator: (value) {
-                if (value.isEmpty) {
+                if (value.isEmpty && widget.validationText != null) {
                   return widget.validationText;
                 }
                 return null;
@@ -67,8 +68,8 @@ class NumberInputComponentState extends State<NumberInputComponent> {
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp('[0-9.,]+')),
               ],
-              onChanged: (val) =>
-                  setState(() => inputValue = double.parse(val)),
+              onChanged: (val) => setState(
+                  () => inputValue = val.isNotEmpty ? double.parse(val) : null),
             ),
           ),
           if (widget.informationMessage != null &&
