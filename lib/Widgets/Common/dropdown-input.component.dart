@@ -6,8 +6,14 @@ class DropDownInputComponent extends StatefulWidget {
   final String inputLabelText;
   final Icon icon;
   final String informationMessage;
+  final String validationText;
+
   DropDownInputComponent(
-      {this.inputLabelText, this.icon, this.informationMessage, Key key})
+      {this.inputLabelText,
+      this.icon,
+      this.informationMessage,
+      this.validationText,
+      Key key})
       : super(key: key);
 
   @override
@@ -29,6 +35,13 @@ class DropDownInputComponentState extends State<DropDownInputComponent> {
           Expanded(
             flex: 8,
             child: DropdownButtonFormField<String>(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value == null && widget.validationText != null) {
+                  return widget.validationText;
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 filled: true,
                 border: const OutlineInputBorder(),
@@ -46,7 +59,9 @@ class DropDownInputComponentState extends State<DropDownInputComponent> {
                 'South Australia',
                 'Tasmania',
                 'Victoria',
-                'Western Australia'
+                'Western Australia',
+                'Australian Capitol Territory',
+                'Northern Territory'
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,

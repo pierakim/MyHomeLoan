@@ -38,13 +38,17 @@ class _StampDutyCalculatorComponentState
   StampDutyCalculatorResult stampDutyCalculatorResult =
       StampDutyCalculatorResult(0.0, '', 0, 0);
 
-  AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
+  bool isPropertyTypeValid;
+  bool isFirstHomeBuyerValid;
 
   void _handleSubmitted() {
     final form = _formKey.currentState;
-    if (!form.validate()) {
-      _autoValidateMode =
-          AutovalidateMode.always; // Start validating on every change.
+    if (!form.validate()) {}
+    if (_propertyTypeKey.currentState.currentSelection == null) {
+      isPropertyTypeValid = false;
+    }
+    if (_firstHomeBuyerKey.currentState.currentSelection == null) {
+      isFirstHomeBuyerValid = false;
     } else {
       form.save();
       Navigator.pushNamed(
@@ -98,6 +102,7 @@ class _StampDutyCalculatorComponentState
                         // **************
                         DropDownInputComponent(
                           key: _australianStateKey,
+                          validationText: 'Select a state',
                           inputLabelText: 'State / Territory of the property',
                           icon: Icon(
                             Icons.not_listed_location_outlined,
@@ -122,7 +127,7 @@ class _StampDutyCalculatorComponentState
                           inputLabelText: 'Property value',
                           inputPrefixText: '\$ ',
                           inputSufixText: 'AUD',
-                          validationText: 'Please enter a value',
+                          validationText: 'Enter a value',
                           informationMessage:
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                         ),
@@ -142,6 +147,7 @@ class _StampDutyCalculatorComponentState
                                 key: _propertyTypeKey,
                                 title: 'Property type',
                                 mapping: residenceType,
+                                isValid: isPropertyTypeValid,
                               ),
                             ]),
                         // **************
@@ -160,6 +166,7 @@ class _StampDutyCalculatorComponentState
                                 key: _firstHomeBuyerKey,
                                 title: 'Are you first time buyer',
                                 mapping: isFirstHomeBuyer,
+                                isValid: isFirstHomeBuyerValid,
                               ),
                             ]),
                         Center(

@@ -28,8 +28,11 @@ class _PaymentCalculatorComponentState
 
   @override
   void dispose() {
-    _value01StateKey.currentState.dispose();
-    _value02StateKey.currentState.dispose();
+    if (_value01StateKey.currentState != null)
+      _value01StateKey.currentState.dispose();
+
+    if (_value02StateKey.currentState != null)
+      _value02StateKey.currentState.dispose();
     super.dispose();
   }
 
