@@ -37,7 +37,7 @@ class NumberInputComponentState extends State<NumberInputComponent> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -85,7 +85,7 @@ class NumberInputComponentState extends State<NumberInputComponent> {
                         )),
                 icon: Icon(
                   Icons.info_outline,
-                  color: Colors.cyan[600],
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             )

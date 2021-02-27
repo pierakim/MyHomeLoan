@@ -51,7 +51,7 @@ class _CardInformationComponentState extends State<CardInformationComponent> {
                         )),
                 icon: Icon(
                   Icons.info_outline,
-                  color: Colors.cyan[600],
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             )

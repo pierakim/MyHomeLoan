@@ -41,7 +41,8 @@ class _SegmentInputChoicesComponentState
                     builder: (_) => AlertDialogComponent(
                           description: widget.informationMessage,
                         )),
-                icon: Icon(Icons.info_outline, color: Colors.cyan[600]),
+                icon: Icon(Icons.info_outline,
+                    color: Theme.of(context).accentColor),
               ),
             )
           else

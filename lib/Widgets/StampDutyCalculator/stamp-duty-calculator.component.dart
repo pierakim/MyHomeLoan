@@ -101,7 +101,7 @@ class _StampDutyCalculatorComponentState
                           inputLabelText: 'State / Territory of the property',
                           icon: Icon(
                             Icons.not_listed_location_outlined,
-                            color: Colors.cyan[600],
+                            color: Theme.of(context).accentColor,
                             size: 24.0,
                           ),
                           informationMessage:
@@ -114,7 +114,7 @@ class _StampDutyCalculatorComponentState
                           key: _propertyValueStateKey,
                           icon: Icon(
                             Icons.attach_money,
-                            color: Colors.cyan[600],
+                            color: Theme.of(context).accentColor,
                             size: 24.0,
                             semanticLabel:
                                 'Text to announce in accessibility modes',
@@ -132,7 +132,7 @@ class _StampDutyCalculatorComponentState
                         SegmentedInputChoicesComponent(
                             icon: Icon(
                               Icons.foundation,
-                              color: Colors.cyan[600],
+                              color: Theme.of(context).accentColor,
                               size: 24.0,
                             ),
                             informationMessage:
@@ -150,7 +150,7 @@ class _StampDutyCalculatorComponentState
                         SegmentedInputChoicesComponent(
                             icon: Icon(
                               Icons.roofing,
-                              color: Colors.cyan[600],
+                              color: Theme.of(context).accentColor,
                               size: 24.0,
                             ),
                             informationMessage:

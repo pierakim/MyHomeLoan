@@ -48,14 +48,14 @@ class _PaymentCalculatorComponentState
 
   @override
   Widget build(BuildContext context) {
-    // _textColor = Theme.of(context).accentColor;
+    final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             CardInformationComponent(
-              icon: Icon(Icons.home, color: Colors.cyan[600]),
+              icon: Icon(Icons.home, color: Theme.of(context).accentColor),
               title: "Loan repayment calculator",
               description:
                   "Estimate your loan repayment including different fees and rates.",
@@ -71,69 +71,72 @@ class _PaymentCalculatorComponentState
                       // ********
                       // TILES 01
                       // ********
-                      ExpansionTile(
-                        onExpansionChanged: (value) {
-                          if (!value) {
-                            // only on closing
-                            isTile01Valid =
-                                _value01StateKey.currentState.inputValue !=
-                                    null;
+                      Padding(
+                        padding: EdgeInsets.all(0),
+                        child: Theme(
+                          //new
+                          data: theme, //new
+                          child: ExpansionTile(
+                            onExpansionChanged: (value) {
+                              if (!value) {
+                                // only on closing
+                                isTile01Valid =
+                                    _value01StateKey.currentState.inputValue !=
+                                        null;
 
-                            isTile01FieldsTouched = _value01StateKey
-                                    .currentState.hasBeenTouched ||
-                                _value02StateKey.currentState.hasBeenTouched;
+                                // are fields touched
+                                isTile01FieldsTouched = _value01StateKey
+                                        .currentState.hasBeenTouched ||
+                                    _value02StateKey
+                                        .currentState.hasBeenTouched;
 
-                            setState(() {
-                              print(
-                                  "isTile01Valid: " + isTile01Valid.toString());
-                              print("isTile01FieldsTouched: " +
-                                  isTile01FieldsTouched.toString());
-
-                              if (isTile01FieldsTouched) {
-                                if (!isTile01Valid) {
-                                  _textColor = Colors.red;
-                                } else {
-                                  _textColor = Theme.of(context).accentColor;
-                                }
+                                setState(() {
+                                  if (isTile01FieldsTouched) {
+                                    if (!isTile01Valid) {
+                                      _textColor = Colors.red;
+                                    } else {
+                                      _textColor =
+                                          Theme.of(context).accentColor;
+                                    }
+                                  }
+                                });
                               }
-                            });
-                          }
-                        },
-                        maintainState: true,
-                        // leading: Text("Bank & Finance",
-                        //     style: TextStyle(color: _textColor)),
-                        title: Text("Your bank and finance information",
-                            style: TextStyle(color: _textColor)),
-                        subtitle: Text("Your bank and finance information",
-                            style: TextStyle(color: _textColor)),
-                        children: <Widget>[
-                          // **************
-                          // MORTGAGE VALUE
-                          // **************
-                          NumberInputComponent(
-                            key: _value01StateKey,
-                            icon: Icon(
-                              Icons.attach_money,
-                              color: Colors.cyan[600],
-                            ),
-                            inputLabelText: 'Value 01 (mandatory)',
-                            inputPrefixText: '\$ ',
-                            inputSufixText: 'AUD',
-                            validationText: 'Please enter a value',
-                            informationMessage:
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
+                            },
+                            maintainState: true,
+                            title: Text("Your bank and finance information",
+                                style: TextStyle(color: _textColor)),
+                            subtitle: Text("Your bank and finance information",
+                                style: TextStyle(color: _textColor)),
+                            children: <Widget>[
+                              // **************
+                              // MORTGAGE VALUE
+                              // **************
+                              NumberInputComponent(
+                                key: _value01StateKey,
+                                icon: Icon(
+                                  Icons.attach_money,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                                inputLabelText: 'Value 01 (mandatory)',
+                                inputPrefixText: '\$ ',
+                                inputSufixText: 'AUD',
+                                validationText: 'Please enter a value',
+                                informationMessage:
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
+                              ),
+                              // *********
+                              // FEE VALUE
+                              // *********
+                              NumberInputComponent(
+                                  key: _value02StateKey,
+                                  icon: Icon(Icons.attach_money,
+                                      color: Theme.of(context).accentColor),
+                                  inputLabelText: 'Value 02 (not mandatory)',
+                                  inputPrefixText: '\$ ',
+                                  inputSufixText: 'AUD'),
+                            ],
                           ),
-                          // *********
-                          // FEE VALUE
-                          // *********
-                          NumberInputComponent(
-                              key: _value02StateKey,
-                              icon: Icon(Icons.attach_money,
-                                  color: Colors.cyan[600]),
-                              inputLabelText: 'Value 02 (not mandatory)',
-                              inputPrefixText: '\$ ',
-                              inputSufixText: 'AUD'),
-                        ],
+                        ),
                       ),
                       Center(
                         child: Padding(
