@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Routes/router.component.dart';
+import 'Widgets/MyCollection/MyCollectionComponent.dart';
 import 'Widgets/PaymentCalculator/payment-calculator.component.dart';
 import 'Widgets/StampDutyCalculator/stamp-duty-calculator.component.dart';
 
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
             children: [
               PaymentCalculatorComponent(),
               StampDutyCalculatorComponent(),
-              Icon(Icons.directions_bike),
+              MyCollectionComponent(),
             ],
           ),
         ),

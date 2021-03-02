@@ -146,6 +146,7 @@ class _PaymentCalculatorComponentState
                                   context,
                                   '/extractArguments',
                                   arguments: new PaymentCalculatorResult(
+                                      'test',
                                       _value01StateKey.currentState.inputValue,
                                       _value02StateKey
                                               .currentState.inputValue ??
