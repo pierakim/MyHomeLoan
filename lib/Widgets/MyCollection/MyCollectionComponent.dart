@@ -6,61 +6,83 @@ class MyCollectionComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:
-          // GridView.count(
-          //   childAspectRatio: 10.0,
-          //   crossAxisCount: 1,
-          //   children: List.generate(100, (index) {
-          //     return Text(
-          //       'Item $index',
-          //     );
-          //   })),
+    return FutureBuilder<String>(
+        future: downloadData(), // function where you call your api
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          // AsyncSnapshot<Your object type>
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: Text('Please wait its loading...'));
+          } else {
+            if (snapshot.hasError)
+              return Center(child: Text('Error: ${snapshot.error}'));
+            else
+              return Center(
+                  child: new Text(
+                      '${snapshot.data}')); // snapshot.data  :- get your object which is pass from your downloadData() function
+          }
+        });
 
-          Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              child: Text(
-                'insert',
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                _insert();
-              },
-            ),
-            ElevatedButton(
-              child: Text(
-                'query',
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                _query();
-              },
-            ),
-            ElevatedButton(
-              child: Text(
-                'update',
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                _update();
-              },
-            ),
-            ElevatedButton(
-              child: Text(
-                'delete',
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                _delete();
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+    // return Scaffold(
+    //   body: GridView.count(
+    //       childAspectRatio: 10.0,
+    //       crossAxisCount: 1,
+    //       children: List.generate(100, (index) {
+    //         return Text(
+    //           'Item $index',
+    //         );
+    //       })),
+    // );
+
+    //     Center(
+    //   child: Column(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: <Widget>[
+    //       ElevatedButton(
+    //         child: Text(
+    //           'insert',
+    //           style: TextStyle(fontSize: 20),
+    //         ),
+    //         onPressed: () {
+    //           _insert();
+    //         },
+    //       ),
+    //       ElevatedButton(
+    //         child: Text(
+    //           'query',
+    //           style: TextStyle(fontSize: 20),
+    //         ),
+    //         onPressed: () {
+    //           _query();
+    //         },
+    //       ),
+    //       ElevatedButton(
+    //         child: Text(
+    //           'update',
+    //           style: TextStyle(fontSize: 20),
+    //         ),
+    //         onPressed: () {
+    //           _update();
+    //         },
+    //       ),
+    //       ElevatedButton(
+    //         child: Text(
+    //           'delete',
+    //           style: TextStyle(fontSize: 20),
+    //         ),
+    //         onPressed: () {
+    //           _delete();
+    //         },
+    //       ),
+    //     ],
+    //   ),
+    // ),
+    // );
+  }
+
+  Future<String> downloadData() async {
+    final allRows = await dbHelper.queryAllRows();
+    //   var response =  await http.get('https://getProjectList');
+    return Future.value("Data download successfully"); // return your response
   }
 
   // Button onPressed methods
