@@ -1,123 +1,107 @@
 import 'package:flutter/material.dart';
 import 'package:my_home_loan/Database/DatabaseHelper.dart';
+import 'package:my_home_loan/Models/payment-calculator-result.dart';
+import 'package:sqflite/sqflite.dart';
 
 class MyCollectionComponent extends StatelessWidget {
   final dbHelper = DatabaseHelper.instance;
+  Future<List<_DataSource>> _func;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<String>(
-        future: downloadData(), // function where you call your api
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-          // AsyncSnapshot<Your object type>
+    return FutureBuilder<List<PaymentCalculatorResult>>(
+        future: paymentCalculatorResults(),
+        builder: (BuildContext context,
+            AsyncSnapshot<List<PaymentCalculatorResult>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: Text('Please wait its loading...'));
           } else {
             if (snapshot.hasError)
               return Center(child: Text('Error: ${snapshot.error}'));
+            else if (snapshot.data.length == 0)
+              return Center(child: Text('Collection is empty'));
             else
-              return Center(
-                  child: new Text(
-                      '${snapshot.data}')); // snapshot.data  :- get your object which is pass from your downloadData() function
+              return ListView(
+                children: [
+                  PaginatedDataTable(
+                    rowsPerPage: snapshot.data.length,
+                    columns: [
+                      DataColumn(label: Text('id')),
+                      DataColumn(label: Text('title')),
+                      DataColumn(label: Text('value01')),
+                      DataColumn(label: Text('value02')),
+                      DataColumn(label: Text('result')),
+                    ],
+                    source: _DataSource(context, snapshot.data),
+                  ),
+                ],
+
+                //     List.generate(snapshot.data.length, (index) {
+                //   return Text('${snapshot.data[index].title}');
+                // }
+                // )
+              );
           }
         });
-
-    // return Scaffold(
-    //   body: GridView.count(
-    //       childAspectRatio: 10.0,
-    //       crossAxisCount: 1,
-    //       children: List.generate(100, (index) {
-    //         return Text(
-    //           'Item $index',
-    //         );
-    //       })),
-    // );
-
-    //     Center(
-    //   child: Column(
-    //     mainAxisAlignment: MainAxisAlignment.center,
-    //     children: <Widget>[
-    //       ElevatedButton(
-    //         child: Text(
-    //           'insert',
-    //           style: TextStyle(fontSize: 20),
-    //         ),
-    //         onPressed: () {
-    //           _insert();
-    //         },
-    //       ),
-    //       ElevatedButton(
-    //         child: Text(
-    //           'query',
-    //           style: TextStyle(fontSize: 20),
-    //         ),
-    //         onPressed: () {
-    //           _query();
-    //         },
-    //       ),
-    //       ElevatedButton(
-    //         child: Text(
-    //           'update',
-    //           style: TextStyle(fontSize: 20),
-    //         ),
-    //         onPressed: () {
-    //           _update();
-    //         },
-    //       ),
-    //       ElevatedButton(
-    //         child: Text(
-    //           'delete',
-    //           style: TextStyle(fontSize: 20),
-    //         ),
-    //         onPressed: () {
-    //           _delete();
-    //         },
-    //       ),
-    //     ],
-    //   ),
-    // ),
-    // );
   }
 
-  Future<String> downloadData() async {
-    final allRows = await dbHelper.queryAllRows();
-    //   var response =  await http.get('https://getProjectList');
-    return Future.value("Data download successfully"); // return your response
+  Future<List<PaymentCalculatorResult>> paymentCalculatorResults() async {
+    final Database db = await dbHelper.database;
+
+    final List<Map<String, dynamic>> maps = await db.query('userLoanRecords');
+
+    var paymentCalculatorResultsList = List.generate(maps.length, (i) {
+      return PaymentCalculatorResult(maps[i]['id'], maps[i]['title'],
+          maps[i]['value01'].toDouble(), maps[i]['value02'].toDouble());
+    });
+
+    return paymentCalculatorResultsList;
+  }
+}
+
+class _DataSource extends DataTableSource {
+  final BuildContext context;
+  final List<PaymentCalculatorResult> listResult;
+  List<PaymentCalculatorResult> _rows;
+
+  _DataSource(this.context, this.listResult) {
+    _rows = listResult;
   }
 
-  // Button onPressed methods
+  int _selectedCount = 0;
 
-  void _insert() async {
-    // row to insert
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnValue01: 10,
-      DatabaseHelper.columnValue02: 10
-    };
-    final id = await dbHelper.insert(row);
-    print('inserted row id: $id');
+  @override
+  DataRow getRow(int index) {
+    assert(index >= 0);
+    if (index >= _rows.length) return null;
+    final row = _rows[index];
+    return DataRow.byIndex(
+      index: index,
+      selected: row.selected,
+      onSelectChanged: (value) {
+        if (row.selected != value) {
+          _selectedCount += value ? 1 : -1;
+          assert(_selectedCount >= 0);
+          row.selected = value;
+          notifyListeners();
+        }
+      },
+      cells: [
+        DataCell(Text(row.id.toString())),
+        DataCell(Text(row.title.toString())),
+        DataCell(Text(row.value01.toString())),
+        DataCell(Text(row.value02.toString())),
+        DataCell(Text(row.result.toString())),
+      ],
+    );
   }
 
-  void _query() async {
-    final allRows = await dbHelper.queryAllRows();
-    print('query all rows:');
-    allRows.forEach((row) => print(row));
-  }
+  @override
+  int get rowCount => _rows.length;
 
-  void _update() async {
-    // row to update
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnId: 1,
-      DatabaseHelper.columnValue01: 20,
-      DatabaseHelper.columnValue02: 20
-    };
-    final rowsAffected = await dbHelper.update(row);
-    print('updated $rowsAffected row(s)');
-  }
+  @override
+  bool get isRowCountApproximate => false;
 
-  void _delete() async {
-    // Assuming that the number of rows is the id for the last row.
-    final id = await dbHelper.queryRowCount();
-    final rowsDeleted = await dbHelper.delete(id);
-    print('deleted $rowsDeleted row(s): row $id');
-  }
+  @override
+  int get selectedRowCount => _selectedCount;
 }

@@ -142,11 +142,13 @@ class _PaymentCalculatorComponentState
                               final form = _formKey.currentState;
                               if (form.validate()) {
                                 form.save();
+                                FocusScope.of(context).unfocus();
                                 Navigator.pushNamed(
                                   context,
                                   '/extractArguments',
                                   arguments: new PaymentCalculatorResult(
-                                      'test',
+                                      null,
+                                      '',
                                       _value01StateKey.currentState.inputValue,
                                       _value02StateKey
                                               .currentState.inputValue ??

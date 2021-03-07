@@ -7,7 +7,7 @@ class DatabaseHelper {
 
   static final table = 'userLoanRecords';
 
-  static final columnId = '_id';
+  static final id = 'id';
   static final title = 'title';
   static final columnValue01 = 'value01';
   static final columnValue02 = 'value02';
@@ -41,7 +41,7 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE $table (
-            $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+            $id INTEGER PRIMARY KEY AUTOINCREMENT,
             $title TEXT NOT NULL,
             $columnValue01 INTEGER NOT NULL,
             $columnValue02 INTEGER NOT NULL,
@@ -78,14 +78,14 @@ class DatabaseHelper {
   // column values will be used to update the row.
   Future<int> update(Map<String, dynamic> row) async {
     Database db = await instance.database;
-    int id = row[columnId];
-    return await db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
+    int rowId = row[id];
+    return await db.update(table, row, where: '$id = ?', whereArgs: [rowId]);
   }
 
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.
   Future<int> delete(int id) async {
     Database db = await instance.database;
-    return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
+    return await db.delete(table, where: '$id = ?', whereArgs: [id]);
   }
 }

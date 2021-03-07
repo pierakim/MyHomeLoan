@@ -27,6 +27,8 @@ class _PaymentCalculatorResultComponentState
         TextEditingController(text: paymentCalculatorResult.value02.toString());
     final _resultController =
         TextEditingController(text: paymentCalculatorResult.result.toString());
+    final _titleController =
+        TextEditingController(text: paymentCalculatorResult.title.toString());
 
     return Scaffold(
         appBar: AppBar(
@@ -144,9 +146,57 @@ class _PaymentCalculatorResultComponentState
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
-                  onPressed: () {
-                    insertPaymentCalculatorResult(paymentCalculatorResult);
-                  },
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                            title: Text(
+                                'Provide a description. You will find it in your collection.'),
+                            titleTextStyle:
+                                TextStyle(color: Colors.black87, fontSize: 16),
+                            content: TextFormField(
+                              controller: _titleController,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  border: const OutlineInputBorder(),
+                                  labelText: 'Description',
+                                  hintText:
+                                      '5/57 Laidlaw Parade, East Brisbane',
+                                  hintStyle: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.black38)),
+                            ),
+                            actions: [
+                              ElevatedButton(
+                                child: Text('Save'),
+                                onPressed: () {
+                                  paymentCalculatorResult.title =
+                                      _titleController.text;
+                                  insertPaymentCalculatorResult(
+                                      paymentCalculatorResult);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                          content: RichText(
+                                    text: TextSpan(
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: _titleController.text,
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: ' saved in your collection',
+                                        ),
+                                      ],
+                                    ),
+                                  )));
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          )),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 64.0, right: 64.0),
                     child: Text('Save'),
@@ -168,5 +218,7 @@ class _PaymentCalculatorResultComponentState
       paymentCalculatorResult.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+
+    var test01 = test;
   }
 }
