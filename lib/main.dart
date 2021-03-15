@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_home_loan/Widgets/MyCollection/MyCollectionComponent.dart';
 
 import 'Routes/router.component.dart';
 import 'Widgets/MyCollection/MyCollectionComponent.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
             children: [
               PaymentCalculatorComponent(),
               StampDutyCalculatorComponent(),
-              MyCollectionComponent(),
+              MyCollectionComponent()
             ],
           ),
         ),

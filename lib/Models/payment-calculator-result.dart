@@ -23,8 +23,6 @@ class PaymentCalculatorResult extends ChangeNotifier {
       'result': result
     };
   }
-
-  bool selected = false;
 }
 
 class PaymentCalculatorResultRow {
@@ -32,5 +30,4 @@ class PaymentCalculatorResultRow {
     this.paymentCalculatorResult,
   );
   final PaymentCalculatorResult paymentCalculatorResult;
-  bool selected = false;
 }

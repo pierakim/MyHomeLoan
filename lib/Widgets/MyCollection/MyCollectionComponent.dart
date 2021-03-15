@@ -1,54 +1,39 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:my_home_loan/Database/DatabaseHelper.dart';
 import 'package:my_home_loan/Models/payment-calculator-result.dart';
 import 'package:sqflite/sqflite.dart';
 
-class MyCollectionComponent extends StatelessWidget {
+class MyCollectionComponent extends StatefulWidget {
+  @override
+  _MyCollectionComponentState createState() => _MyCollectionComponentState();
+}
+
+class _MyCollectionComponentState extends State<MyCollectionComponent> {
+  Future<List<PaymentCalculatorResult>> _paymentCalculatorResults;
   final dbHelper = DatabaseHelper.instance;
-  Future<List<_DataSource>> _func;
 
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<PaymentCalculatorResult>>(
-        future: paymentCalculatorResults(),
-        builder: (BuildContext context,
-            AsyncSnapshot<List<PaymentCalculatorResult>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: Text('Please wait its loading...'));
-          } else {
-            if (snapshot.hasError)
-              return Center(child: Text('Error: ${snapshot.error}'));
-            else if (snapshot.data.length == 0)
-              return Center(child: Text('Collection is empty'));
-            else
-              return ListView(
-                children: [
-                  PaginatedDataTable(
-                    rowsPerPage: snapshot.data.length,
-                    columns: [
-                      DataColumn(label: Text('id')),
-                      DataColumn(label: Text('title')),
-                      DataColumn(label: Text('value01')),
-                      DataColumn(label: Text('value02')),
-                      DataColumn(label: Text('result')),
-                    ],
-                    source: _DataSource(context, snapshot.data),
-                  ),
-                ],
-
-                //     List.generate(snapshot.data.length, (index) {
-                //   return Text('${snapshot.data[index].title}');
-                // }
-                // )
-              );
-          }
-        });
+  void initState() {
+    super.initState();
+    _paymentCalculatorResults = getPaymentCalculatorResults();
   }
 
-  Future<List<PaymentCalculatorResult>> paymentCalculatorResults() async {
+  void refreshList() {
+    setState(() {
+      _paymentCalculatorResults = getPaymentCalculatorResults();
+    });
+  }
+
+  Future<List<PaymentCalculatorResult>> getPaymentCalculatorResults() async {
+    print("getPaymentCalculatorResults");
     final Database db = await dbHelper.database;
 
     final List<Map<String, dynamic>> maps = await db.query('userLoanRecords');
+
+    // emulate time
+    // await Future.delayed(Duration(seconds: 1));
 
     var paymentCalculatorResultsList = List.generate(maps.length, (i) {
       return PaymentCalculatorResult(maps[i]['id'], maps[i]['title'],
@@ -57,51 +42,110 @@ class MyCollectionComponent extends StatelessWidget {
 
     return paymentCalculatorResultsList;
   }
-}
-
-class _DataSource extends DataTableSource {
-  final BuildContext context;
-  final List<PaymentCalculatorResult> listResult;
-  List<PaymentCalculatorResult> _rows;
-
-  _DataSource(this.context, this.listResult) {
-    _rows = listResult;
-  }
-
-  int _selectedCount = 0;
 
   @override
-  DataRow getRow(int index) {
-    assert(index >= 0);
-    if (index >= _rows.length) return null;
-    final row = _rows[index];
-    return DataRow.byIndex(
-      index: index,
-      selected: row.selected,
-      onSelectChanged: (value) {
-        if (row.selected != value) {
-          _selectedCount += value ? 1 : -1;
-          assert(_selectedCount >= 0);
-          row.selected = value;
-          notifyListeners();
-        }
-      },
-      cells: [
-        DataCell(Text(row.id.toString())),
-        DataCell(Text(row.title.toString())),
-        DataCell(Text(row.value01.toString())),
-        DataCell(Text(row.value02.toString())),
-        DataCell(Text(row.result.toString())),
-      ],
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<PaymentCalculatorResult>>(
+        future: _paymentCalculatorResults,
+        builder: (BuildContext context,
+            AsyncSnapshot<List<PaymentCalculatorResult>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            if (snapshot.hasError)
+              return Center(child: Text('Error: ${snapshot.error}'));
+            else if (snapshot.data.length == 0)
+              return Center(child: Text('Collection is empty'));
+            else
+              return tableBody(context, snapshot.data);
+          }
+        });
+  }
+
+  deleteSelected(int rowId) async {
+    await deletePaymentCalculatorResult(rowId);
+    refreshList();
+  }
+
+  Future<void> deletePaymentCalculatorResult(int rowId) async {
+    final db = await dbHelper.database;
+    await db.delete('userLoanRecords', where: 'id = ?', whereArgs: [rowId]);
+  }
+
+  SingleChildScrollView tableBody(BuildContext ctx,
+      List<PaymentCalculatorResult> paymentCalculatorResults) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
+          dataRowHeight: 50,
+          dividerThickness: 5,
+          columns: [
+            DataColumn(
+              label: Text(""),
+              numeric: true,
+            ),
+            DataColumn(
+              label: Text(""),
+              numeric: true,
+            ),
+            DataColumn(
+              label: Text("Description"),
+              numeric: false,
+              tooltip: "The description",
+            ),
+            DataColumn(
+              label: Text("Value 01"),
+              numeric: true,
+            ),
+            DataColumn(
+              label: Text("Value 02"),
+              numeric: true,
+            ),
+            DataColumn(
+              label: Text("Result"),
+              numeric: true,
+            ),
+          ],
+          rows: paymentCalculatorResults
+              .map(
+                (paymentCalculatorResults) => DataRow(cells: [
+                  DataCell(
+                    IconButton(
+                      icon: const Icon(Icons.favorite_border_outlined),
+                      tooltip: 'Favorite',
+                      onPressed: () {
+                        deleteSelected(paymentCalculatorResults.id);
+                      },
+                    ),
+                  ),
+                  DataCell(
+                    IconButton(
+                      icon: const Icon(Icons.delete_outlined),
+                      tooltip: 'Delete',
+                      onPressed: () {
+                        deleteSelected(paymentCalculatorResults.id);
+                      },
+                    ),
+                  ),
+                  DataCell(
+                    Text(paymentCalculatorResults.title),
+                  ),
+                  DataCell(
+                    Text(paymentCalculatorResults.value01.toString()),
+                  ),
+                  DataCell(
+                    Text(paymentCalculatorResults.value02.toString()),
+                  ),
+                  DataCell(
+                    Text(paymentCalculatorResults.result.toString()),
+                  ),
+                ]),
+              )
+              .toList(),
+        ),
+      ),
     );
   }
-
-  @override
-  int get rowCount => _rows.length;
-
-  @override
-  bool get isRowCountApproximate => false;
-
-  @override
-  int get selectedRowCount => _selectedCount;
 }

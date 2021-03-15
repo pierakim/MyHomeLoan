@@ -209,16 +209,14 @@ class _PaymentCalculatorResultComponentState
   }
 
   // Define a function that inserts dogs into the database
-  Future<void> insertPaymentCalculatorResult(
+  Future<int> insertPaymentCalculatorResult(
       PaymentCalculatorResult paymentCalculatorResult) async {
     var db = await dbHelper.database;
 
-    var test = await db.insert(
+    return await db.insert(
       'userLoanRecords',
       paymentCalculatorResult.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-
-    var test01 = test;
   }
 }
