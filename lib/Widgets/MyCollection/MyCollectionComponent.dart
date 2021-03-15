@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_home_loan/Database/DatabaseHelper.dart';
 import 'package:my_home_loan/Models/payment-calculator-result.dart';
 import 'package:sqflite/sqflite.dart';
@@ -30,14 +29,21 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
     print("getPaymentCalculatorResults");
     final Database db = await dbHelper.database;
 
-    final List<Map<String, dynamic>> maps = await db.query('userLoanRecords');
+    final List<Map<String, dynamic>> maps =
+        await db.query('userLoanRecords', orderBy: "isFavourite DESC");
 
     // emulate time
-    // await Future.delayed(Duration(seconds: 1));
+    // await Future.delayed(Duration(seconds: 3));
 
     var paymentCalculatorResultsList = List.generate(maps.length, (i) {
-      return PaymentCalculatorResult(maps[i]['id'], maps[i]['title'],
-          maps[i]['value01'].toDouble(), maps[i]['value02'].toDouble());
+      return PaymentCalculatorResult(
+          maps[i]['id'],
+          maps[i]['title'],
+          maps[i]['value01'].toDouble(),
+          maps[i]['value02'].toDouble(),
+          maps[i]['isFavourite'],
+          maps[i]['creationDate'],
+          maps[i]['modificationDate']);
     });
 
     return paymentCalculatorResultsList;
@@ -62,6 +68,7 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
         });
   }
 
+  // DELETE
   deleteSelected(int rowId) async {
     await deletePaymentCalculatorResult(rowId);
     refreshList();
@@ -70,6 +77,27 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
   Future<void> deletePaymentCalculatorResult(int rowId) async {
     final db = await dbHelper.database;
     await db.delete('userLoanRecords', where: 'id = ?', whereArgs: [rowId]);
+  }
+
+  // FAVOURITE
+  favouriteSelected(PaymentCalculatorResult paymentCalculatorResult) async {
+    await updatePaymentCalculatorResult(paymentCalculatorResult);
+    refreshList();
+  }
+
+  Future<void> updatePaymentCalculatorResult(
+      PaymentCalculatorResult paymentCalculatorResult) async {
+    final db = await dbHelper.database;
+
+    paymentCalculatorResult.isFavourite =
+        paymentCalculatorResult.isFavourite == 0 ? 1 : 0;
+
+    await db.update(
+      'userLoanRecords',
+      paymentCalculatorResult.toMap(),
+      where: "id = ?",
+      whereArgs: [paymentCalculatorResult.id],
+    );
   }
 
   SingleChildScrollView tableBody(BuildContext ctx,
@@ -107,39 +135,53 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
               label: Text("Result"),
               numeric: true,
             ),
+            DataColumn(
+              label: Text("Created date"),
+              numeric: true,
+            ),
           ],
           rows: paymentCalculatorResults
               .map(
-                (paymentCalculatorResults) => DataRow(cells: [
+                (paymentCalculatorResult) => DataRow(cells: [
                   DataCell(
                     IconButton(
-                      icon: const Icon(Icons.favorite_border_outlined),
+                      icon: paymentCalculatorResult.isFavourite == 0
+                          ? Icon(Icons.favorite_border_outlined)
+                          : Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            ),
                       tooltip: 'Favorite',
                       onPressed: () {
-                        deleteSelected(paymentCalculatorResults.id);
+                        favouriteSelected(paymentCalculatorResult);
                       },
                     ),
                   ),
                   DataCell(
                     IconButton(
-                      icon: const Icon(Icons.delete_outlined),
+                      icon: Icon(Icons.delete_outlined),
                       tooltip: 'Delete',
                       onPressed: () {
-                        deleteSelected(paymentCalculatorResults.id);
+                        deleteSelected(paymentCalculatorResult.id);
                       },
                     ),
                   ),
                   DataCell(
-                    Text(paymentCalculatorResults.title),
+                    Text(paymentCalculatorResult.title),
                   ),
                   DataCell(
-                    Text(paymentCalculatorResults.value01.toString()),
+                    Text(paymentCalculatorResult.value01.toString()),
                   ),
                   DataCell(
-                    Text(paymentCalculatorResults.value02.toString()),
+                    Text(paymentCalculatorResult.value02.toString()),
                   ),
                   DataCell(
-                    Text(paymentCalculatorResults.result.toString()),
+                    Text(paymentCalculatorResult.result.toString()),
+                  ),
+                  DataCell(
+                    //String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+                    Text(DateFormat('dd/MM/yyyy').format(
+                        DateTime.parse(paymentCalculatorResult.creationDate))),
                   ),
                 ]),
               )

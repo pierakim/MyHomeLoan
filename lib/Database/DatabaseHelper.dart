@@ -12,6 +12,9 @@ class DatabaseHelper {
   static final columnValue01 = 'value01';
   static final columnValue02 = 'value02';
   static final result = 'result';
+  static final isFavourite = 'isFavourite';
+  static final creationDate = 'creationDate';
+  static final modificationDate = 'modificationDate';
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -45,7 +48,10 @@ class DatabaseHelper {
             $title TEXT NOT NULL,
             $columnValue01 INTEGER NOT NULL,
             $columnValue02 INTEGER NOT NULL,
-            $result INTEGER NOT NULL
+            $result INTEGER NOT NULL,
+            $isFavourite INTEGER NOT NULL,
+            $creationDate TEXT NOT NULL,
+            $modificationDate TEXT NOT NULL
           )
           ''');
   }

@@ -152,7 +152,10 @@ class _PaymentCalculatorComponentState
                                       _value01StateKey.currentState.inputValue,
                                       _value02StateKey
                                               .currentState.inputValue ??
-                                          0.0),
+                                          0.0,
+                                      0,
+                                      DateTime.now().toUtc().toString(),
+                                      DateTime.now().toUtc().toString()),
                                 );
                               }
                             },
