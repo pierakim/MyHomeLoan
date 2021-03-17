@@ -104,85 +104,105 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
       List<PaymentCalculatorResult> paymentCalculatorResults) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
+      child: FittedBox(
         child: DataTable(
-          dataRowHeight: 50,
-          dividerThickness: 5,
+          columnSpacing: 10,
+          // dataRowHeight: 50,
+          dividerThickness: 1,
+          headingRowHeight: 0,
           columns: [
             DataColumn(
               label: Text(""),
-              numeric: true,
             ),
             DataColumn(
               label: Text(""),
-              numeric: true,
             ),
             DataColumn(
-              label: Text("Description"),
-              numeric: false,
-              tooltip: "The description",
+              label: Text(""),
             ),
             DataColumn(
-              label: Text("Value 01"),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text("Value 02"),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text("Result"),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text("Created date"),
-              numeric: true,
+              label: Text(""),
             ),
           ],
           rows: paymentCalculatorResults
               .map(
                 (paymentCalculatorResult) => DataRow(cells: [
-                  DataCell(
-                    IconButton(
-                      icon: paymentCalculatorResult.isFavourite == 0
-                          ? Icon(Icons.favorite_border_outlined)
+                  // FAVOURITE
+                  DataCell(GestureDetector(
+                      onTap: () {
+                        favouriteSelected(paymentCalculatorResult);
+                      },
+                      child: paymentCalculatorResult.isFavourite == 0
+                          ? Icon(Icons.favorite_border_outlined, size: 15)
                           : Icon(
                               Icons.favorite,
                               color: Colors.red,
-                            ),
-                      tooltip: 'Favorite',
-                      onPressed: () {
-                        favouriteSelected(paymentCalculatorResult);
+                              size: 15,
+                            ))),
+                  // EDIT
+                  DataCell(GestureDetector(
+                      onTap: () {
+                        //editSelected(paymentCalculatorResult.id);
                       },
+                      child: Icon(Icons.edit_outlined, size: 15))),
+                  // DESCRIPTION/TITLE
+                  DataCell(
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Container(
+                            width: 150,
+                            child: Text(paymentCalculatorResult.title,
+                                style: new TextStyle(
+                                  fontSize: 10.0,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                        ),
+                        FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Container(
+                            width: 150,
+                            child: Text(
+                                "Value 01: " +
+                                    paymentCalculatorResult.value01.toString(),
+                                style: new TextStyle(
+                                  fontSize: 8.0,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                        ),
+                        FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Container(
+                            width: 150,
+                            child: Text(
+                                "Value 02: " +
+                                    paymentCalculatorResult.value02.toString(),
+                                style: new TextStyle(
+                                  fontSize: 8.0,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  DataCell(
-                    IconButton(
-                      icon: Icon(Icons.delete_outlined),
-                      tooltip: 'Delete',
-                      onPressed: () {
+                  // DELETE
+                  DataCell(GestureDetector(
+                      onTap: () {
                         deleteSelected(paymentCalculatorResult.id);
                       },
-                    ),
-                  ),
-                  DataCell(
-                    Text(paymentCalculatorResult.title),
-                  ),
-                  DataCell(
-                    Text(paymentCalculatorResult.value01.toString()),
-                  ),
-                  DataCell(
-                    Text(paymentCalculatorResult.value02.toString()),
-                  ),
-                  DataCell(
-                    Text(paymentCalculatorResult.result.toString()),
-                  ),
-                  DataCell(
-                    //String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
-                    Text(DateFormat('dd/MM/yyyy').format(
-                        DateTime.parse(paymentCalculatorResult.creationDate))),
-                  ),
+                      child: Icon(
+                        Icons.delete_outlined,
+                        size: 15,
+                      ))),
                 ]),
               )
               .toList(),
