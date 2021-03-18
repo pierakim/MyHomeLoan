@@ -102,12 +102,26 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
                 builder: (BuildContext context,
                     AsyncSnapshot<List<PaymentCalculatorResult>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return SizedBox(
+                        height: MediaQuery.of(context)
+                            .size
+                            .width, // constrain height
+                        child: Center(child: CircularProgressIndicator()));
                   } else {
                     if (snapshot.hasError)
-                      return Center(child: Text('Error: ${snapshot.error}'));
+                      return SizedBox(
+                          height: MediaQuery.of(context)
+                              .size
+                              .width, // constrain height
+                          child: Center(
+                              child: Text(
+                                  'Ouups, something happened..please restart the app')));
                     else if (snapshot.data.length == 0)
-                      return Center(child: Text('Collection is empty'));
+                      return SizedBox(
+                          height: MediaQuery.of(context)
+                              .size
+                              .width, // constrain height
+                          child: Center(child: Text('Collection is empty')));
                     else
                       return Card(child: tableBody(context, snapshot.data));
                   }
