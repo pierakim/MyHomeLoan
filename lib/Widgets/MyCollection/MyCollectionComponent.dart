@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:my_home_loan/Database/DatabaseHelper.dart';
 import 'package:my_home_loan/Models/payment-calculator-result.dart';
+import 'package:my_home_loan/Widgets/Common/card-information.component.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MyCollectionComponent extends StatefulWidget {
@@ -51,21 +51,7 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<PaymentCalculatorResult>>(
-        future: _paymentCalculatorResults,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<PaymentCalculatorResult>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            if (snapshot.hasError)
-              return Center(child: Text('Error: ${snapshot.error}'));
-            else if (snapshot.data.length == 0)
-              return Center(child: Text('Collection is empty'));
-            else
-              return tableBody(context, snapshot.data);
-          }
-        });
+    return mainScreen(context);
   }
 
   // DELETE
@@ -100,14 +86,46 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
     );
   }
 
+  SingleChildScrollView mainScreen(BuildContext ctx) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            CardInformationComponent(
+              icon: Icon(Icons.home, color: Theme.of(context).accentColor),
+              title: "Your saved collection",
+              description: "Your collection",
+            ),
+            FutureBuilder<List<PaymentCalculatorResult>>(
+                future: _paymentCalculatorResults,
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<PaymentCalculatorResult>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else {
+                    if (snapshot.hasError)
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    else if (snapshot.data.length == 0)
+                      return Center(child: Text('Collection is empty'));
+                    else
+                      return Card(child: tableBody(context, snapshot.data));
+                  }
+                })
+          ],
+        ),
+      ),
+    );
+  }
+
   SingleChildScrollView tableBody(BuildContext ctx,
       List<PaymentCalculatorResult> paymentCalculatorResults) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: FittedBox(
         child: DataTable(
-          columnSpacing: 10,
-          // dataRowHeight: 50,
+          // columnSpacing: 20,
+          dataRowHeight: 75,
           dividerThickness: 1,
           headingRowHeight: 0,
           columns: [
@@ -133,65 +151,59 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
                         favouriteSelected(paymentCalculatorResult);
                       },
                       child: paymentCalculatorResult.isFavourite == 0
-                          ? Icon(Icons.favorite_border_outlined, size: 15)
+                          ? Icon(Icons.favorite_border_outlined, size: 30)
                           : Icon(
                               Icons.favorite,
                               color: Colors.red,
-                              size: 15,
+                              size: 30,
                             ))),
                   // EDIT
                   DataCell(GestureDetector(
                       onTap: () {
                         //editSelected(paymentCalculatorResult.id);
                       },
-                      child: Icon(Icons.edit_outlined, size: 15))),
+                      child: Icon(Icons.edit_outlined, size: 30))),
                   // DESCRIPTION/TITLE
                   DataCell(
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Container(
-                            width: 150,
-                            child: Text(paymentCalculatorResult.title,
-                                style: new TextStyle(
-                                  fontSize: 10.0,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis),
+                    Container(
+                      width: 300,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Container(
+                              // width: 150,
+                              child: Text(paymentCalculatorResult.title,
+                                  style: new TextStyle(
+                                    fontSize: 20.0,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis),
+                            ),
                           ),
-                        ),
-                        FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Container(
-                            width: 150,
-                            child: Text(
-                                "Value 01: " +
-                                    paymentCalculatorResult.value01.toString(),
-                                style: new TextStyle(
-                                  fontSize: 8.0,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Container(
+                              // width: 150,
+                              child: Text(
+                                  "Value 01: " +
+                                      paymentCalculatorResult.value01
+                                          .toString() +
+                                      "  " +
+                                      "Value 02: " +
+                                      paymentCalculatorResult.value02
+                                          .toString(),
+                                  style: new TextStyle(
+                                    fontSize: 15.0,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis),
+                            ),
                           ),
-                        ),
-                        FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Container(
-                            width: 150,
-                            child: Text(
-                                "Value 02: " +
-                                    paymentCalculatorResult.value02.toString(),
-                                style: new TextStyle(
-                                  fontSize: 8.0,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   // DELETE
@@ -201,7 +213,7 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
                       },
                       child: Icon(
                         Icons.delete_outlined,
-                        size: 15,
+                        size: 30,
                       ))),
                 ]),
               )
