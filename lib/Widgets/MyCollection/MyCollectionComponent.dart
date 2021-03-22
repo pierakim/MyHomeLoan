@@ -26,7 +26,6 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
   }
 
   Future<List<PaymentCalculatorResult>> getPaymentCalculatorResults() async {
-    print("getPaymentCalculatorResults");
     final Database db = await dbHelper.database;
 
     final List<Map<String, dynamic>> maps =
