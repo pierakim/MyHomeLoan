@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_home_loan/Database/DatabaseHelper.dart';
+import 'package:my_home_loan/Widgets/PaymentCalculator/payment-calculator.component.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../Models/payment-calculator-result.dart';
@@ -200,6 +201,23 @@ class _PaymentCalculatorResultComponentState
                   child: Padding(
                     padding: const EdgeInsets.only(left: 64.0, right: 64.0),
                     child: Text('Save'),
+                  ),
+                ),
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: ElevatedButton(
+                  onPressed: () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PaymentCalculatorComponent()))
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 64.0, right: 64.0),
+                    child: Text('Edit'),
                   ),
                 ),
               ),
