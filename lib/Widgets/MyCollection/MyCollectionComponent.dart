@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:my_home_loan/Database/DatabaseHelper.dart';
 import 'package:my_home_loan/Models/payment-calculator-result.dart';
+import 'package:my_home_loan/Routes/router.component.dart';
 import 'package:my_home_loan/Widgets/Common/card-information.component.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../app-drawer.component.dart';
+
 class MyCollectionComponent extends StatefulWidget {
+  static const String routeName = '/myCollection';
+
   @override
   _MyCollectionComponentState createState() => _MyCollectionComponentState();
 }
@@ -85,42 +90,55 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
     );
   }
 
-  SingleChildScrollView mainScreen(BuildContext ctx) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            CardInformationComponent(
-              icon: Icon(Icons.home, color: Theme.of(context).accentColor),
-              title: "Your saved collection",
-              description: "Your collection",
-            ),
-            FutureBuilder<List<PaymentCalculatorResult>>(
-                future: _paymentCalculatorResults,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<PaymentCalculatorResult>> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return SizedBox(
-                        height: MediaQuery.of(context).size.width,
-                        child: Center(child: CircularProgressIndicator()));
-                  } else {
-                    if (snapshot.hasError)
+  Widget mainScreen(BuildContext ctx) {
+    return new Scaffold(
+      appBar: AppBar(
+        title: Text("My Collection"),
+      ),
+      drawer: AppDrawer(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              CardInformationComponent(
+                icon: Icon(Icons.home, color: Theme.of(context).accentColor),
+                title: "Your saved collection",
+                description: "Your collection",
+              ),
+              FutureBuilder<List<PaymentCalculatorResult>>(
+                  future: _paymentCalculatorResults,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<PaymentCalculatorResult>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       return SizedBox(
                           height: MediaQuery.of(context).size.width,
-                          child: Center(
-                              child: Text(
-                                  'Ouups, something happened..please restart the app')));
-                    else if (snapshot.data.length == 0)
-                      return SizedBox(
-                          height: MediaQuery.of(context).size.width,
-                          child: Center(child: Text('Collection is empty')));
-                    else
-                      return Card(child: tableBody(context, snapshot.data));
-                  }
-                })
-          ],
+                          child: Center(child: CircularProgressIndicator()));
+                    } else {
+                      if (snapshot.hasError)
+                        return SizedBox(
+                            height: MediaQuery.of(context).size.width,
+                            child: Center(
+                                child: Text(
+                                    'Ouups, something happened..please restart the app')));
+                      else if (snapshot.data.length == 0)
+                        return SizedBox(
+                            height: MediaQuery.of(context).size.width,
+                            child: Center(child: Text('Collection is empty')));
+                      else
+                        return Card(child: tableBody(context, snapshot.data));
+                    }
+                  })
+            ],
+          ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushReplacementNamed(context, Routes.paymentCalculator);
+        },
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.green,
       ),
     );
   }
@@ -159,7 +177,7 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
                             'row id: ' + paymentCalculatorResult.id.toString());
                         Navigator.pushNamed(
                           context,
-                          '/extractArguments',
+                          Routes.readOrEditLoan,
                           arguments: new PaymentCalculatorResult(
                               paymentCalculatorResult.id,
                               paymentCalculatorResult.title,

@@ -4,6 +4,8 @@ import 'package:my_home_loan/Models/residenceType.dart';
 import 'package:my_home_loan/Models/stamp-duty-calculator-result.dart';
 
 class StampDutyCalculatorResultComponent extends StatefulWidget {
+  static const String routeName = '/stampDutyCalculatorResult';
+
   StampDutyCalculatorResultComponent({Key key}) : super(key: key);
 
   @override
