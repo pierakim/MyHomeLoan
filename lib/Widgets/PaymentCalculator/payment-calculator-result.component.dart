@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_home_loan/Database/DatabaseHelper.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
+import 'package:my_home_loan/Widgets/PaymentCalculator/payment-calculator-result-screen-arguments.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../Models/payment-calculator-result.dart';
 
@@ -20,8 +21,16 @@ class _PaymentCalculatorResultComponentState
 
   @override
   Widget build(BuildContext context) {
-    final PaymentCalculatorResult paymentCalculatorResult =
+    final PaymentCalculatorResultScreenArguments
+        paymentCalculatorResultScreenArguments =
         ModalRoute.of(context).settings.arguments;
+
+    final PaymentCalculatorResult paymentCalculatorResult =
+        paymentCalculatorResultScreenArguments.paymentCalculatorResult;
+    final bool isBeingCreated =
+        paymentCalculatorResultScreenArguments.isBeingCreated;
+    final bool isBeingEdited =
+        paymentCalculatorResultScreenArguments.isBeingEdited;
 
     final _value01Controller =
         TextEditingController(text: paymentCalculatorResult.value01.toString());
@@ -144,67 +153,132 @@ class _PaymentCalculatorResultComponentState
               ),
             ),
           ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () => showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                          title: Text(
-                              'Provide a description. You will find it in your collection.'),
-                          titleTextStyle:
-                              TextStyle(color: Colors.black87, fontSize: 16),
-                          content: TextFormField(
-                            controller: _titleController,
-                            decoration: InputDecoration(
-                                filled: true,
-                                border: const OutlineInputBorder(),
-                                labelText: 'Description',
-                                hintText: '5/57 Laidlaw Parade, East Brisbane',
-                                hintStyle: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Colors.black38)),
-                          ),
-                          actions: [
-                            ElevatedButton(
-                              child: Text('Save'),
-                              onPressed: () {
-                                paymentCalculatorResult.title =
-                                    _titleController.text;
-                                insertPaymentCalculatorResult(
-                                    paymentCalculatorResult);
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                        content: RichText(
-                                  text: TextSpan(
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                        text: _titleController.text,
-                                        style: TextStyle(
-                                          fontStyle: FontStyle.italic,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: ' saved in your collection',
-                                      ),
-                                    ],
-                                  ),
-                                )));
-                                Navigator.pop(context);
-                              },
+          if (isBeingCreated && !isBeingEdited)
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: ElevatedButton(
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                            title: Text(
+                                'Provide a description. You will find it in your collection.'),
+                            titleTextStyle:
+                                TextStyle(color: Colors.black87, fontSize: 16),
+                            content: TextFormField(
+                              controller: _titleController,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  border: const OutlineInputBorder(),
+                                  labelText: 'Description',
+                                  hintText:
+                                      '5/57 Laidlaw Parade, East Brisbane',
+                                  hintStyle: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.black38)),
                             ),
-                          ],
-                        )),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 64.0, right: 64.0),
-                  child: Text('Save'),
+                            actions: [
+                              ElevatedButton(
+                                child: Text('Save'),
+                                onPressed: () {
+                                  paymentCalculatorResult.title =
+                                      _titleController.text;
+                                  insertPaymentCalculatorResult(
+                                      paymentCalculatorResult);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                          content: RichText(
+                                    text: TextSpan(
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: _titleController.text,
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: ' saved in your collection',
+                                        ),
+                                      ],
+                                    ),
+                                  )));
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          )),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 64.0, right: 64.0),
+                    child: Text('Save'),
+                  ),
+                ),
+              ),
+            )
+          else if (!isBeingCreated && isBeingEdited)
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: ElevatedButton(
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                            title: Text(
+                                'Provide a description. You will find it in your collection.'),
+                            titleTextStyle:
+                                TextStyle(color: Colors.black87, fontSize: 16),
+                            content: TextFormField(
+                              controller: _titleController,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  border: const OutlineInputBorder(),
+                                  labelText: 'Description',
+                                  hintText:
+                                      '5/57 Laidlaw Parade, East Brisbane',
+                                  hintStyle: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.black38)),
+                            ),
+                            actions: [
+                              ElevatedButton(
+                                child: Text('Edit'),
+                                onPressed: () {
+                                  paymentCalculatorResult.title =
+                                      _titleController.text;
+                                  insertPaymentCalculatorResult(
+                                      paymentCalculatorResult);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                          content: RichText(
+                                    text: TextSpan(
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: _titleController.text,
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: ' saved in your collection',
+                                        ),
+                                      ],
+                                    ),
+                                  )));
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          )),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 64.0, right: 64.0),
+                    child: Text('Edit'),
+                  ),
                 ),
               ),
             ),
-          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

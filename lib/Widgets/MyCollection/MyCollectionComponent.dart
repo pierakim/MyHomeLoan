@@ -3,6 +3,7 @@ import 'package:my_home_loan/Database/DatabaseHelper.dart';
 import 'package:my_home_loan/Models/payment-calculator-result.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
 import 'package:my_home_loan/Widgets/Common/card-information.component.dart';
+import 'package:my_home_loan/Widgets/PaymentCalculator/payment-calculator-result-screen-arguments.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../app-drawer.component.dart';
@@ -178,14 +179,17 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
                         Navigator.pushNamed(
                           context,
                           Routes.readOrEditLoan,
-                          arguments: new PaymentCalculatorResult(
-                              paymentCalculatorResult.id,
-                              paymentCalculatorResult.title,
-                              paymentCalculatorResult.value01,
-                              paymentCalculatorResult.value02,
-                              paymentCalculatorResult.isFavourite,
-                              paymentCalculatorResult.creationDate,
-                              paymentCalculatorResult.modificationDate),
+                          arguments: new PaymentCalculatorResultScreenArguments(
+                              false,
+                              true,
+                              new PaymentCalculatorResult(
+                                  paymentCalculatorResult.id,
+                                  paymentCalculatorResult.title,
+                                  paymentCalculatorResult.value01,
+                                  paymentCalculatorResult.value02,
+                                  paymentCalculatorResult.isFavourite,
+                                  paymentCalculatorResult.creationDate,
+                                  paymentCalculatorResult.modificationDate)),
                         );
                       }
                     },

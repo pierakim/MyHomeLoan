@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_home_loan/Models/payment-calculator-result.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
 import 'package:my_home_loan/Widgets/Common/card-information.component.dart';
+import 'package:my_home_loan/Widgets/PaymentCalculator/payment-calculator-result-screen-arguments.dart';
 
 import '../Common/number-input.component.dart';
 import '../app-drawer.component.dart';
@@ -158,17 +159,25 @@ class _PaymentCalculatorComponentState
                                     Navigator.pushNamed(
                                       context,
                                       Routes.readOrEditLoan,
-                                      arguments: new PaymentCalculatorResult(
-                                          null,
-                                          '',
-                                          _value01StateKey
-                                              .currentState.inputValue,
-                                          _value02StateKey
-                                                  .currentState.inputValue ??
-                                              0.0,
-                                          0,
-                                          DateTime.now().toUtc().toString(),
-                                          DateTime.now().toUtc().toString()),
+                                      arguments:
+                                          new PaymentCalculatorResultScreenArguments(
+                                              true,
+                                              false,
+                                              new PaymentCalculatorResult(
+                                                  null,
+                                                  '',
+                                                  _value01StateKey
+                                                      .currentState.inputValue,
+                                                  _value02StateKey.currentState
+                                                          .inputValue ??
+                                                      0.0,
+                                                  0,
+                                                  DateTime.now()
+                                                      .toUtc()
+                                                      .toString(),
+                                                  DateTime.now()
+                                                      .toUtc()
+                                                      .toString())),
                                     );
                                   }
                                 },
