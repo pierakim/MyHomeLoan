@@ -42,9 +42,13 @@ class _PaymentCalculatorResultComponentState
         TextEditingController(text: paymentCalculatorResult.title.toString());
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Your data'),
-      ),
+      appBar: AppBar(title: Text((() {
+        if (isBeingCreated && !isBeingEdited) {
+          return "Your data";
+        } else if (!isBeingCreated && isBeingEdited) {
+          return "Back to collection";
+        }
+      })())),
       body: ListView(
         children: <Widget>[
           Padding(
