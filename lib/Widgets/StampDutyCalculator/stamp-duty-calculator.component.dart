@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_home_loan/Models/ResidenceType.dart';
+import 'package:my_home_loan/Models/buildingType.dart';
 import 'package:my_home_loan/Models/first-time-buyer-type.dart';
 import 'package:my_home_loan/Models/stamp-duty-calculator-result.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
@@ -33,6 +34,7 @@ class _StampDutyCalculatorComponentState
       GlobalKey();
 
   final GlobalKey<SegmentedInputComponentState> _propertyTypeKey = GlobalKey();
+  final GlobalKey<SegmentedInputComponentState> _buildingTypeKey = GlobalKey();
   final GlobalKey<SegmentedInputComponentState> _firstHomeBuyerKey =
       GlobalKey();
 
@@ -40,20 +42,73 @@ class _StampDutyCalculatorComponentState
 
   // init  model
   StampDutyCalculatorResult stampDutyCalculatorResult =
-      StampDutyCalculatorResult(0.0, '', 0, 0);
+      StampDutyCalculatorResult(0.0, '', null, null, null);
 
-  bool isPropertyTypeValid;
-  bool isFirstHomeBuyerValid;
+  bool isSegmentedFormPristine = true;
+  bool isPropertyTypeValid = true;
+  bool isBuildingTypeValid = true;
+  bool isFirstHomeBuyerValid = true;
+
+  // bool isBuildingTypeNeeded = true;
 
   void _handleSubmitted() {
     final form = _formKey.currentState;
-    if (!form.validate()) {}
+
+    var formValidationValid = form.validate();
+
     if (_propertyTypeKey.currentState.currentSelection == null) {
-      isPropertyTypeValid = false;
-    }
+      setState(() {
+        isPropertyTypeValid = false;
+        print('isPropertyTypeValid : false');
+      });
+    } else
+      setState(() {
+        isPropertyTypeValid = true;
+        print('isPropertyTypeValid : false');
+      });
+
+    if (_buildingTypeKey.currentState.currentSelection == null) {
+      setState(() {
+        isBuildingTypeValid = false;
+        print('isBuildingTypeValid : false');
+      });
+    } else
+      setState(() {
+        isBuildingTypeValid = true;
+        print('isBuildingTypeValid : false');
+      });
+
     if (_firstHomeBuyerKey.currentState.currentSelection == null) {
-      isFirstHomeBuyerValid = false;
+      setState(() {
+        isFirstHomeBuyerValid = false;
+        print('isFirstHomeBuyerValid : false');
+      });
+    } else
+      setState(() {
+        isFirstHomeBuyerValid = true;
+        print('isFirstHomeBuyerValid : false');
+      });
+
+    if (_propertyTypeKey.currentState.currentSelection == null &&
+        _buildingTypeKey.currentState.currentSelection == null &&
+        _firstHomeBuyerKey.currentState.currentSelection == null) {
+      setState(() {
+        isSegmentedFormPristine = true;
+        print('isFormPristine : TRUE');
+      });
     } else {
+      setState(() {
+        isSegmentedFormPristine = false;
+        print('isFormPristine : FALSE');
+      });
+    }
+
+    var segmentedValidationValid =
+        isPropertyTypeValid && isBuildingTypeValid && isFirstHomeBuyerValid;
+
+    if (formValidationValid && segmentedValidationValid) {
+      print('The form is valid');
+      // if form is valid
       form.save();
       Navigator.pushNamed(
         context,
@@ -62,9 +117,11 @@ class _StampDutyCalculatorComponentState
             _propertyValueStateKey.currentState.inputValue,
             _australianStateKey.currentState.dropdownValue,
             _propertyTypeKey.currentState.currentSelection,
+            _buildingTypeKey.currentState.currentSelection,
             _firstHomeBuyerKey.currentState.currentSelection),
       );
     }
+    print('The form is not valid');
   }
 
   @override
@@ -157,8 +214,32 @@ class _StampDutyCalculatorComponentState
                                   title: 'Property type',
                                   mapping: residenceType,
                                   isValid: isPropertyTypeValid,
+                                  isMandatory: true,
+                                  isFormPristine: isSegmentedFormPristine,
                                 ),
                               ]),
+                          // **************
+                          // BUILDING TYPE
+                          // **************
+                          SegmentedInputChoicesComponent(
+                              icon: Icon(
+                                Icons.foundation,
+                                color: Theme.of(context).accentColor,
+                                size: 24.0,
+                              ),
+                              informationMessage:
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                              choices: [
+                                SegmentedInputComponent(
+                                  key: _buildingTypeKey,
+                                  title: 'Building type',
+                                  mapping: buildingType,
+                                  isValid: isBuildingTypeValid,
+                                  isMandatory: true,
+                                  isFormPristine: isSegmentedFormPristine,
+                                ),
+                              ]),
+
                           // **************
                           // FIRST TIME BUYER
                           // **************
@@ -176,6 +257,8 @@ class _StampDutyCalculatorComponentState
                                   title: 'Are you first time buyer',
                                   mapping: isFirstHomeBuyer,
                                   isValid: isFirstHomeBuyerValid,
+                                  isMandatory: true,
+                                  isFormPristine: isSegmentedFormPristine,
                                 ),
                               ]),
                           Center(

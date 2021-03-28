@@ -3,10 +3,18 @@ import 'package:flutter/material.dart';
 
 class SegmentedInputComponent extends StatefulWidget {
   final String title;
-  final bool isValid;
   final Map<int, Widget> mapping;
+  final bool isValid;
+  final bool isMandatory;
+  final bool isFormPristine;
 
-  SegmentedInputComponent({this.mapping, this.title, this.isValid, Key key})
+  SegmentedInputComponent(
+      {this.title,
+      this.mapping,
+      this.isValid,
+      this.isMandatory,
+      this.isFormPristine,
+      Key key})
       : super(key: key);
 
   @override
@@ -53,18 +61,21 @@ class SegmentedInputComponentState extends State<SegmentedInputComponent> {
               ),
             ],
           ),
-          if (true)
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0, top: 8.0),
-                  child: Text(
-                    "Select a value",
-                    style: TextStyle(color: Colors.red, fontSize: 12),
-                  ),
-                )
-              ],
-            ),
+          if (this.widget.isMandatory && this.currentSelection == null)
+            if (this.widget.isValid != null && !this.widget.isValid)
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0, top: 8.0),
+                    child: Text(
+                      "Select a value",
+                      // this.currentSelection.toString(),
+                      // this.widget.isValid.toString(),
+                      style: TextStyle(color: Colors.red, fontSize: 12),
+                    ),
+                  )
+                ],
+              ),
         ],
       ),
     );

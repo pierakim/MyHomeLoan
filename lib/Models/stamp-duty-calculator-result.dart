@@ -6,17 +6,18 @@ class StampDutyCalculatorResult extends ChangeNotifier {
   double propertyValue = 0;
   String state;
   int propertyChoice = 0;
+  int buildingChoice = 0;
   int isFirstHomeBuyer = 0;
 
-  double get result =>
-      getResult(propertyValue, state, propertyChoice, isFirstHomeBuyer);
+  double get result => getResult(
+      propertyValue, state, propertyChoice, buildingChoice, isFirstHomeBuyer);
 
   StampDutyCalculatorResult(this.propertyValue, this.state, this.propertyChoice,
-      this.isFirstHomeBuyer);
+      this.buildingChoice, this.isFirstHomeBuyer);
 }
 
 double getResult(double propertyValue, String state, int propertyChoice,
-    int isFirstHomeBuyer) {
+    int buildingChoice, int isFirstHomeBuyer) {
   var stampDutyResult = 0.0;
   if (state == "South Australia") {
     if (propertyValue <= 12000) {
