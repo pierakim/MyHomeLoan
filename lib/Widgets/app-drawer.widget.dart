@@ -27,11 +27,12 @@ class AppDrawerWidget extends StatelessWidget {
           _createDrawerItem(
               icon: Icons.contacts,
               text: 'My collection',
-              onTap: () => Navigator.pushReplacementNamed(context, Routes.myCollection)),
+              onTap: () => Navigator.pushReplacementNamed(context, Routes.myCollectionWidget)),
           _createDrawerItem(
               icon: Icons.event,
               text: 'Stamp duty calculator',
-              onTap: () => Navigator.pushReplacementNamed(context, Routes.stampDutyCalculator)),
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, Routes.stampDutyCalculatorWidget)),
           Divider(),
           ListTile(
             title: Text('0.0.1'),

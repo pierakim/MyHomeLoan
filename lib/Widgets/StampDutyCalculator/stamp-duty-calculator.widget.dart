@@ -105,7 +105,7 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
       form.save();
       Navigator.pushNamed(
         context,
-        Routes.stampDutyCalculatorResult,
+        Routes.stampDutyCalculatorResultWidget,
         arguments: new StampDutyCalculatorResultModel(
             _propertyValueStateKey.currentState.inputValue,
             _australianStateKey.currentState.dropdownValue,

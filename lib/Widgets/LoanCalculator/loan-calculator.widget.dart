@@ -144,7 +144,7 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                           FocusScope.of(context).unfocus();
                           Navigator.pushNamed(
                             context,
-                            Routes.readOnlyLoan,
+                            Routes.loanCalculatorResultWidget,
                             arguments: new LoanCalculatorResultScreenArgumentsModel(
                                 true,
                                 false,

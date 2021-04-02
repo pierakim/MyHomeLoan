@@ -241,7 +241,7 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                     ),
                     child: Text('Saved! Go to your collection'),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, Routes.myCollection);
+                      Navigator.pushReplacementNamed(context, Routes.myCollectionWidget);
                     },
                   ),
                 ),

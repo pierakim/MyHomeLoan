@@ -184,7 +184,7 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                         print('row id: ' + paymentCalculatorResult.id.toString());
                         Navigator.pushNamed(
                           context,
-                          Routes.readOnlyLoan,
+                          Routes.loanCalculatorResultWidget,
                           arguments: new LoanCalculatorResultScreenArgumentsModel(
                               false,
                               true,
