@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class PaymentCalculatorResult extends ChangeNotifier {
+class LoanCalculatorResultModel extends ChangeNotifier {
   int id;
   String title = '';
   double value01 = 0.0;
@@ -10,7 +10,7 @@ class PaymentCalculatorResult extends ChangeNotifier {
   String creationDate = '';
   String modificationDate = '';
 
-  PaymentCalculatorResult(this.id, this.title, this.value01, this.value02, this.isFavourite,
+  LoanCalculatorResultModel(this.id, this.title, this.value01, this.value02, this.isFavourite,
       this.creationDate, this.modificationDate);
 
   Map<String, dynamic> toMap() {
@@ -31,5 +31,5 @@ class PaymentCalculatorResultRow {
   PaymentCalculatorResultRow(
     this.paymentCalculatorResult,
   );
-  final PaymentCalculatorResult paymentCalculatorResult;
+  final LoanCalculatorResultModel paymentCalculatorResult;
 }

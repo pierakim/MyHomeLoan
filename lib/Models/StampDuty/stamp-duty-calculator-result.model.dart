@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
-class StampDutyCalculatorResult extends ChangeNotifier {
+class StampDutyCalculatorResultModel extends ChangeNotifier {
   double propertyValue = 0;
   String state;
   int propertyChoice = 0;
@@ -12,7 +12,7 @@ class StampDutyCalculatorResult extends ChangeNotifier {
   double get result =>
       getResult(propertyValue, state, propertyChoice, buildingChoice, isFirstHomeBuyer);
 
-  StampDutyCalculatorResult(this.propertyValue, this.state, this.propertyChoice,
+  StampDutyCalculatorResultModel(this.propertyValue, this.state, this.propertyChoice,
       this.buildingChoice, this.isFirstHomeBuyer);
 }
 

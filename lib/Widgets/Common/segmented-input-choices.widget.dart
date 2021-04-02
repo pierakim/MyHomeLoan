@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'alert-dialog.component.dart';
+import 'alert-dialog.widget.dart';
 
-class SegmentedInputChoicesComponent extends StatefulWidget {
+class SegmentedInputChoicesWidget extends StatefulWidget {
   final Icon icon;
   final List<Widget> choices;
   final String informationMessage;
-  SegmentedInputChoicesComponent({this.icon, this.informationMessage, this.choices, Key key})
+  SegmentedInputChoicesWidget({this.icon, this.informationMessage, this.choices, Key key})
       : super(key: key);
 
   @override
-  _SegmentInputChoicesComponentState createState() => _SegmentInputChoicesComponentState();
+  _SegmentInputChoicesWidgetState createState() => _SegmentInputChoicesWidgetState();
 }
 
-class _SegmentInputChoicesComponentState extends State<SegmentedInputChoicesComponent> {
+class _SegmentInputChoicesWidgetState extends State<SegmentedInputChoicesWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,7 +30,7 @@ class _SegmentInputChoicesComponentState extends State<SegmentedInputChoicesComp
                 color: Theme.of(context).colorScheme.primary,
                 onPressed: () => showDialog(
                     context: context,
-                    builder: (_) => AlertDialogComponent(
+                    builder: (_) => AlertDialogWidget(
                           description: widget.informationMessage,
                         )),
                 icon: Icon(Icons.info_outline, color: Theme.of(context).accentColor),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_home_loan/Models/payment-calculator-result.dart';
+import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result.model.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
-import 'package:my_home_loan/Widgets/Common/card-information.component.dart';
+import 'package:my_home_loan/Widgets/Common/card-information.widget.dart';
 import 'package:my_home_loan/Widgets/Common/text-input.widget.dart';
-import 'package:my_home_loan/Widgets/PaymentCalculator/payment-calculator-result-screen-arguments.dart';
+import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result-screen-arguments-model.dart';
 
-import '../Common/number-input.component.dart';
-import '../app-drawer.component.dart';
+import '../Common/number-input.widget.dart';
+import '../app-drawer.widget.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class LoanCalculatorWidget extends StatefulWidget {
@@ -22,8 +22,8 @@ class LoanCalculatorWidget extends StatefulWidget {
 class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
   // FORM KEY
   final _formKey = GlobalKey<FormState>();
-  final GlobalKey<NumberInputComponentState> _value01StateKey = GlobalKey();
-  final GlobalKey<NumberInputComponentState> _value02StateKey = GlobalKey();
+  final GlobalKey<NumberInputWidgetState> _value01StateKey = GlobalKey();
+  final GlobalKey<NumberInputWidgetState> _value02StateKey = GlobalKey();
 
   @override
   void initState() {
@@ -42,11 +42,11 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
   @override
   Widget build(BuildContext context) {
     // ROUTE ARGUMENT
-    final PaymentCalculatorResultScreenArguments paymentCalculatorResultScreenArguments =
+    final LoanCalculatorResultScreenArgumentsModel paymentCalculatorResultScreenArguments =
         ModalRoute.of(context).settings.arguments;
 
     // ROUTE PARAMETERS EXTRACTION
-    final PaymentCalculatorResult paymentCalculatorResult =
+    final LoanCalculatorResultModel paymentCalculatorResult =
         paymentCalculatorResultScreenArguments.paymentCalculatorResult;
 
     // PARAMETERS TO CONTROLLER
@@ -69,14 +69,14 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
         appBar: AppBar(
           title: Text("New loan calculator"),
         ),
-        drawer: AppDrawer(),
+        drawer: AppDrawerWidget(),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 // LOAN INFORMATION CARD
-                CardInformationComponent(
+                CardInformationWidget(
                   icon: Icon(Icons.home, color: Theme.of(context).accentColor),
                   title: "Loan repayment calculator",
                   description: "Estimate your loan repayment including different fees and rates.",
@@ -105,7 +105,7 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                             inputLabelText: 'Title / description',
                             informationMessage:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis."),
-                        NumberInputComponent(
+                        NumberInputWidget(
                           //key: _value01StateKey,
                           controller: _value01Controller,
                           icon: Icon(
@@ -119,7 +119,7 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                           informationMessage:
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                         ),
-                        NumberInputComponent(
+                        NumberInputWidget(
                             //key: _value02StateKey,
                             controller: _value02Controller,
                             icon: Icon(Icons.attach_money, color: Theme.of(context).accentColor),
@@ -145,10 +145,10 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                           Navigator.pushNamed(
                             context,
                             Routes.readOnlyLoan,
-                            arguments: new PaymentCalculatorResultScreenArguments(
+                            arguments: new LoanCalculatorResultScreenArgumentsModel(
                                 true,
                                 false,
-                                new PaymentCalculatorResult(
+                                new LoanCalculatorResultModel(
                                     _paymentCalculatorResultId.value.text == null
                                         ? int.parse(_paymentCalculatorResultId.value.text)
                                         : null,

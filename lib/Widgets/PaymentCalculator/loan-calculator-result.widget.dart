@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:my_home_loan/Database/DatabaseHelper.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
-import 'package:my_home_loan/Widgets/PaymentCalculator/payment-calculator-result-screen-arguments.dart';
+import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result-screen-arguments-model.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../Models/payment-calculator-result.dart';
+import '../../Models/LoanCalculator/loan-calculator-result.model.dart';
 
-class PaymentCalculatorResultComponent extends StatefulWidget {
+class LoanCalculatorResultWidget extends StatefulWidget {
   static const String routeName = '/readOnlyLoan';
 
-  PaymentCalculatorResultComponent({Key key}) : super(key: key);
+  LoanCalculatorResultWidget({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _PaymentCalculatorResultComponentState();
+  State<StatefulWidget> createState() => _LoanCalculatorResultWidgetState();
 }
 
-class _PaymentCalculatorResultComponentState extends State<PaymentCalculatorResultComponent> {
+class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget> {
   final dbHelper = DatabaseHelper.instance;
 
   bool hasResultBeenSaved = false;
@@ -23,11 +23,11 @@ class _PaymentCalculatorResultComponentState extends State<PaymentCalculatorResu
   @override
   Widget build(BuildContext context) {
     // ROUTE ARGUMENT
-    final PaymentCalculatorResultScreenArguments paymentCalculatorResultScreenArguments =
+    final LoanCalculatorResultScreenArgumentsModel paymentCalculatorResultScreenArguments =
         ModalRoute.of(context).settings.arguments;
 
     // ROUTE PARAMETERS EXTRACTION
-    final PaymentCalculatorResult paymentCalculatorResult =
+    final LoanCalculatorResultModel paymentCalculatorResult =
         paymentCalculatorResultScreenArguments.paymentCalculatorResult;
     final bool isBeingCreated = paymentCalculatorResultScreenArguments.isBeingCreated;
     final bool isBeingEdited = paymentCalculatorResultScreenArguments.isBeingEdited;
@@ -256,10 +256,10 @@ class _PaymentCalculatorResultComponentState extends State<PaymentCalculatorResu
             Navigator.pushNamed(
               context,
               Routes.loanCalculatorWidget,
-              arguments: new PaymentCalculatorResultScreenArguments(
+              arguments: new LoanCalculatorResultScreenArgumentsModel(
                   true,
                   false,
-                  new PaymentCalculatorResult(
+                  new LoanCalculatorResultModel(
                       int.parse(_paymentCalculatorResultIdController.value.text),
                       _descriptionController.value.text,
                       double.parse(_value01Controller.value.text) ?? 0.0,
@@ -278,7 +278,7 @@ class _PaymentCalculatorResultComponentState extends State<PaymentCalculatorResu
 
   // Define a function that inserts dogs into the database
   Future<bool> insertPaymentCalculatorResult(
-      PaymentCalculatorResult paymentCalculatorResult) async {
+      LoanCalculatorResultModel paymentCalculatorResult) async {
     var db = await dbHelper.database;
 
     return await db.insert(

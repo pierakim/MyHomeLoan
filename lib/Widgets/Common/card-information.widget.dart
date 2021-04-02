@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'alert-dialog.component.dart';
+import 'alert-dialog.widget.dart';
 
-class CardInformationComponent extends StatefulWidget {
+class CardInformationWidget extends StatefulWidget {
   final Icon icon;
   final String title;
   final String description;
 
-  const CardInformationComponent({
+  const CardInformationWidget({
     Key key,
     this.title,
     this.icon,
@@ -14,10 +14,10 @@ class CardInformationComponent extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CardInformationComponentState createState() => _CardInformationComponentState();
+  _CardInformationWidgetState createState() => _CardInformationWidgetState();
 }
 
-class _CardInformationComponentState extends State<CardInformationComponent> {
+class _CardInformationWidgetState extends State<CardInformationWidget> {
   @override
   void initState() {
     super.initState();
@@ -44,7 +44,7 @@ class _CardInformationComponentState extends State<CardInformationComponent> {
                 color: Theme.of(context).colorScheme.primary,
                 onPressed: () => showDialog(
                     context: context,
-                    builder: (_) => AlertDialogComponent(
+                    builder: (_) => AlertDialogWidget(
                           description: widget.description,
                         )),
                 icon: Icon(

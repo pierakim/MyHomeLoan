@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:my_home_loan/Database/DatabaseHelper.dart';
-import 'package:my_home_loan/Models/payment-calculator-result.dart';
+import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result.model.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
-import 'package:my_home_loan/Widgets/Common/card-information.component.dart';
-import 'package:my_home_loan/Widgets/PaymentCalculator/payment-calculator-result-screen-arguments.dart';
+import 'package:my_home_loan/Widgets/Common/card-information.widget.dart';
+import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result-screen-arguments-model.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../app-drawer.component.dart';
+import '../app-drawer.widget.dart';
 
-class MyCollectionComponent extends StatefulWidget {
+class MyCollectionWidget extends StatefulWidget {
   static const String routeName = '/myCollection';
 
   @override
-  _MyCollectionComponentState createState() => _MyCollectionComponentState();
+  _MyCollectionWidgetState createState() => _MyCollectionWidgetState();
 }
 
-class _MyCollectionComponentState extends State<MyCollectionComponent> {
-  Future<List<PaymentCalculatorResult>> _paymentCalculatorResults;
+class _MyCollectionWidgetState extends State<MyCollectionWidget> {
+  Future<List<LoanCalculatorResultModel>> _paymentCalculatorResults;
   final dbHelper = DatabaseHelper.instance;
 
   @override
@@ -31,7 +31,7 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
     });
   }
 
-  Future<List<PaymentCalculatorResult>> getPaymentCalculatorResults() async {
+  Future<List<LoanCalculatorResultModel>> getPaymentCalculatorResults() async {
     final Database db = await dbHelper.database;
 
     final List<Map<String, dynamic>> maps =
@@ -41,7 +41,7 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
     // await Future.delayed(Duration(seconds: 3));
 
     var paymentCalculatorResultsList = List.generate(maps.length, (i) {
-      return PaymentCalculatorResult(
+      return LoanCalculatorResultModel(
           maps[i]['id'],
           maps[i]['title'],
           maps[i]['value01'].toDouble(),
@@ -71,13 +71,13 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
   }
 
   // FAVOURITE
-  favouriteSelected(PaymentCalculatorResult paymentCalculatorResult) async {
+  favouriteSelected(LoanCalculatorResultModel paymentCalculatorResult) async {
     await updatePaymentCalculatorResult(paymentCalculatorResult);
     refreshList();
   }
 
   Future<void> updatePaymentCalculatorResult(
-      PaymentCalculatorResult paymentCalculatorResult) async {
+      LoanCalculatorResultModel paymentCalculatorResult) async {
     final db = await dbHelper.database;
 
     paymentCalculatorResult.isFavourite = paymentCalculatorResult.isFavourite == 0 ? 1 : 0;
@@ -95,21 +95,21 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
       appBar: AppBar(
         title: Text("My Collection"),
       ),
-      drawer: AppDrawer(),
+      drawer: AppDrawerWidget(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              CardInformationComponent(
+              CardInformationWidget(
                 icon: Icon(Icons.home, color: Theme.of(context).accentColor),
                 title: "Your saved collection",
                 description: "Your collection",
               ),
-              FutureBuilder<List<PaymentCalculatorResult>>(
+              FutureBuilder<List<LoanCalculatorResultModel>>(
                   future: _paymentCalculatorResults,
                   builder: (BuildContext context,
-                      AsyncSnapshot<List<PaymentCalculatorResult>> snapshot) {
+                      AsyncSnapshot<List<LoanCalculatorResultModel>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return SizedBox(
                           height: MediaQuery.of(context).size.width,
@@ -138,10 +138,10 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
           Navigator.pushReplacementNamed(
             context,
             Routes.loanCalculatorWidget,
-            arguments: new PaymentCalculatorResultScreenArguments(
+            arguments: new LoanCalculatorResultScreenArgumentsModel(
                 true,
                 false,
-                new PaymentCalculatorResult(null, '', null, null, 0,
+                new LoanCalculatorResultModel(null, '', null, null, 0,
                     DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString())),
           );
         },
@@ -152,7 +152,7 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
   }
 
   SingleChildScrollView tableBody(
-      BuildContext ctx, List<PaymentCalculatorResult> paymentCalculatorResults) {
+      BuildContext ctx, List<LoanCalculatorResultModel> paymentCalculatorResults) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: FittedBox(
@@ -185,10 +185,10 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
                         Navigator.pushNamed(
                           context,
                           Routes.readOnlyLoan,
-                          arguments: new PaymentCalculatorResultScreenArguments(
+                          arguments: new LoanCalculatorResultScreenArgumentsModel(
                               false,
                               true,
-                              new PaymentCalculatorResult(
+                              new LoanCalculatorResultModel(
                                   paymentCalculatorResult.id,
                                   paymentCalculatorResult.title,
                                   paymentCalculatorResult.value01,

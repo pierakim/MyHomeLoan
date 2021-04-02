@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_home_loan/Models/payment-calculator-result.dart';
+import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result.model.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
 
-import 'PaymentCalculator/payment-calculator-result-screen-arguments.dart';
+import '../Models/LoanCalculator/loan-calculator-result-screen-arguments-model.dart';
 
-class AppDrawer extends StatelessWidget {
+class AppDrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -18,10 +18,10 @@ class AppDrawer extends StatelessWidget {
               onTap: () => Navigator.pushReplacementNamed(
                     context,
                     Routes.loanCalculatorWidget,
-                    arguments: new PaymentCalculatorResultScreenArguments(
+                    arguments: new LoanCalculatorResultScreenArgumentsModel(
                         true,
                         false,
-                        new PaymentCalculatorResult(null, '', null, null, 0,
+                        new LoanCalculatorResultModel(null, '', null, null, 0,
                             DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString())),
                   )),
           _createDrawerItem(

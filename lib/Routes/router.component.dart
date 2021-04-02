@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_home_loan/Widgets/MyCollection/MyCollectionComponent.dart';
-import 'package:my_home_loan/Widgets/PaymentCalculator/loan-calculator-form.widget.dart';
-import 'package:my_home_loan/Widgets/StampDutyCalculator/stamp-duty-calculator-result.component.dart';
-import 'package:my_home_loan/Widgets/StampDutyCalculator/stamp-duty-calculator.component.dart';
+import 'package:my_home_loan/Widgets/MyCollection/my-collection.widget.dart';
+import 'package:my_home_loan/Widgets/PaymentCalculator/loan-calculator.widget.dart';
+import 'package:my_home_loan/Widgets/StampDutyCalculator/stamp-duty-calculator-result.widget.dart';
+import 'package:my_home_loan/Widgets/StampDutyCalculator/stamp-duty-calculator.widget.dart';
 
-import '../Widgets/PaymentCalculator/payment-calculator-result.component.dart';
+import '../Widgets/PaymentCalculator/loan-calculator-result.widget.dart';
 
 Route<dynamic> getRoute(RouteSettings settings) {
   if (settings.name == Routes.loanCalculatorWidget) {
@@ -12,19 +12,19 @@ Route<dynamic> getRoute(RouteSettings settings) {
   }
 
   if (settings.name == Routes.myCollection) {
-    return _buildRoute(settings, MyCollectionComponent());
+    return _buildRoute(settings, MyCollectionWidget());
   }
 
   if (settings.name == Routes.stampDutyCalculator) {
-    return _buildRoute(settings, StampDutyCalculatorComponent());
+    return _buildRoute(settings, StampDutyCalculatorWidget());
   }
 
   if (settings.name == Routes.stampDutyCalculatorResult) {
-    return _buildRoute(settings, StampDutyCalculatorResultComponent());
+    return _buildRoute(settings, StampDutyCalculatorResultWidget());
   }
 
   if (settings.name == Routes.readOnlyLoan) {
-    return _buildRoute(settings, PaymentCalculatorResultComponent());
+    return _buildRoute(settings, LoanCalculatorResultWidget());
   }
 
   return null;
@@ -39,8 +39,8 @@ MaterialPageRoute _buildRoute(RouteSettings settings, Widget builder) {
 
 class Routes {
   static const String loanCalculatorWidget = LoanCalculatorWidget.routeName;
-  static const String myCollection = MyCollectionComponent.routeName;
-  static const String stampDutyCalculator = StampDutyCalculatorComponent.routeName;
-  static const String readOnlyLoan = PaymentCalculatorResultComponent.routeName;
-  static const String stampDutyCalculatorResult = StampDutyCalculatorResultComponent.routeName;
+  static const String myCollection = MyCollectionWidget.routeName;
+  static const String stampDutyCalculator = StampDutyCalculatorWidget.routeName;
+  static const String readOnlyLoan = LoanCalculatorResultWidget.routeName;
+  static const String stampDutyCalculatorResult = StampDutyCalculatorResultWidget.routeName;
 }

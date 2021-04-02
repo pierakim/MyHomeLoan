@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Routes/router.component.dart';
-import 'Widgets/home-screen.component.dart';
+import 'Widgets/home-screen.widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.lightBlue[600],
         accentColor: Colors.cyan[600],
       ),
-      home: MyHomePage(title: appTitle),
+      home: HomeScreenWidget(title: appTitle),
     );
   }
 }

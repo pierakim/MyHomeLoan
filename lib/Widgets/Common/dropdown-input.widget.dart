@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'alert-dialog.component.dart';
+import 'alert-dialog.widget.dart';
 
-class DropDownInputComponent extends StatefulWidget {
+class DropDownInputWidget extends StatefulWidget {
   final String inputLabelText;
   final Icon icon;
   final String informationMessage;
   final String validationText;
 
-  DropDownInputComponent(
+  DropDownInputWidget(
       {this.inputLabelText, this.icon, this.informationMessage, this.validationText, Key key})
       : super(key: key);
 
   @override
-  DropDownInputComponentState createState() => DropDownInputComponentState();
+  DropDownInputWidgetState createState() => DropDownInputWidgetState();
 }
 
 /// This is the private State class that goes with MyStatefulWidget.
-class DropDownInputComponentState extends State<DropDownInputComponent> {
+class DropDownInputWidgetState extends State<DropDownInputWidget> {
   String dropdownValue;
 
   @override
@@ -72,7 +72,7 @@ class DropDownInputComponentState extends State<DropDownInputComponent> {
                 color: Theme.of(context).colorScheme.primary,
                 onPressed: () => showDialog(
                     context: context,
-                    builder: (_) => AlertDialogComponent(
+                    builder: (_) => AlertDialogWidget(
                           description: widget.informationMessage,
                         )),
                 icon: Icon(Icons.info_outline, color: Theme.of(context).accentColor),

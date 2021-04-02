@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SegmentedInputComponent extends StatefulWidget {
+class SegmentedInputWidget extends StatefulWidget {
   final String title;
   final Map<int, Widget> mapping;
   final bool isValid;
   final bool isMandatory;
   final bool isFormPristine;
 
-  SegmentedInputComponent(
+  SegmentedInputWidget(
       {this.title, this.mapping, this.isValid, this.isMandatory, this.isFormPristine, Key key})
       : super(key: key);
 
   @override
-  SegmentedInputComponentState createState() => SegmentedInputComponentState();
+  SegmentedInputWidgetState createState() => SegmentedInputWidgetState();
 }
 
-class SegmentedInputComponentState extends State<SegmentedInputComponent> {
+class SegmentedInputWidgetState extends State<SegmentedInputWidget> {
   int currentSelection;
 
   @override

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'alert-dialog.component.dart';
+import 'alert-dialog.widget.dart';
 
-class NumberInputComponent extends StatefulWidget {
+class NumberInputWidget extends StatefulWidget {
   final String inputLabelText;
   final String inputPrefixText;
   final String inputSufixText;
@@ -11,7 +11,7 @@ class NumberInputComponent extends StatefulWidget {
   final String informationMessage;
   final TextEditingController controller;
 
-  const NumberInputComponent(
+  const NumberInputWidget(
       {Key key,
       this.inputLabelText,
       this.inputPrefixText,
@@ -23,10 +23,10 @@ class NumberInputComponent extends StatefulWidget {
       : super(key: key);
 
   @override
-  NumberInputComponentState createState() => NumberInputComponentState();
+  NumberInputWidgetState createState() => NumberInputWidgetState();
 }
 
-class NumberInputComponentState extends State<NumberInputComponent> {
+class NumberInputWidgetState extends State<NumberInputWidget> {
   double inputValue;
   bool hasBeenTouched = false;
 
@@ -81,7 +81,7 @@ class NumberInputComponentState extends State<NumberInputComponent> {
                 color: Theme.of(context).colorScheme.primary,
                 onPressed: () => showDialog(
                     context: context,
-                    builder: (_) => AlertDialogComponent(
+                    builder: (_) => AlertDialogWidget(
                           description: widget.informationMessage,
                         )),
                 icon: Icon(

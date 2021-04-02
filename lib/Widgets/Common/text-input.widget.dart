@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'alert-dialog.component.dart';
+import 'alert-dialog.widget.dart';
 
 class TextInputWidget extends StatefulWidget {
   final String inputLabelText;
@@ -69,7 +69,7 @@ class TextInputWidgetState extends State<TextInputWidget> {
                 color: Theme.of(context).colorScheme.primary,
                 onPressed: () => showDialog(
                     context: context,
-                    builder: (_) => AlertDialogComponent(
+                    builder: (_) => AlertDialogWidget(
                           description: widget.informationMessage,
                         )),
                 icon: Icon(

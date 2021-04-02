@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:my_home_loan/Models/first-time-buyer-type.dart';
-import 'package:my_home_loan/Models/residenceType.dart';
-import 'package:my_home_loan/Models/stamp-duty-calculator-result.dart';
+import 'package:my_home_loan/Models/Types/first-time-buyer-type.model.dart';
+import 'package:my_home_loan/Models/Types/residence-type.model.dart';
+import 'package:my_home_loan/Models/StampDuty/stamp-duty-calculator-result.model.dart';
 
-class StampDutyCalculatorResultComponent extends StatefulWidget {
+class StampDutyCalculatorResultWidget extends StatefulWidget {
   static const String routeName = '/stampDutyCalculatorResult';
 
-  StampDutyCalculatorResultComponent({Key key}) : super(key: key);
+  StampDutyCalculatorResultWidget({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _StampDutyCalculatorResultComponentState();
+  State<StatefulWidget> createState() => _StampDutyCalculatorResultWidgetState();
 }
 
-class _StampDutyCalculatorResultComponentState extends State<StampDutyCalculatorResultComponent> {
+class _StampDutyCalculatorResultWidgetState extends State<StampDutyCalculatorResultWidget> {
   @override
   Widget build(BuildContext context) {
-    final StampDutyCalculatorResult args = ModalRoute.of(context).settings.arguments;
+    final StampDutyCalculatorResultModel args = ModalRoute.of(context).settings.arguments;
 
     final _propertyValueController = TextEditingController(text: args.propertyValue.toString());
 
