@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_home_loan/Models/payment-calculator-result.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
+
+import 'PaymentCalculator/payment-calculator-result-screen-arguments.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -13,17 +16,22 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.contacts,
               text: 'New loan calculator',
               onTap: () => Navigator.pushReplacementNamed(
-                  context, Routes.paymentCalculator)),
+                    context,
+                    Routes.loanCalculatorWidget,
+                    arguments: new PaymentCalculatorResultScreenArguments(
+                        true,
+                        false,
+                        new PaymentCalculatorResult(null, '', null, null, 0,
+                            DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString())),
+                  )),
           _createDrawerItem(
               icon: Icons.contacts,
               text: 'My collection',
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, Routes.myCollection)),
+              onTap: () => Navigator.pushReplacementNamed(context, Routes.myCollection)),
           _createDrawerItem(
               icon: Icons.event,
               text: 'Stamp duty calculator',
-              onTap: () => Navigator.pushReplacementNamed(
-                  context, Routes.stampDutyCalculator)),
+              onTap: () => Navigator.pushReplacementNamed(context, Routes.stampDutyCalculator)),
           Divider(),
           ListTile(
             title: Text('0.0.1'),
@@ -50,8 +58,7 @@ class AppDrawer extends StatelessWidget {
         ]));
   }
 
-  Widget _createDrawerItem(
-      {IconData icon, String text, GestureTapCallback onTap}) {
+  Widget _createDrawerItem({IconData icon, String text, GestureTapCallback onTap}) {
     return ListTile(
       title: Row(
         children: <Widget>[

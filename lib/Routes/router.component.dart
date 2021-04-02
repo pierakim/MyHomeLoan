@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:my_home_loan/Widgets/MyCollection/MyCollectionComponent.dart';
-import 'package:my_home_loan/Widgets/PaymentCalculator/payment-calculator.component.dart';
+import 'package:my_home_loan/Widgets/PaymentCalculator/loan-calculator-form.widget.dart';
 import 'package:my_home_loan/Widgets/StampDutyCalculator/stamp-duty-calculator-result.component.dart';
 import 'package:my_home_loan/Widgets/StampDutyCalculator/stamp-duty-calculator.component.dart';
 
 import '../Widgets/PaymentCalculator/payment-calculator-result.component.dart';
 
 Route<dynamic> getRoute(RouteSettings settings) {
-  if (settings.name == Routes.paymentCalculator) {
-    return _buildRoute(settings, PaymentCalculatorComponent());
+  if (settings.name == Routes.loanCalculatorWidget) {
+    return _buildRoute(settings, LoanCalculatorWidget());
   }
 
   if (settings.name == Routes.myCollection) {
@@ -23,11 +23,7 @@ Route<dynamic> getRoute(RouteSettings settings) {
     return _buildRoute(settings, StampDutyCalculatorResultComponent());
   }
 
-  if (settings.name == Routes.paymentCalculator) {
-    return _buildRoute(settings, PaymentCalculatorComponent());
-  }
-
-  if (settings.name == Routes.readOrEditLoan) {
+  if (settings.name == Routes.readOnlyLoan) {
     return _buildRoute(settings, PaymentCalculatorResultComponent());
   }
 
@@ -42,12 +38,9 @@ MaterialPageRoute _buildRoute(RouteSettings settings, Widget builder) {
 }
 
 class Routes {
-  static const String paymentCalculator = PaymentCalculatorComponent.routeName;
+  static const String loanCalculatorWidget = LoanCalculatorWidget.routeName;
   static const String myCollection = MyCollectionComponent.routeName;
-  static const String stampDutyCalculator =
-      StampDutyCalculatorComponent.routeName;
-  static const String readOrEditLoan =
-      PaymentCalculatorResultComponent.routeName;
-  static const String stampDutyCalculatorResult =
-      StampDutyCalculatorResultComponent.routeName;
+  static const String stampDutyCalculator = StampDutyCalculatorComponent.routeName;
+  static const String readOnlyLoan = PaymentCalculatorResultComponent.routeName;
+  static const String stampDutyCalculatorResult = StampDutyCalculatorResultComponent.routeName;
 }

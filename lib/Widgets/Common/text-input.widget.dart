@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'alert-dialog.component.dart';
 
-class NumberInputComponent extends StatefulWidget {
+class TextInputWidget extends StatefulWidget {
   final String inputLabelText;
-  final String inputPrefixText;
-  final String inputSufixText;
   final String validationText;
   final Icon icon;
   final String informationMessage;
   final TextEditingController controller;
 
-  const NumberInputComponent(
+  const TextInputWidget(
       {Key key,
       this.inputLabelText,
-      this.inputPrefixText,
-      this.inputSufixText,
       this.validationText,
       this.icon,
       this.informationMessage,
@@ -23,11 +18,11 @@ class NumberInputComponent extends StatefulWidget {
       : super(key: key);
 
   @override
-  NumberInputComponentState createState() => NumberInputComponentState();
+  TextInputWidgetState createState() => TextInputWidgetState();
 }
 
-class NumberInputComponentState extends State<NumberInputComponent> {
-  double inputValue;
+class TextInputWidgetState extends State<TextInputWidget> {
+  String inputValue;
   bool hasBeenTouched = false;
 
   @override
@@ -52,13 +47,10 @@ class NumberInputComponentState extends State<NumberInputComponent> {
               controller: widget.controller,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               onTap: () => setState(() => hasBeenTouched = true),
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(
                 filled: true,
                 border: const OutlineInputBorder(),
                 labelText: widget.inputLabelText,
-                prefixText: widget.inputPrefixText,
-                suffixText: widget.inputSufixText,
               ),
               maxLines: 1,
               validator: (value) {
@@ -67,11 +59,7 @@ class NumberInputComponentState extends State<NumberInputComponent> {
                 }
                 return null;
               },
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp('[0-9.,]+')),
-              ],
-              onChanged: (val) =>
-                  setState(() => inputValue = val.isNotEmpty ? double.parse(val) : null),
+              onChanged: (val) => setState(() => inputValue = val.isNotEmpty ? val : null),
             ),
           ),
           if (widget.informationMessage != null && widget.informationMessage.isNotEmpty)

@@ -9,12 +9,7 @@ class SegmentedInputComponent extends StatefulWidget {
   final bool isFormPristine;
 
   SegmentedInputComponent(
-      {this.title,
-      this.mapping,
-      this.isValid,
-      this.isMandatory,
-      this.isFormPristine,
-      Key key})
+      {this.title, this.mapping, this.isValid, this.isMandatory, this.isFormPristine, Key key})
       : super(key: key);
 
   @override
@@ -37,8 +32,7 @@ class SegmentedInputComponentState extends State<SegmentedInputComponent> {
                 child: Text(
                   widget.title,
                   textScaleFactor: 1.0,
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                  style: TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
               ),
             ],
@@ -69,8 +63,6 @@ class SegmentedInputComponentState extends State<SegmentedInputComponent> {
                     padding: const EdgeInsets.only(left: 15.0, top: 8.0),
                     child: Text(
                       "Select a value",
-                      // this.currentSelection.toString(),
-                      // this.widget.isValid.toString(),
                       style: TextStyle(color: Colors.red, fontSize: 12),
                     ),
                   )

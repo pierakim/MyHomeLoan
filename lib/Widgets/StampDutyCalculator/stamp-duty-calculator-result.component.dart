@@ -9,32 +9,27 @@ class StampDutyCalculatorResultComponent extends StatefulWidget {
   StampDutyCalculatorResultComponent({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() =>
-      _StampDutyCalculatorResultComponentState();
+  State<StatefulWidget> createState() => _StampDutyCalculatorResultComponentState();
 }
 
-class _StampDutyCalculatorResultComponentState
-    extends State<StampDutyCalculatorResultComponent> {
+class _StampDutyCalculatorResultComponentState extends State<StampDutyCalculatorResultComponent> {
   @override
   Widget build(BuildContext context) {
-    final StampDutyCalculatorResult args =
-        ModalRoute.of(context).settings.arguments;
+    final StampDutyCalculatorResult args = ModalRoute.of(context).settings.arguments;
 
-    final _propertyValueController =
-        TextEditingController(text: args.propertyValue.toString());
+    final _propertyValueController = TextEditingController(text: args.propertyValue.toString());
 
     // state input data
     final _stateController = TextEditingController(text: args.state.toString());
 
-    final _residenceTypeController = TextEditingController(
-        text: residenceTypeForDisplay[args.propertyChoice].data);
+    final _residenceTypeController =
+        TextEditingController(text: residenceTypeForDisplay[args.propertyChoice].data);
 
-    final _firstHomeBuyerController = TextEditingController(
-        text: isFirstHomeBuyerForDisplay[args.propertyChoice].data);
+    final _firstHomeBuyerController =
+        TextEditingController(text: isFirstHomeBuyerForDisplay[args.propertyChoice].data);
 
     // The result
-    final _resultController =
-        TextEditingController(text: '\$ ' + args.result.toString());
+    final _resultController = TextEditingController(text: '\$ ' + args.result.toString());
 
     return Scaffold(
         appBar: AppBar(
@@ -63,8 +58,7 @@ class _StampDutyCalculatorResultComponentState
                                   ),
                                   Expanded(
                                     child: TextField(
-                                      style: TextStyle(
-                                          fontSize: 15.0, color: Colors.black),
+                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
                                       controller: _propertyValueController,
                                       decoration: InputDecoration(
                                         prefixText: "\$",
@@ -94,8 +88,7 @@ class _StampDutyCalculatorResultComponentState
                                   ),
                                   Expanded(
                                     child: TextField(
-                                      style: TextStyle(
-                                          fontSize: 15.0, color: Colors.black),
+                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
                                       controller: _stateController,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
@@ -127,8 +120,7 @@ class _StampDutyCalculatorResultComponentState
                                   ),
                                   Expanded(
                                     child: TextField(
-                                      style: TextStyle(
-                                          fontSize: 15.0, color: Colors.black),
+                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
                                       controller: _firstHomeBuyerController,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
@@ -156,8 +148,7 @@ class _StampDutyCalculatorResultComponentState
                                   ),
                                   Expanded(
                                     child: TextField(
-                                      style: TextStyle(
-                                          fontSize: 15.0, color: Colors.black),
+                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
                                       controller: _residenceTypeController,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,

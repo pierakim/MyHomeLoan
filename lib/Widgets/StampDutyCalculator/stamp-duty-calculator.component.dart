@@ -19,24 +19,19 @@ class StampDutyCalculatorComponent extends StatefulWidget {
   StampDutyCalculatorComponent({Key key}) : super(key: key);
 
   @override
-  _StampDutyCalculatorComponentState createState() =>
-      _StampDutyCalculatorComponentState();
+  _StampDutyCalculatorComponentState createState() => _StampDutyCalculatorComponentState();
 }
 
-class _StampDutyCalculatorComponentState
-    extends State<StampDutyCalculatorComponent> {
+class _StampDutyCalculatorComponentState extends State<StampDutyCalculatorComponent> {
   final _formKey = GlobalKey<FormState>();
 
-  final GlobalKey<DropDownInputComponentState> _australianStateKey =
-      GlobalKey();
+  final GlobalKey<DropDownInputComponentState> _australianStateKey = GlobalKey();
 
-  final GlobalKey<NumberInputComponentState> _propertyValueStateKey =
-      GlobalKey();
+  final GlobalKey<NumberInputComponentState> _propertyValueStateKey = GlobalKey();
 
   final GlobalKey<SegmentedInputComponentState> _propertyTypeKey = GlobalKey();
   final GlobalKey<SegmentedInputComponentState> _buildingTypeKey = GlobalKey();
-  final GlobalKey<SegmentedInputComponentState> _firstHomeBuyerKey =
-      GlobalKey();
+  final GlobalKey<SegmentedInputComponentState> _firstHomeBuyerKey = GlobalKey();
 
   final _propertyValueController = TextEditingController();
 
@@ -187,8 +182,7 @@ class _StampDutyCalculatorComponentState
                               Icons.attach_money,
                               color: Theme.of(context).accentColor,
                               size: 24.0,
-                              semanticLabel:
-                                  'Text to announce in accessibility modes',
+                              semanticLabel: 'Text to announce in accessibility modes',
                             ),
                             inputLabelText: 'Property value',
                             inputPrefixText: '\$ ',
@@ -263,13 +257,11 @@ class _StampDutyCalculatorComponentState
                               ]),
                           Center(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 16.0),
+                              padding: const EdgeInsets.symmetric(vertical: 16.0),
                               child: ElevatedButton(
                                 onPressed: _handleSubmitted,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 64.0, right: 64.0),
+                                  padding: const EdgeInsets.only(left: 64.0, right: 64.0),
                                   child: Text('Tell me!'),
                                 ),
                               ),

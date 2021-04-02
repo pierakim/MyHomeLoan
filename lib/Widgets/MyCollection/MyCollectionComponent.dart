@@ -80,8 +80,7 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
       PaymentCalculatorResult paymentCalculatorResult) async {
     final db = await dbHelper.database;
 
-    paymentCalculatorResult.isFavourite =
-        paymentCalculatorResult.isFavourite == 0 ? 1 : 0;
+    paymentCalculatorResult.isFavourite = paymentCalculatorResult.isFavourite == 0 ? 1 : 0;
 
     await db.update(
       'userLoanRecords',
@@ -120,8 +119,7 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
                         return SizedBox(
                             height: MediaQuery.of(context).size.width,
                             child: Center(
-                                child: Text(
-                                    'Ouups, something happened..please restart the app')));
+                                child: Text('Ouups, something happened..please restart the app')));
                       else if (snapshot.data.length == 0)
                         return SizedBox(
                             height: MediaQuery.of(context).size.width,
@@ -134,9 +132,18 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
           ),
         ),
       ),
+      // ADD NEW - FLOATING + BUTTON
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushReplacementNamed(context, Routes.paymentCalculator);
+          Navigator.pushReplacementNamed(
+            context,
+            Routes.loanCalculatorWidget,
+            arguments: new PaymentCalculatorResultScreenArguments(
+                true,
+                false,
+                new PaymentCalculatorResult(null, '', null, null, 0,
+                    DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString())),
+          );
         },
         child: const Icon(Icons.add),
         backgroundColor: Colors.green,
@@ -144,8 +151,8 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
     );
   }
 
-  SingleChildScrollView tableBody(BuildContext ctx,
-      List<PaymentCalculatorResult> paymentCalculatorResults) {
+  SingleChildScrollView tableBody(
+      BuildContext ctx, List<PaymentCalculatorResult> paymentCalculatorResults) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: FittedBox(
@@ -174,11 +181,10 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
                 (paymentCalculatorResult) => DataRow(
                     onSelectChanged: (bool selected) {
                       if (selected) {
-                        print(
-                            'row id: ' + paymentCalculatorResult.id.toString());
+                        print('row id: ' + paymentCalculatorResult.id.toString());
                         Navigator.pushNamed(
                           context,
-                          Routes.readOrEditLoan,
+                          Routes.readOnlyLoan,
                           arguments: new PaymentCalculatorResultScreenArguments(
                               false,
                               true,
@@ -238,12 +244,10 @@ class _MyCollectionComponentState extends State<MyCollectionComponent> {
                                   // width: 150,
                                   child: Text(
                                       "Value 01: " +
-                                          paymentCalculatorResult.value01
-                                              .toString() +
+                                          paymentCalculatorResult.value01.toString() +
                                           "  " +
                                           "Value 02: " +
-                                          paymentCalculatorResult.value02
-                                              .toString(),
+                                          paymentCalculatorResult.value02.toString(),
                                       style: new TextStyle(
                                         fontSize: 15.0,
                                       ),

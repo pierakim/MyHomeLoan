@@ -10,8 +10,8 @@ class PaymentCalculatorResult extends ChangeNotifier {
   String creationDate = '';
   String modificationDate = '';
 
-  PaymentCalculatorResult(this.id, this.title, this.value01, this.value02,
-      this.isFavourite, this.creationDate, this.modificationDate);
+  PaymentCalculatorResult(this.id, this.title, this.value01, this.value02, this.isFavourite,
+      this.creationDate, this.modificationDate);
 
   Map<String, dynamic> toMap() {
     return {

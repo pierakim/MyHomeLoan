@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'alert-dialog.component.dart';
 
 class CardInformationComponent extends StatefulWidget {
@@ -15,8 +14,7 @@ class CardInformationComponent extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CardInformationComponentState createState() =>
-      _CardInformationComponentState();
+  _CardInformationComponentState createState() => _CardInformationComponentState();
 }
 
 class _CardInformationComponentState extends State<CardInformationComponent> {

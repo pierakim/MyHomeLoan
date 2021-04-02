@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'alert-dialog.component.dart';
 
 class DropDownInputComponent extends StatefulWidget {
@@ -9,11 +8,7 @@ class DropDownInputComponent extends StatefulWidget {
   final String validationText;
 
   DropDownInputComponent(
-      {this.inputLabelText,
-      this.icon,
-      this.informationMessage,
-      this.validationText,
-      Key key})
+      {this.inputLabelText, this.icon, this.informationMessage, this.validationText, Key key})
       : super(key: key);
 
   @override
@@ -70,8 +65,7 @@ class DropDownInputComponentState extends State<DropDownInputComponent> {
               }).toList(),
             ),
           ),
-          if (widget.informationMessage != null &&
-              widget.informationMessage.isNotEmpty)
+          if (widget.informationMessage != null && widget.informationMessage.isNotEmpty)
             Expanded(
               flex: 1,
               child: IconButton(
@@ -81,8 +75,7 @@ class DropDownInputComponentState extends State<DropDownInputComponent> {
                     builder: (_) => AlertDialogComponent(
                           description: widget.informationMessage,
                         )),
-                icon: Icon(Icons.info_outline,
-                    color: Theme.of(context).accentColor),
+                icon: Icon(Icons.info_outline, color: Theme.of(context).accentColor),
               ),
             )
           else

@@ -9,15 +9,15 @@ class StampDutyCalculatorResult extends ChangeNotifier {
   int buildingChoice = 0;
   int isFirstHomeBuyer = 0;
 
-  double get result => getResult(
-      propertyValue, state, propertyChoice, buildingChoice, isFirstHomeBuyer);
+  double get result =>
+      getResult(propertyValue, state, propertyChoice, buildingChoice, isFirstHomeBuyer);
 
   StampDutyCalculatorResult(this.propertyValue, this.state, this.propertyChoice,
       this.buildingChoice, this.isFirstHomeBuyer);
 }
 
-double getResult(double propertyValue, String state, int propertyChoice,
-    int buildingChoice, int isFirstHomeBuyer) {
+double getResult(double propertyValue, String state, int propertyChoice, int buildingChoice,
+    int isFirstHomeBuyer) {
   var stampDutyResult = 0.0;
   if (state == "South Australia") {
     if (propertyValue <= 12000) {
@@ -39,16 +39,13 @@ double getResult(double propertyValue, String state, int propertyChoice,
                 stampDutyResult = 6830 + 4.25 * (propertyValue - 200000) / 100;
               } else {
                 if (propertyValue > 250000 && propertyValue <= 300000) {
-                  stampDutyResult =
-                      8955 + 4.75 * (propertyValue - 250000) / 100;
+                  stampDutyResult = 8955 + 4.75 * (propertyValue - 250000) / 100;
                 } else {
                   if (propertyValue > 300000 && propertyValue <= 500000) {
-                    stampDutyResult =
-                        11330 + 5 * (propertyValue - 300000) / 100;
+                    stampDutyResult = 11330 + 5 * (propertyValue - 300000) / 100;
                   } else {
                     if (propertyValue > 500000) {
-                      stampDutyResult =
-                          21330 + 5.5 * (propertyValue - 500000) / 100;
+                      stampDutyResult = 21330 + 5.5 * (propertyValue - 500000) / 100;
                     }
                   }
                 }
@@ -90,14 +87,11 @@ double getResult(double propertyValue, String state, int propertyChoice,
   }
 
   if (state == "Northern Territory") {
-    if (propertyValue <= 500000 &&
-        isFirstHomeBuyer == 0 &&
-        propertyChoice == 0) {
+    if (propertyValue <= 500000 && isFirstHomeBuyer == 0 && propertyChoice == 0) {
       stampDutyResult = 0;
     } else if (propertyValue <= 525000) {
-      stampDutyResult =
-          (0.06571441 * propertyValue * 1 / 1000 * propertyValue * 1 / 1000) +
-              15 * propertyValue / 1000;
+      stampDutyResult = (0.06571441 * propertyValue * 1 / 1000 * propertyValue * 1 / 1000) +
+          15 * propertyValue / 1000;
     } else {
       if (propertyValue > 525000 && propertyValue <= 3000000) {
         stampDutyResult = 4.95 * propertyValue / 100;
@@ -145,9 +139,7 @@ double getResult(double propertyValue, String state, int propertyChoice,
         }
       }
     }
-    if (propertyValue <= 400000 &&
-        isFirstHomeBuyer == 0 &&
-        propertyChoice == 0) {
+    if (propertyValue <= 400000 && isFirstHomeBuyer == 0 && propertyChoice == 0) {
       stampDutyResult = stampDutyResult / 2;
     }
   }
@@ -166,9 +158,7 @@ double getResult(double propertyValue, String state, int propertyChoice,
         }
       }
     }
-    if (propertyValue <= 600000 &&
-        isFirstHomeBuyer == 0 &&
-        propertyChoice == 0) {
+    if (propertyValue <= 600000 && isFirstHomeBuyer == 0 && propertyChoice == 0) {
       stampDutyResult = 0;
     }
 
