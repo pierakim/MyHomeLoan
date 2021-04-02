@@ -18,33 +18,28 @@ class LoanCalculatorResultWidget extends StatefulWidget {
 class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget> {
   final dbHelper = DatabaseHelper.instance;
 
+  // STATES
   bool hasResultBeenSaved = false;
 
   @override
   Widget build(BuildContext context) {
     // ROUTE ARGUMENT
-    final LoanCalculatorResultScreenArgumentsModel paymentCalculatorResultScreenArguments =
-        ModalRoute.of(context).settings.arguments;
+    final LoanCalculatorResultScreenArgumentsModel paymentCalculatorResultScreenArguments = ModalRoute.of(context).settings.arguments;
 
     // ROUTE PARAMETERS EXTRACTION
-    final LoanCalculatorResultModel paymentCalculatorResult =
-        paymentCalculatorResultScreenArguments.paymentCalculatorResult;
+    final LoanCalculatorResultModel paymentCalculatorResult = paymentCalculatorResultScreenArguments.paymentCalculatorResult;
     final bool isBeingCreated = paymentCalculatorResultScreenArguments.isBeingCreated;
     final bool isBeingEdited = paymentCalculatorResultScreenArguments.isBeingEdited;
 
     // PARAMETERS TO CONTROLLER
-    final _paymentCalculatorResultIdController =
-        TextEditingController(text: paymentCalculatorResult.id.toString());
-    final _descriptionController =
-        TextEditingController(text: paymentCalculatorResult.title.toString());
-    final _value01Controller =
-        TextEditingController(text: paymentCalculatorResult.value01.toString());
-    final _value02Controller =
-        TextEditingController(text: paymentCalculatorResult.value02.toString());
-    final _resultController =
-        TextEditingController(text: paymentCalculatorResult.result.toString());
+    final _paymentCalculatorResultIdController = TextEditingController(text: paymentCalculatorResult.id.toString());
+    final _descriptionController = TextEditingController(text: paymentCalculatorResult.title.toString());
+    final _value01Controller = TextEditingController(text: paymentCalculatorResult.value01.toString());
+    final _value02Controller = TextEditingController(text: paymentCalculatorResult.value02.toString());
+    final _resultController = TextEditingController(text: paymentCalculatorResult.result.toString());
     final _titleController = TextEditingController(text: paymentCalculatorResult.title.toString());
 
+    // WIDGET
     return Scaffold(
       appBar: AppBar(title: Text((() {
         if (isBeingCreated && !isBeingEdited) {
@@ -55,44 +50,46 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
       })())),
       body: ListView(
         children: <Widget>[
+          // INFORMATION SUMMARY
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
               child: Column(
                 children: [
-                  if (_descriptionController.value.text.isNotEmpty)
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Card(
-                              child: Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  Icon(
-                                    Icons.description_outlined,
-                                    color: Colors.pink,
-                                    size: 20.0,
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                      controller: _descriptionController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        filled: false,
-                                        labelText: "Title",
-                                      ),
+                  // TITLE ROW
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                            child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Column(
+                            children: [
+                              Row(children: [
+                                Icon(
+                                  Icons.description_outlined,
+                                  color: Colors.pink,
+                                  size: 20.0,
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
+                                    controller: _descriptionController,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      filled: false,
+                                      labelText: "Title",
                                     ),
                                   ),
-                                ]),
-                              ],
-                            ),
-                          )),
-                        ),
-                      ],
-                    ),
+                                ),
+                              ]),
+                            ],
+                          ),
+                        )),
+                      ),
+                    ],
+                  ),
+                  // VALUE 01 + VALUE 02 ROW
                   Row(
                     children: [
                       Expanded(
@@ -159,6 +156,7 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
               ),
             ),
           ),
+          // RESULT SUMMARY
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
@@ -166,10 +164,12 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+                    // RESULT DESCRIPTION
                     const ListTile(
                       title: Text('Result'),
                       subtitle: Text('blablabla blabla bla blablabla'),
                     ),
+                    // RESULT VALUE
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
@@ -192,22 +192,19 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
               ),
             ),
           ),
-          //NEW LOAN CALCULATOR RESULT
+          // SAVE NEW LOAN RESULT - SAVE - SAVED
           if (isBeingCreated && !isBeingEdited)
             if (!hasResultBeenSaved)
               Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
-                    child: Text('Save New'),
+                    child: Text('Save'),
                     onPressed: () async {
                       paymentCalculatorResult.title = _titleController.text;
-                      var hasBeenSaved =
-                          await insertPaymentCalculatorResult(paymentCalculatorResult);
+                      var hasBeenSaved = await insertPaymentCalculatorResult(paymentCalculatorResult);
                       if (hasBeenSaved) {
-                        setState(() => hasBeenSaved == true
-                            ? hasResultBeenSaved = true
-                            : hasResultBeenSaved = false);
+                        setState(() => hasBeenSaved == true ? hasResultBeenSaved = true : hasResultBeenSaved = false);
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: RichText(
@@ -248,7 +245,7 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
               )
         ],
       ),
-      // EDIT LOAN CALCULATOR RESULT FLOATING BUTTON
+      // FLOATINGACTIONBUTTON CONDITIONAL EDIT LOAN RESULT USING
       floatingActionButton: Visibility(
         visible: isBeingCreated ? false : true,
         child: FloatingActionButton(
@@ -276,11 +273,9 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
     );
   }
 
-  // Define a function that inserts dogs into the database
-  Future<bool> insertPaymentCalculatorResult(
-      LoanCalculatorResultModel paymentCalculatorResult) async {
+  // DEFINE A FUNCTION THAT INSERTS LoanCalculatorResultModel INTO DATABASE
+  Future<bool> insertPaymentCalculatorResult(LoanCalculatorResultModel paymentCalculatorResult) async {
     var db = await dbHelper.database;
-
     return await db.insert(
               'userLoanRecords',
               paymentCalculatorResult.toMap(),

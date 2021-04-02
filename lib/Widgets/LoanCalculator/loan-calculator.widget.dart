@@ -8,8 +8,8 @@ import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result-screen
 import '../Common/number-input.widget.dart';
 import '../app-drawer.widget.dart';
 
-/// This is the stateful widget that the main application instantiates.
 class LoanCalculatorWidget extends StatefulWidget {
+  // ROUTE NAME
   static const String routeName = '/loanCalculator';
 
   LoanCalculatorWidget({Key key}) : super(key: key);
@@ -18,12 +18,9 @@ class LoanCalculatorWidget extends StatefulWidget {
   _LoanCalculatorWidgetState createState() => _LoanCalculatorWidgetState();
 }
 
-/// This is the private State class that goes with PaymentCalculatorComponent.
 class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
   // FORM KEY
   final _formKey = GlobalKey<FormState>();
-  final GlobalKey<NumberInputWidgetState> _value01StateKey = GlobalKey();
-  final GlobalKey<NumberInputWidgetState> _value02StateKey = GlobalKey();
 
   @override
   void initState() {
@@ -35,36 +32,23 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
     super.dispose();
   }
 
-  Color _textColor;
-  bool isTile01Valid = false;
-  bool isTile01FieldsTouched = false;
-
   @override
   Widget build(BuildContext context) {
     // ROUTE ARGUMENT
-    final LoanCalculatorResultScreenArgumentsModel paymentCalculatorResultScreenArguments =
-        ModalRoute.of(context).settings.arguments;
+    final LoanCalculatorResultScreenArgumentsModel paymentCalculatorResultScreenArguments = ModalRoute.of(context).settings.arguments;
 
     // ROUTE PARAMETERS EXTRACTION
-    final LoanCalculatorResultModel paymentCalculatorResult =
-        paymentCalculatorResultScreenArguments.paymentCalculatorResult;
+    final LoanCalculatorResultModel paymentCalculatorResult = paymentCalculatorResultScreenArguments.paymentCalculatorResult;
 
     // PARAMETERS TO CONTROLLER
-    final _paymentCalculatorResultId = TextEditingController(
-        text: paymentCalculatorResult.id != null ? paymentCalculatorResult.id.toString() : null);
-    final _titleController = TextEditingController(
-        text: paymentCalculatorResult.title != null
-            ? paymentCalculatorResult.title.toString()
-            : null);
-    final _value01Controller = TextEditingController(
-        text: paymentCalculatorResult.value01 != null
-            ? paymentCalculatorResult.value01.toString()
-            : null);
-    final _value02Controller = TextEditingController(
-        text: paymentCalculatorResult.value02 != null
-            ? paymentCalculatorResult.value02.toString()
-            : null);
+    final _paymentCalculatorResultId = TextEditingController(text: paymentCalculatorResult.id != null ? paymentCalculatorResult.id.toString() : null);
+    final _titleController = TextEditingController(text: paymentCalculatorResult.title != null ? paymentCalculatorResult.title.toString() : null);
+    final _value01Controller =
+        TextEditingController(text: paymentCalculatorResult.value01 != null ? paymentCalculatorResult.value01.toString() : null);
+    final _value02Controller =
+        TextEditingController(text: paymentCalculatorResult.value02 != null ? paymentCalculatorResult.value02.toString() : null);
 
+    // WIDGET
     return Scaffold(
         appBar: AppBar(
           title: Text("New loan calculator"),
@@ -96,17 +80,13 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                             style: TextStyle(color: Colors.black.withOpacity(0.6)),
                           ),
                         ),
-                        // if (_titleController.value.text.isNotEmpty)
                         TextInputWidget(
-                            //key: _value02StateKey,
                             controller: _titleController,
-                            icon: Icon(Icons.description_outlined,
-                                color: Theme.of(context).accentColor),
+                            icon: Icon(Icons.description_outlined, color: Theme.of(context).accentColor),
                             inputLabelText: 'Title / description',
                             informationMessage:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis."),
                         NumberInputWidget(
-                          //key: _value01StateKey,
                           controller: _value01Controller,
                           icon: Icon(
                             Icons.attach_money,
@@ -120,7 +100,6 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                         ),
                         NumberInputWidget(
-                            //key: _value02StateKey,
                             controller: _value02Controller,
                             icon: Icon(Icons.attach_money, color: Theme.of(context).accentColor),
                             inputLabelText: 'Value 02 (not mandatory)',
@@ -149,12 +128,8 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                                 true,
                                 false,
                                 new LoanCalculatorResultModel(
-                                    _paymentCalculatorResultId.value.text == null
-                                        ? int.parse(_paymentCalculatorResultId.value.text)
-                                        : null,
-                                    _titleController.value.text.isNotEmpty
-                                        ? _titleController.value.text
-                                        : '',
+                                    _paymentCalculatorResultId.value.text == null ? int.parse(_paymentCalculatorResultId.value.text) : null,
+                                    _titleController.value.text.isNotEmpty ? _titleController.value.text : '',
                                     double.parse(_value01Controller.value.text) ?? 0.0,
                                     double.parse(_value02Controller.value.text) ?? 0.0,
                                     0,
