@@ -15,20 +15,14 @@ class StampDutyCalculatorResultWidget extends StatefulWidget {
 class _StampDutyCalculatorResultWidgetState extends State<StampDutyCalculatorResultWidget> {
   @override
   Widget build(BuildContext context) {
+    // ROUTE ARGUMENT
     final StampDutyCalculatorResultModel args = ModalRoute.of(context).settings.arguments;
 
+    // PARAMETERS TO CONTROLLER
     final _propertyValueController = TextEditingController(text: args.propertyValue.toString());
-
-    // state input data
     final _stateController = TextEditingController(text: args.state.toString());
-
-    final _residenceTypeController =
-        TextEditingController(text: residenceTypeForDisplay[args.propertyChoice].data);
-
-    final _firstHomeBuyerController =
-        TextEditingController(text: isFirstHomeBuyerForDisplay[args.propertyChoice].data);
-
-    // The result
+    final _residenceTypeController = TextEditingController(text: residenceTypeForDisplay[args.propertyChoice].data);
+    final _firstHomeBuyerController = TextEditingController(text: isFirstHomeBuyerForDisplay[args.propertyChoice].data);
     final _resultController = TextEditingController(text: '\$ ' + args.result.toString());
 
     return Scaffold(
@@ -37,6 +31,7 @@ class _StampDutyCalculatorResultWidgetState extends State<StampDutyCalculatorRes
         ),
         body: ListView(
           children: <Widget>[
+            // INPUT SUMMARY: PROPERTY VALUE + STATE + FIRST TIME BUYYER + PROPERTY TYPE
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -44,6 +39,7 @@ class _StampDutyCalculatorResultWidgetState extends State<StampDutyCalculatorRes
                   children: [
                     Row(
                       children: [
+                        // PROPERTY VALUE
                         Expanded(
                           child: Card(
                               child: Padding(
@@ -74,6 +70,7 @@ class _StampDutyCalculatorResultWidgetState extends State<StampDutyCalculatorRes
                             ),
                           )),
                         ),
+                        // STATE
                         Expanded(
                           child: Card(
                               child: Padding(
@@ -106,6 +103,7 @@ class _StampDutyCalculatorResultWidgetState extends State<StampDutyCalculatorRes
                     ),
                     Row(
                       children: [
+                        // FIRST TIME BUYER
                         Expanded(
                           child: Card(
                               child: Padding(
@@ -134,6 +132,7 @@ class _StampDutyCalculatorResultWidgetState extends State<StampDutyCalculatorRes
                             ),
                           )),
                         ),
+                        // PROPERTY TYPE
                         Expanded(
                           child: Card(
                               child: Padding(
@@ -168,6 +167,7 @@ class _StampDutyCalculatorResultWidgetState extends State<StampDutyCalculatorRes
                 ),
               ),
             ),
+            // RESULT SECTION
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(

@@ -25,6 +25,7 @@ class StampDutyCalculatorWidget extends StatefulWidget {
 class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
   final _formKey = GlobalKey<FormState>();
 
+  // FORM VALUE HANDLING
   final GlobalKey<DropDownInputWidgetState> _australianStateKey = GlobalKey();
   final GlobalKey<NumberInputWidgetState> _propertyValueStateKey = GlobalKey();
   final GlobalKey<SegmentedInputWidgetState> _propertyTypeKey = GlobalKey();
@@ -33,20 +34,17 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
 
   final _propertyValueController = TextEditingController();
 
-  // init  model
-  StampDutyCalculatorResultModel stampDutyCalculatorResult =
-      StampDutyCalculatorResultModel(0.0, '', null, null, null);
+  // INIT STAMP DUTY MODEL RESULT
+  StampDutyCalculatorResultModel stampDutyCalculatorResult = StampDutyCalculatorResultModel(0.0, '', null, null, null);
 
   bool isSegmentedFormPristine = true;
   bool isPropertyTypeValid = true;
   bool isBuildingTypeValid = true;
   bool isFirstHomeBuyerValid = true;
 
-  // bool isBuildingTypeNeeded = true;
-
+  // HANDLE STAMP DUTY CALCULATOR SUBMIT - TELL ME
   void _handleSubmitted() {
     final form = _formKey.currentState;
-
     var formValidationValid = form.validate();
 
     if (_propertyTypeKey.currentState.currentSelection == null) {
@@ -96,8 +94,7 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
       });
     }
 
-    var segmentedValidationValid =
-        isPropertyTypeValid && isBuildingTypeValid && isFirstHomeBuyerValid;
+    var segmentedValidationValid = isPropertyTypeValid && isBuildingTypeValid && isFirstHomeBuyerValid;
 
     if (formValidationValid && segmentedValidationValid) {
       print('The form is valid');
@@ -124,7 +121,6 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the
     _propertyValueController.dispose();
     super.dispose();
   }
@@ -142,12 +138,14 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
           child: Container(
             child: Column(
               children: [
+                // STAMP DUTY INFORMATION CARD
                 CardInformationWidget(
                   icon: Icon(Icons.home),
                   title: "Stamp duty calculator",
                   description:
                       "Stamp duty is a tax on a property transaction that is charged by each state and territory, the amounts can and do vary.\nThe stamp duty rate will depend on factors such as the value of the property, if it is your primary residence and your residency status.",
                 ),
+                // CARD
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 8.0),
@@ -156,9 +154,7 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          // **************
                           // STATE
-                          // **************
                           DropDownInputWidget(
                             key: _australianStateKey,
                             validationText: 'Select a state',
@@ -171,9 +167,7 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
                             informationMessage:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
                           ),
-                          // **************
                           // PROPERTY VALUE
-                          // **************
                           NumberInputWidget(
                             key: _propertyValueStateKey,
                             icon: Icon(
@@ -189,17 +183,14 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
                             informationMessage:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                           ),
-                          // **************
                           // PROPERTY TYPE
-                          // **************
                           SegmentedInputChoicesWidget(
                               icon: Icon(
                                 Icons.foundation,
                                 color: Theme.of(context).accentColor,
                                 size: 24.0,
                               ),
-                              informationMessage:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                              informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                               choices: [
                                 SegmentedInputWidget(
                                   key: _propertyTypeKey,
@@ -210,17 +201,14 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
                                   isFormPristine: isSegmentedFormPristine,
                                 ),
                               ]),
-                          // **************
                           // BUILDING TYPE
-                          // **************
                           SegmentedInputChoicesWidget(
                               icon: Icon(
                                 Icons.foundation,
                                 color: Theme.of(context).accentColor,
                                 size: 24.0,
                               ),
-                              informationMessage:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                              informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                               choices: [
                                 SegmentedInputWidget(
                                   key: _buildingTypeKey,
@@ -231,18 +219,14 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
                                   isFormPristine: isSegmentedFormPristine,
                                 ),
                               ]),
-
-                          // **************
                           // FIRST TIME BUYER
-                          // **************
                           SegmentedInputChoicesWidget(
                               icon: Icon(
                                 Icons.roofing,
                                 color: Theme.of(context).accentColor,
                                 size: 24.0,
                               ),
-                              informationMessage:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                              informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                               choices: [
                                 SegmentedInputWidget(
                                   key: _firstHomeBuyerKey,
@@ -253,6 +237,7 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
                                   isFormPristine: isSegmentedFormPristine,
                                 ),
                               ]),
+                          // TELL ME BUTTON
                           Center(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16.0),
