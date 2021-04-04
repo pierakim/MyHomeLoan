@@ -92,7 +92,7 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
           Navigator.pushReplacementNamed(
             context,
             Routes.loanCalculatorWidget,
-            arguments: new LoanCalculatorResultScreenArgumentsModel(true, false, null),
+            arguments: new LoanCalculatorResultScreenArgumentsModel(null),
           );
         },
         child: const Icon(Icons.add),
@@ -135,17 +135,14 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                         Navigator.pushNamed(
                           context,
                           Routes.loanCalculatorResultWidget,
-                          arguments: new LoanCalculatorResultScreenArgumentsModel(
-                              false,
-                              true,
-                              new LoanCalculatorResultModel(
-                                  paymentCalculatorResult.id,
-                                  paymentCalculatorResult.title,
-                                  paymentCalculatorResult.value01,
-                                  paymentCalculatorResult.value02,
-                                  paymentCalculatorResult.isFavourite,
-                                  paymentCalculatorResult.creationDate,
-                                  paymentCalculatorResult.modificationDate)),
+                          arguments: new LoanCalculatorResultScreenArgumentsModel(new LoanCalculatorResultModel(
+                              paymentCalculatorResult.id,
+                              paymentCalculatorResult.title,
+                              paymentCalculatorResult.value01,
+                              paymentCalculatorResult.value02,
+                              paymentCalculatorResult.isFavourite,
+                              paymentCalculatorResult.creationDate,
+                              paymentCalculatorResult.modificationDate)),
                         );
                       }
                     },

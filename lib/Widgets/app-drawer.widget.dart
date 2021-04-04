@@ -18,7 +18,7 @@ class AppDrawerWidget extends StatelessWidget {
               onTap: () => Navigator.pushReplacementNamed(
                     context,
                     Routes.loanCalculatorWidget,
-                    arguments: new LoanCalculatorResultScreenArgumentsModel(true, false, null),
+                    arguments: new LoanCalculatorResultScreenArgumentsModel(null),
                   )),
           _createDrawerItem(
               icon: Icons.contacts, text: 'My collection', onTap: () => Navigator.pushReplacementNamed(context, Routes.myCollectionWidget)),

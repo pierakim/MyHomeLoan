@@ -68,9 +68,9 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
     // WIDGET
     return Scaffold(
       appBar: AppBar(title: Text((() {
-        if (this.loanCalculatorResultScreenArgumentsModel.isBeingCreated && !this.loanCalculatorResultScreenArgumentsModel.isBeingEdited) {
+        if (this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id == null) {
           return "Your data";
-        } else if (!this.loanCalculatorResultScreenArgumentsModel.isBeingCreated && this.loanCalculatorResultScreenArgumentsModel.isBeingEdited) {
+        } else if (this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id != null) {
           return "Back to collection";
         }
       })())),
@@ -219,7 +219,7 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
             ),
           ),
           // SAVE NEW LOAN RESULT - SAVE - SAVED
-          if (this.loanCalculatorResultScreenArgumentsModel.isBeingCreated && !this.loanCalculatorResultScreenArgumentsModel.isBeingEdited)
+          if (this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id == null)
             if (!hasResultBeenSaved)
               Center(
                 child: Padding(
@@ -274,14 +274,13 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
       ),
       // FLOATINGACTIONBUTTON CONDITIONAL EDIT LOAN RESULT USING
       floatingActionButton: Visibility(
-        visible: this.loanCalculatorResultScreenArgumentsModel.isBeingCreated ? false : true,
+        visible: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id == null ? false : true,
         child: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(
               context,
               Routes.loanCalculatorWidget,
-              arguments:
-                  new LoanCalculatorResultScreenArgumentsModel(false, true, this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel),
+              arguments: new LoanCalculatorResultScreenArgumentsModel(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel),
             );
           },
           child: const Icon(Icons.edit),
