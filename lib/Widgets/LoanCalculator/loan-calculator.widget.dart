@@ -19,19 +19,20 @@ class LoanCalculatorWidget extends StatefulWidget {
 }
 
 class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
-  LoanCalculatorResultModel loanCalculatorResultModelState;
+  //MAIN STATE: LoanCalculatorResultScreenArgumentsModel
+  LoanCalculatorResultScreenArgumentsModel loanCalculatorResultScreenArgumentsModel;
+
   // FORM KEY
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    // this.loanCalculatorResultModelState =
-    //     new LoanCalculatorResultModel(null, '', null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString());
     super.initState();
   }
 
   @override
   void dispose() {
+    loanCalculatorResultScreenArgumentsModel = null;
     super.dispose();
   }
 
@@ -40,17 +41,37 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
     // ROUTE ARGUMENT
     final LoanCalculatorResultScreenArgumentsModel paymentCalculatorResultScreenArguments = ModalRoute.of(context).settings.arguments;
 
-    // ROUTE PARAMETERS EXTRACTION
-    final LoanCalculatorResultModel loanCalculatorResultModel = paymentCalculatorResultScreenArguments.loanCalculatorResultModel;
+    // EDIT LOAN
+    if (paymentCalculatorResultScreenArguments.loanCalculatorResultModel != null) {
+      setState(() {
+        this.loanCalculatorResultScreenArgumentsModel = paymentCalculatorResultScreenArguments;
+      });
+    }
+    // NEW LOAN
+    else if (this.loanCalculatorResultScreenArgumentsModel == null) {
+      setState(() {
+        this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(true, false,
+            new LoanCalculatorResultModel(null, '', null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()));
+      });
+    }
 
     // PARAMETERS TO CONTROLLER
-    final _modelIdController = TextEditingController(text: loanCalculatorResultModel.id != null ? loanCalculatorResultModel.id.toString() : null);
-    final _modelTitleController =
-        TextEditingController(text: loanCalculatorResultModel.title != null ? loanCalculatorResultModel.title.toString() : null);
-    final _modelValue01Controller =
-        TextEditingController(text: loanCalculatorResultModel.value01 != null ? loanCalculatorResultModel.value01.toString() : null);
-    final _modelValue02Controller =
-        TextEditingController(text: loanCalculatorResultModel.value02 != null ? loanCalculatorResultModel.value02.toString() : null);
+    final _modelIdController = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id.toString()
+            : null);
+    final _modelTitleController = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title.toString()
+            : null);
+    final _modelValue01Controller = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value01 != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value01.toString()
+            : null);
+    final _modelValue02Controller = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02 != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02.toString()
+            : null);
 
     // HANDLE LOAN CALCULATOR SUBMIT - TELL ME
     void _handleSubmitted() {
@@ -60,6 +81,21 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
       if (form.validate()) {
         form.save();
         FocusScope.of(context).unfocus();
+
+        setState(() {
+          this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(
+              true,
+              false,
+              new LoanCalculatorResultModel(
+                  _modelIdController.value.text == null ? int.parse(_modelIdController.value.text) : null,
+                  _modelTitleController.value.text.isNotEmpty ? _modelTitleController.value.text : '',
+                  double.parse(_modelValue01Controller.value.text) ?? 0.0,
+                  double.parse(_modelValue02Controller.value.text) ?? 0.0,
+                  0,
+                  DateTime.now().toUtc().toString(),
+                  DateTime.now().toUtc().toString()));
+        });
+
         Navigator.pushNamed(
           context,
           Routes.loanCalculatorResultWidget,

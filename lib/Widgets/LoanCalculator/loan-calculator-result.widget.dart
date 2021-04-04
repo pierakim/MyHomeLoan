@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_home_loan/Database/DatabaseHelper.dart';
+import 'package:my_home_loan/Database/loan-calculator-repository.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
 import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result-screen-arguments-model.dart';
-import 'package:sqflite/sqflite.dart';
 
 import '../../Models/LoanCalculator/loan-calculator-result.model.dart';
 
@@ -16,7 +15,7 @@ class LoanCalculatorResultWidget extends StatefulWidget {
 }
 
 class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget> {
-  final dbHelper = DatabaseHelper.instance;
+  final _loanCalculatorRepo = LoanCalculatorRepository();
 
   // STATES
   bool hasResultBeenSaved = false;
@@ -202,7 +201,7 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                     child: Text('Save'),
                     onPressed: () async {
                       paymentCalculatorResult.title = _titleController.text;
-                      var hasBeenSaved = await insertPaymentCalculatorResult(paymentCalculatorResult);
+                      var hasBeenSaved = await _loanCalculatorRepo.postLoanCalculatorResult(paymentCalculatorResult);
                       if (hasBeenSaved) {
                         setState(() => hasBeenSaved == true ? hasResultBeenSaved = true : hasResultBeenSaved = false);
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -271,18 +270,5 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
         ),
       ),
     );
-  }
-
-  // DEFINE A FUNCTION THAT INSERTS LoanCalculatorResultModel INTO DATABASE
-  Future<bool> insertPaymentCalculatorResult(LoanCalculatorResultModel paymentCalculatorResult) async {
-    var db = await dbHelper.database;
-    return await db.insert(
-              'userLoanRecords',
-              paymentCalculatorResult.toMap(),
-              conflictAlgorithm: ConflictAlgorithm.replace,
-            ) ==
-            0
-        ? false
-        : true;
   }
 }

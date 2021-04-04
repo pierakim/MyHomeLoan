@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_home_loan/Database/DatabaseHelper.dart';
+import 'package:my_home_loan/Database/loan-calculator-repository.dart';
 import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result.model.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
 import 'package:my_home_loan/Widgets/Common/card-information.widget.dart';
 import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result-screen-arguments-model.dart';
-import 'package:sqflite/sqflite.dart';
 
 import '../app-drawer.widget.dart';
 
@@ -17,30 +16,30 @@ class MyCollectionWidget extends StatefulWidget {
 
 class _MyCollectionWidgetState extends State<MyCollectionWidget> {
   Future<List<LoanCalculatorResultModel>> _paymentCalculatorResults;
-  final dbHelper = DatabaseHelper.instance;
+  final _loanCalculatorRepo = LoanCalculatorRepository();
 
   @override
   void initState() {
     super.initState();
-    _paymentCalculatorResults = getPaymentCalculatorResults();
+    _paymentCalculatorResults = _loanCalculatorRepo.getAllLoanCalculatorResults();
   }
 
   // REFRESH LIST - REFRESH STATE BASED ON DB RESULT
   void refreshList() {
     setState(() {
-      _paymentCalculatorResults = getPaymentCalculatorResults();
+      _paymentCalculatorResults = _loanCalculatorRepo.getAllLoanCalculatorResults();
     });
   }
 
   // ON TAP - DELETE
   void deleteSelected(int rowId) async {
-    await deletePaymentCalculatorResult(rowId);
+    await _loanCalculatorRepo.deleteLoanCalculatorResult(rowId);
     refreshList();
   }
 
   // ON TAP - FAVOURITE
   void favouriteSelected(LoanCalculatorResultModel paymentCalculatorResult) async {
-    await updatePaymentCalculatorResult(paymentCalculatorResult);
+    await _loanCalculatorRepo.putLoanCalculatorResult(paymentCalculatorResult);
     refreshList();
   }
 
@@ -93,8 +92,7 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
           Navigator.pushReplacementNamed(
             context,
             Routes.loanCalculatorWidget,
-            arguments: new LoanCalculatorResultScreenArgumentsModel(true, false,
-                new LoanCalculatorResultModel(null, '', null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString())),
+            arguments: new LoanCalculatorResultScreenArgumentsModel(true, false, null),
           );
         },
         child: const Icon(Icons.add),
@@ -226,41 +224,5 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
         ),
       ),
     );
-  }
-
-  // GET PAYMENT CALCULATOR RESULT FROM DATABASE
-  Future<List<LoanCalculatorResultModel>> getPaymentCalculatorResults() async {
-    final Database db = await dbHelper.database;
-    final List<Map<String, dynamic>> maps = await db.query('userLoanRecords', orderBy: "isFavourite DESC");
-
-    // emulate time
-    // await Future.delayed(Duration(seconds: 3));
-
-    var paymentCalculatorResultsList = List.generate(maps.length, (i) {
-      return LoanCalculatorResultModel(maps[i]['id'], maps[i]['title'], maps[i]['value01'].toDouble(), maps[i]['value02'].toDouble(),
-          maps[i]['isFavourite'], maps[i]['creationDate'], maps[i]['modificationDate']);
-    });
-
-    return paymentCalculatorResultsList;
-  }
-
-  // UPDATE PAYMENT CALCULATOR RESULT FROM DATABASE
-  Future<void> updatePaymentCalculatorResult(LoanCalculatorResultModel paymentCalculatorResult) async {
-    final db = await dbHelper.database;
-
-    paymentCalculatorResult.isFavourite = paymentCalculatorResult.isFavourite == 0 ? 1 : 0;
-
-    await db.update(
-      'userLoanRecords',
-      paymentCalculatorResult.toMap(),
-      where: "id = ?",
-      whereArgs: [paymentCalculatorResult.id],
-    );
-  }
-
-  // DELETE PAYMENT CALCULATOR RESULT FROM DATABASE
-  Future<void> deletePaymentCalculatorResult(int rowId) async {
-    final db = await dbHelper.database;
-    await db.delete('userLoanRecords', where: 'id = ?', whereArgs: [rowId]);
   }
 }

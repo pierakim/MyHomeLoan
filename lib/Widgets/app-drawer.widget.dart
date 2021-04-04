@@ -18,21 +18,14 @@ class AppDrawerWidget extends StatelessWidget {
               onTap: () => Navigator.pushReplacementNamed(
                     context,
                     Routes.loanCalculatorWidget,
-                    arguments: new LoanCalculatorResultScreenArgumentsModel(
-                        true,
-                        false,
-                        new LoanCalculatorResultModel(null, '', null, null, 0,
-                            DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString())),
+                    arguments: new LoanCalculatorResultScreenArgumentsModel(true, false, null),
                   )),
           _createDrawerItem(
-              icon: Icons.contacts,
-              text: 'My collection',
-              onTap: () => Navigator.pushReplacementNamed(context, Routes.myCollectionWidget)),
+              icon: Icons.contacts, text: 'My collection', onTap: () => Navigator.pushReplacementNamed(context, Routes.myCollectionWidget)),
           _createDrawerItem(
               icon: Icons.event,
               text: 'Stamp duty calculator',
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, Routes.stampDutyCalculatorWidget)),
+              onTap: () => Navigator.pushReplacementNamed(context, Routes.stampDutyCalculatorWidget)),
           Divider(),
           ListTile(
             title: Text('0.0.1'),
@@ -51,11 +44,7 @@ class AppDrawerWidget extends StatelessWidget {
           Positioned(
               bottom: 12.0,
               left: 16.0,
-              child: Text("My Oz Loan",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w500))),
+              child: Text("My Oz Loan", style: TextStyle(color: Theme.of(context).accentColor, fontSize: 20.0, fontWeight: FontWeight.w500))),
         ]));
   }
 
