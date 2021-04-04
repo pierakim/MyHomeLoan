@@ -3,8 +3,7 @@ import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result.model.
 class LoanCalculatorResultScreenArgumentsModel {
   final bool isBeingCreated;
   final bool isBeingEdited;
-  final LoanCalculatorResultModel paymentCalculatorResult;
+  final LoanCalculatorResultModel loanCalculatorResultModel;
 
-  LoanCalculatorResultScreenArgumentsModel(
-      this.isBeingCreated, this.isBeingEdited, this.paymentCalculatorResult);
+  LoanCalculatorResultScreenArgumentsModel(this.isBeingCreated, this.isBeingEdited, this.loanCalculatorResultModel);
 }

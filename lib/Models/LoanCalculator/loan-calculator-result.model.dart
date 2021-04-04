@@ -10,8 +10,7 @@ class LoanCalculatorResultModel extends ChangeNotifier {
   String creationDate = '';
   String modificationDate = '';
 
-  LoanCalculatorResultModel(this.id, this.title, this.value01, this.value02, this.isFavourite,
-      this.creationDate, this.modificationDate);
+  LoanCalculatorResultModel(this.id, this.title, this.value01, this.value02, this.isFavourite, this.creationDate, this.modificationDate);
 
   Map<String, dynamic> toMap() {
     return {
@@ -25,11 +24,4 @@ class LoanCalculatorResultModel extends ChangeNotifier {
       'modificationDate': modificationDate
     };
   }
-}
-
-class PaymentCalculatorResultRow {
-  PaymentCalculatorResultRow(
-    this.paymentCalculatorResult,
-  );
-  final LoanCalculatorResultModel paymentCalculatorResult;
 }

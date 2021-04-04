@@ -19,11 +19,14 @@ class LoanCalculatorWidget extends StatefulWidget {
 }
 
 class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
+  LoanCalculatorResultModel loanCalculatorResultModelState;
   // FORM KEY
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
+    // this.loanCalculatorResultModelState =
+    //     new LoanCalculatorResultModel(null, '', null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString());
     super.initState();
   }
 
@@ -38,15 +41,16 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
     final LoanCalculatorResultScreenArgumentsModel paymentCalculatorResultScreenArguments = ModalRoute.of(context).settings.arguments;
 
     // ROUTE PARAMETERS EXTRACTION
-    final LoanCalculatorResultModel paymentCalculatorResult = paymentCalculatorResultScreenArguments.paymentCalculatorResult;
+    final LoanCalculatorResultModel loanCalculatorResultModel = paymentCalculatorResultScreenArguments.loanCalculatorResultModel;
 
     // PARAMETERS TO CONTROLLER
-    final _paymentCalculatorResultId = TextEditingController(text: paymentCalculatorResult.id != null ? paymentCalculatorResult.id.toString() : null);
-    final _titleController = TextEditingController(text: paymentCalculatorResult.title != null ? paymentCalculatorResult.title.toString() : null);
-    final _value01Controller =
-        TextEditingController(text: paymentCalculatorResult.value01 != null ? paymentCalculatorResult.value01.toString() : null);
-    final _value02Controller =
-        TextEditingController(text: paymentCalculatorResult.value02 != null ? paymentCalculatorResult.value02.toString() : null);
+    final _modelIdController = TextEditingController(text: loanCalculatorResultModel.id != null ? loanCalculatorResultModel.id.toString() : null);
+    final _modelTitleController =
+        TextEditingController(text: loanCalculatorResultModel.title != null ? loanCalculatorResultModel.title.toString() : null);
+    final _modelValue01Controller =
+        TextEditingController(text: loanCalculatorResultModel.value01 != null ? loanCalculatorResultModel.value01.toString() : null);
+    final _modelValue02Controller =
+        TextEditingController(text: loanCalculatorResultModel.value02 != null ? loanCalculatorResultModel.value02.toString() : null);
 
     // HANDLE LOAN CALCULATOR SUBMIT - TELL ME
     void _handleSubmitted() {
@@ -63,10 +67,10 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
               true,
               false,
               new LoanCalculatorResultModel(
-                  _paymentCalculatorResultId.value.text == null ? int.parse(_paymentCalculatorResultId.value.text) : null,
-                  _titleController.value.text.isNotEmpty ? _titleController.value.text : '',
-                  double.parse(_value01Controller.value.text) ?? 0.0,
-                  double.parse(_value02Controller.value.text) ?? 0.0,
+                  _modelIdController.value.text == null ? int.parse(_modelIdController.value.text) : null,
+                  _modelTitleController.value.text.isNotEmpty ? _modelTitleController.value.text : '',
+                  double.parse(_modelValue01Controller.value.text) ?? 0.0,
+                  double.parse(_modelValue02Controller.value.text) ?? 0.0,
                   0,
                   DateTime.now().toUtc().toString(),
                   DateTime.now().toUtc().toString())),
@@ -107,13 +111,13 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                           ),
                         ),
                         TextInputWidget(
-                            controller: _titleController,
+                            controller: _modelTitleController,
                             icon: Icon(Icons.description_outlined, color: Theme.of(context).accentColor),
                             inputLabelText: 'Title / description',
                             informationMessage:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis."),
                         NumberInputWidget(
-                          controller: _value01Controller,
+                          controller: _modelValue01Controller,
                           icon: Icon(
                             Icons.attach_money,
                             color: Theme.of(context).accentColor,
@@ -126,7 +130,7 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                         ),
                         NumberInputWidget(
-                            controller: _value02Controller,
+                            controller: _modelValue02Controller,
                             icon: Icon(Icons.attach_money, color: Theme.of(context).accentColor),
                             inputLabelText: 'Value 02 (not mandatory)',
                             inputPrefixText: '\$ ',

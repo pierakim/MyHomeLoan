@@ -27,7 +27,7 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
     final LoanCalculatorResultScreenArgumentsModel paymentCalculatorResultScreenArguments = ModalRoute.of(context).settings.arguments;
 
     // ROUTE PARAMETERS EXTRACTION
-    final LoanCalculatorResultModel paymentCalculatorResult = paymentCalculatorResultScreenArguments.paymentCalculatorResult;
+    final LoanCalculatorResultModel paymentCalculatorResult = paymentCalculatorResultScreenArguments.loanCalculatorResultModel;
     final bool isBeingCreated = paymentCalculatorResultScreenArguments.isBeingCreated;
     final bool isBeingEdited = paymentCalculatorResultScreenArguments.isBeingEdited;
 
