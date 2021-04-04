@@ -48,6 +48,32 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
     final _value02Controller =
         TextEditingController(text: paymentCalculatorResult.value02 != null ? paymentCalculatorResult.value02.toString() : null);
 
+    // HANDLE LOAN CALCULATOR SUBMIT - TELL ME
+    void _handleSubmitted() {
+      // Validate will return true if the form is valid, or false if
+      // the form is invalid.
+      final form = _formKey.currentState;
+      if (form.validate()) {
+        form.save();
+        FocusScope.of(context).unfocus();
+        Navigator.pushNamed(
+          context,
+          Routes.loanCalculatorResultWidget,
+          arguments: new LoanCalculatorResultScreenArgumentsModel(
+              true,
+              false,
+              new LoanCalculatorResultModel(
+                  _paymentCalculatorResultId.value.text == null ? int.parse(_paymentCalculatorResultId.value.text) : null,
+                  _titleController.value.text.isNotEmpty ? _titleController.value.text : '',
+                  double.parse(_value01Controller.value.text) ?? 0.0,
+                  double.parse(_value02Controller.value.text) ?? 0.0,
+                  0,
+                  DateTime.now().toUtc().toString(),
+                  DateTime.now().toUtc().toString())),
+        );
+      }
+    }
+
     // WIDGET
     return Scaffold(
         appBar: AppBar(
@@ -114,30 +140,7 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Validate will return true if the form is valid, or false if
-                        // the form is invalid.
-                        final form = _formKey.currentState;
-                        if (form.validate()) {
-                          form.save();
-                          FocusScope.of(context).unfocus();
-                          Navigator.pushNamed(
-                            context,
-                            Routes.loanCalculatorResultWidget,
-                            arguments: new LoanCalculatorResultScreenArgumentsModel(
-                                true,
-                                false,
-                                new LoanCalculatorResultModel(
-                                    _paymentCalculatorResultId.value.text == null ? int.parse(_paymentCalculatorResultId.value.text) : null,
-                                    _titleController.value.text.isNotEmpty ? _titleController.value.text : '',
-                                    double.parse(_value01Controller.value.text) ?? 0.0,
-                                    double.parse(_value02Controller.value.text) ?? 0.0,
-                                    0,
-                                    DateTime.now().toUtc().toString(),
-                                    DateTime.now().toUtc().toString())),
-                          );
-                        }
-                      },
+                      onPressed: _handleSubmitted,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 64.0, right: 64.0),
                         child: Text('Tell me!'),
