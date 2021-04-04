@@ -32,6 +32,7 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
   @override
   void initState() {
     // https://stackoverflow.com/a/59881577
+    // Accesssing the context to get the arguments (if needed) from the route here.
     super.initState();
     Future.delayed(Duration.zero, () {
       LoanCalculatorResultScreenArgumentsModel screenArguments = ModalRoute.of(context).settings.arguments;
