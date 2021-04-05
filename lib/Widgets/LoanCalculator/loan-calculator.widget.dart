@@ -110,7 +110,8 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
         Navigator.pushNamed(
           context,
           Routes.loanCalculatorResultWidget,
-          arguments: new LoanCalculatorResultScreenArgumentsModel(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel),
+          arguments:
+              new LoanCalculatorResultScreenArgumentsModel(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel, this._inEditMode),
         );
       }
     }

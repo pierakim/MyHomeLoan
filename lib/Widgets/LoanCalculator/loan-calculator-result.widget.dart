@@ -65,13 +65,7 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
 
     // WIDGET
     return Scaffold(
-      appBar: AppBar(title: Text((() {
-        if (this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id == null) {
-          return "Your data";
-        } else if (this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id != null) {
-          return "Back to collection";
-        }
-      })())),
+      appBar: AppBar(title: Text(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title)),
       body: ListView(
         children: <Widget>[
           // INFORMATION SUMMARY
@@ -262,6 +256,58 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                       onPrimary: Colors.white, // foreground
                     ),
                     child: Text('Saved! Go to your collection'),
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, Routes.myCollectionWidget);
+                    },
+                  ),
+                ),
+              )
+          // SAVE EXISTING LOAN RESULT - SAVE - SAVED
+          else if (this.loanCalculatorResultScreenArgumentsModel.isInEditMode)
+            if (!hasResultBeenSaved)
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: ElevatedButton(
+                    child: Text('Save changes'),
+                    onPressed: () async {
+                      // this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title = _modelTitleController.text;
+                      var hasBeenSaved =
+                          await _loanCalculatorRepo.postLoanCalculatorResult(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
+                      if (hasBeenSaved) {
+                        setState(() => hasBeenSaved == true ? hasResultBeenSaved = true : hasResultBeenSaved = false);
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: _modelTitleController.text,
+                                style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' saved in your collection',
+                              ),
+                            ],
+                          ),
+                        )));
+                      }
+                    },
+                  ),
+                ),
+              )
+            else
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.green, // background
+                      onPrimary: Colors.white, // foreground
+                    ),
+                    child: Text('Changes saved! Go to your collection'),
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, Routes.myCollectionWidget);
                     },
