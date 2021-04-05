@@ -37,15 +37,17 @@ class LoanCalculatorRepository implements ILoanCalculatorRepository {
 
   // PUT
   @override
-  Future<void> putLoanCalculatorResult(LoanCalculatorResultModel paymentCalculatorResult) async {
+  Future<bool> putLoanCalculatorResult(LoanCalculatorResultModel paymentCalculatorResult) async {
     final db = await dbHelper.database;
-    paymentCalculatorResult.isFavourite = paymentCalculatorResult.isFavourite == 0 ? 1 : 0;
-    await db.update(
-      'userLoanRecords',
-      paymentCalculatorResult.toMap(),
-      where: "id = ?",
-      whereArgs: [paymentCalculatorResult.id],
-    );
+    return await db.update(
+              'userLoanRecords',
+              paymentCalculatorResult.toMap(),
+              where: "id = ?",
+              whereArgs: [paymentCalculatorResult.id],
+            ) ==
+            0
+        ? false
+        : true;
   }
 
   // POST

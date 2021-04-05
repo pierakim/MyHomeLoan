@@ -14,11 +14,8 @@ class LoanCalculatorResultWidget extends StatefulWidget {
 
 class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget> {
   final _loanCalculatorRepo = LoanCalculatorRepository();
-
   //MAIN STATE: LoanCalculatorResultScreenArgumentsModel
   LoanCalculatorResultScreenArgumentsModel loanCalculatorResultScreenArgumentsModel;
-
-  // STATES
   bool hasResultBeenSaved = false;
 
   @override
@@ -273,7 +270,7 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                     onPressed: () async {
                       // this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title = _modelTitleController.text;
                       var hasBeenSaved =
-                          await _loanCalculatorRepo.postLoanCalculatorResult(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
+                          await _loanCalculatorRepo.putLoanCalculatorResult(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
                       if (hasBeenSaved) {
                         setState(() => hasBeenSaved == true ? hasResultBeenSaved = true : hasResultBeenSaved = false);
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();

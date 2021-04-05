@@ -39,6 +39,7 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
 
   // ON TAP - FAVOURITE
   void favouriteSelected(LoanCalculatorResultModel paymentCalculatorResult) async {
+    paymentCalculatorResult.isFavourite = paymentCalculatorResult.isFavourite == 0 ? 1 : 0;
     await _loanCalculatorRepo.putLoanCalculatorResult(paymentCalculatorResult);
     refreshList();
   }
