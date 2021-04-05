@@ -25,6 +25,7 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
   TextEditingController _modelTitleController;
   TextEditingController _modelValue01Controller;
   TextEditingController _modelValue02Controller;
+  bool _inEditMode = false;
 
   // FORM KEY
   final _formKey = GlobalKey<FormState>();
@@ -38,16 +39,22 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
       LoanCalculatorResultScreenArgumentsModel screenArguments = ModalRoute.of(context).settings.arguments;
       // EXISTING LOAN
       if (screenArguments.loanCalculatorResultModel != null) {
+        print("EXISTING LOAN");
         setState(() {
           this.loanCalculatorResultScreenArgumentsModel = screenArguments;
+          this._inEditMode = true;
         });
       }
       // NEW LOAN
       else if (this.loanCalculatorResultScreenArgumentsModel == null) {
-        this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(
-            new LoanCalculatorResultModel(null, '', null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()));
+        print("NEW LOAN");
+        setState(() {
+          this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(
+              new LoanCalculatorResultModel(null, null, null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()));
+          this._inEditMode = false;
+        });
       }
-      // PARAMETERS TO CONTROLLER
+      // PARAMETERS TO CONTROLLERrthrf
       this._modelIdController = TextEditingController(
           text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id != null
               ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id.toString()
@@ -69,6 +76,10 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
 
   @override
   void dispose() {
+    _modelIdController.dispose();
+    _modelTitleController.dispose();
+    _modelValue01Controller.dispose();
+    _modelValue02Controller.dispose();
     loanCalculatorResultScreenArgumentsModel = null;
     super.dispose();
   }
@@ -86,7 +97,8 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
 
         setState(() {
           this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(new LoanCalculatorResultModel(
-              _modelIdController.value.text != null ? int.parse(_modelIdController.value.text) : null,
+              // ISSUE here. Dont understand why it's "", it should be null
+              _modelIdController.value.text != null ? int.tryParse(_modelIdController.value.text) : null,
               _modelTitleController.value.text.isNotEmpty ? _modelTitleController.value.text : '',
               double.parse(_modelValue01Controller.value.text) ?? 0.0,
               double.parse(_modelValue02Controller.value.text) ?? 0.0,
@@ -105,10 +117,8 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
 
     // WIDGET
     return Scaffold(
-        appBar: AppBar(
-          title: Text("New loan calculator"),
-        ),
-        drawer: AppDrawerWidget(),
+        appBar: AppBar(title: Text(this._inEditMode ? "Edit your data" : "Loan Calculator")),
+        drawer: !_inEditMode ? AppDrawerWidget() : null,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),

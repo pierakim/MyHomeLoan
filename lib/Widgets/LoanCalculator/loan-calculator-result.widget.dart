@@ -3,8 +3,6 @@ import 'package:my_home_loan/Database/loan-calculator-repository.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
 import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result-screen-arguments-model.dart';
 
-import '../../Models/LoanCalculator/loan-calculator-result.model.dart';
-
 class LoanCalculatorResultWidget extends StatefulWidget {
   static const String routeName = '/readOnlyLoan';
 

@@ -89,8 +89,8 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
       // ADD NEW - FLOATING + BUTTON
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushReplacementNamed(
-            context,
+          Navigator.pushNamed(
+            ctx,
             Routes.loanCalculatorWidget,
             arguments: new LoanCalculatorResultScreenArgumentsModel(null),
           );
@@ -133,7 +133,7 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                       if (selected) {
                         print('row id: ' + paymentCalculatorResult.id.toString());
                         Navigator.pushNamed(
-                          context,
+                          ctx,
                           Routes.loanCalculatorResultWidget,
                           arguments: new LoanCalculatorResultScreenArgumentsModel(new LoanCalculatorResultModel(
                               paymentCalculatorResult.id,
