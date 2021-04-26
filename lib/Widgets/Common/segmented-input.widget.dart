@@ -9,7 +9,12 @@ class SegmentedInputWidget extends StatefulWidget {
   final bool isFormPristine;
 
   SegmentedInputWidget(
-      {this.title, this.mapping, this.isValid, this.isMandatory, this.isFormPristine, Key key})
+      {this.title,
+      this.mapping,
+      this.isValid,
+      this.isMandatory,
+      this.isFormPristine,
+      Key key})
       : super(key: key);
 
   @override
@@ -32,7 +37,8 @@ class SegmentedInputWidgetState extends State<SegmentedInputWidget> {
                 child: Text(
                   widget.title,
                   textScaleFactor: 1.0,
-                  style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
               ),
             ],
@@ -42,7 +48,7 @@ class SegmentedInputWidgetState extends State<SegmentedInputWidget> {
               Expanded(
                 child: CupertinoSegmentedControl<int>(
                   padding: const EdgeInsets.all(0),
-                  selectedColor: Colors.blue,
+                  selectedColor: Theme.of(context).colorScheme.primary,
                   borderColor: Colors.grey,
                   children: widget.mapping,
                   onValueChanged: (int val) {

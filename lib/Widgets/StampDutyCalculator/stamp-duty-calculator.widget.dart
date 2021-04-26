@@ -19,7 +19,8 @@ class StampDutyCalculatorWidget extends StatefulWidget {
   StampDutyCalculatorWidget({Key key}) : super(key: key);
 
   @override
-  _StampDutyCalculatorWidgetState createState() => _StampDutyCalculatorWidgetState();
+  _StampDutyCalculatorWidgetState createState() =>
+      _StampDutyCalculatorWidgetState();
 }
 
 class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
@@ -35,7 +36,8 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
   final _propertyValueController = TextEditingController();
 
   // INIT STAMP DUTY MODEL RESULT
-  StampDutyCalculatorResultModel stampDutyCalculatorResult = StampDutyCalculatorResultModel(0.0, '', null, null, null);
+  StampDutyCalculatorResultModel stampDutyCalculatorResult =
+      StampDutyCalculatorResultModel(0.0, '', null, null, null);
 
   bool isSegmentedFormPristine = true;
   bool isPropertyTypeValid = true;
@@ -94,7 +96,8 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
       });
     }
 
-    var segmentedValidationValid = isPropertyTypeValid && isBuildingTypeValid && isFirstHomeBuyerValid;
+    var segmentedValidationValid =
+        isPropertyTypeValid && isBuildingTypeValid && isFirstHomeBuyerValid;
 
     if (formValidationValid && segmentedValidationValid) {
       print('The form is valid');
@@ -174,7 +177,8 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
                               Icons.attach_money,
                               color: Theme.of(context).accentColor,
                               size: 24.0,
-                              semanticLabel: 'Text to announce in accessibility modes',
+                              semanticLabel:
+                                  'Text to announce in accessibility modes',
                             ),
                             inputLabelText: 'Property value',
                             inputPrefixText: '\$ ',
@@ -190,7 +194,8 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
                                 color: Theme.of(context).accentColor,
                                 size: 24.0,
                               ),
-                              informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                              informationMessage:
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                               choices: [
                                 SegmentedInputWidget(
                                   key: _propertyTypeKey,
@@ -208,7 +213,8 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
                                 color: Theme.of(context).accentColor,
                                 size: 24.0,
                               ),
-                              informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                              informationMessage:
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                               choices: [
                                 SegmentedInputWidget(
                                   key: _buildingTypeKey,
@@ -226,7 +232,8 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
                                 color: Theme.of(context).accentColor,
                                 size: 24.0,
                               ),
-                              informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                              informationMessage:
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                               choices: [
                                 SegmentedInputWidget(
                                   key: _firstHomeBuyerKey,
@@ -240,11 +247,13 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
                           // TELL ME BUTTON
                           Center(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
                               child: ElevatedButton(
                                 onPressed: _handleSubmitted,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 64.0, right: 64.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 64.0, right: 64.0),
                                   child: Text('Tell me!'),
                                 ),
                               ),

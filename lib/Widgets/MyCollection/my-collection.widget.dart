@@ -21,13 +21,15 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
   @override
   void initState() {
     super.initState();
-    _paymentCalculatorResults = _loanCalculatorRepo.getAllLoanCalculatorResults();
+    _paymentCalculatorResults =
+        _loanCalculatorRepo.getAllLoanCalculatorResults();
   }
 
   // REFRESH LIST - REFRESH STATE BASED ON DB RESULT
   void refreshList() {
     setState(() {
-      _paymentCalculatorResults = _loanCalculatorRepo.getAllLoanCalculatorResults();
+      _paymentCalculatorResults =
+          _loanCalculatorRepo.getAllLoanCalculatorResults();
     });
   }
 
@@ -38,8 +40,10 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
   }
 
   // ON TAP - FAVOURITE
-  void favouriteSelected(LoanCalculatorResultModel paymentCalculatorResult) async {
-    paymentCalculatorResult.isFavourite = paymentCalculatorResult.isFavourite == 0 ? 1 : 0;
+  void favouriteSelected(
+      LoanCalculatorResultModel paymentCalculatorResult) async {
+    paymentCalculatorResult.isFavourite =
+        paymentCalculatorResult.isFavourite == 0 ? 1 : 0;
     await _loanCalculatorRepo.putLoanCalculatorResult(paymentCalculatorResult);
     refreshList();
   }
@@ -69,16 +73,23 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
               ),
               FutureBuilder<List<LoanCalculatorResultModel>>(
                   future: _paymentCalculatorResults,
-                  builder: (BuildContext context, AsyncSnapshot<List<LoanCalculatorResultModel>> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<LoanCalculatorResultModel>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return SizedBox(height: MediaQuery.of(context).size.width, child: Center(child: CircularProgressIndicator()));
+                      return SizedBox(
+                          height: MediaQuery.of(context).size.width,
+                          child: Center(child: CircularProgressIndicator()));
                     } else {
                       if (snapshot.hasError)
                         return SizedBox(
                             height: MediaQuery.of(context).size.width,
-                            child: Center(child: Text('Ouups, something happened..please restart the app')));
+                            child: Center(
+                                child: Text(
+                                    'Ouups, something happened..please restart the app')));
                       else if (snapshot.data.length == 0)
-                        return SizedBox(height: MediaQuery.of(context).size.width, child: Center(child: Text('Collection is empty')));
+                        return SizedBox(
+                            height: MediaQuery.of(context).size.width,
+                            child: Center(child: Text('Collection is empty')));
                       else
                         return Card(child: tableBody(context, snapshot.data));
                     }
@@ -103,7 +114,8 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
   }
 
   // TABLE DATA COLUMN - LIST OF LoanCalculatorResultModel
-  SingleChildScrollView tableBody(BuildContext ctx, List<LoanCalculatorResultModel> paymentCalculatorResults) {
+  SingleChildScrollView tableBody(BuildContext ctx,
+      List<LoanCalculatorResultModel> paymentCalculatorResults) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: FittedBox(
@@ -132,18 +144,22 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                 (paymentCalculatorResult) => DataRow(
                     onSelectChanged: (bool selected) {
                       if (selected) {
-                        print('row id: ' + paymentCalculatorResult.id.toString());
+                        print(
+                            'row id: ' + paymentCalculatorResult.id.toString());
                         Navigator.pushNamed(
                           ctx,
                           Routes.loanCalculatorResultWidget,
-                          arguments: new LoanCalculatorResultScreenArgumentsModel(new LoanCalculatorResultModel(
-                              paymentCalculatorResult.id,
-                              paymentCalculatorResult.title,
-                              paymentCalculatorResult.value01,
-                              paymentCalculatorResult.value02,
-                              paymentCalculatorResult.isFavourite,
-                              paymentCalculatorResult.creationDate,
-                              paymentCalculatorResult.modificationDate)),
+                          arguments:
+                              new LoanCalculatorResultScreenArgumentsModel(
+                                  new LoanCalculatorResultModel(
+                                      paymentCalculatorResult.id,
+                                      paymentCalculatorResult.title,
+                                      paymentCalculatorResult.value01,
+                                      paymentCalculatorResult.value02,
+                                      paymentCalculatorResult.isFavourite,
+                                      paymentCalculatorResult.creationDate,
+                                      paymentCalculatorResult
+                                          .modificationDate)),
                         );
                       }
                     },
@@ -192,10 +208,12 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                                   // width: 150,
                                   child: Text(
                                       "Value 01: " +
-                                          paymentCalculatorResult.value01.toString() +
+                                          paymentCalculatorResult.value01
+                                              .toString() +
                                           "  " +
                                           "Value 02: " +
-                                          paymentCalculatorResult.value02.toString(),
+                                          paymentCalculatorResult.value02
+                                              .toString(),
                                       style: new TextStyle(
                                         fontSize: 15.0,
                                       ),

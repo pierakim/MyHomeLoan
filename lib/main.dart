@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins',
         brightness: Brightness.light,
-        primaryColor: Colors.lightBlue[600],
-        accentColor: Colors.cyan[600],
+        primaryColor: Color(0xff4173CC),
+        accentColor: Color(0xff1DA1F3),
       ),
       home: HomeScreenWidget(title: appTitle),
     );
