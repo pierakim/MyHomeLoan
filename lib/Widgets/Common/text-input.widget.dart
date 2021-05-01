@@ -8,14 +8,7 @@ class TextInputWidget extends StatefulWidget {
   final String informationMessage;
   final TextEditingController controller;
 
-  const TextInputWidget(
-      {Key key,
-      this.inputLabelText,
-      this.validationText,
-      this.icon,
-      this.informationMessage,
-      this.controller})
-      : super(key: key);
+  const TextInputWidget({Key key, this.inputLabelText, this.validationText, this.icon, this.informationMessage, this.controller}) : super(key: key);
 
   @override
   TextInputWidgetState createState() => TextInputWidgetState();

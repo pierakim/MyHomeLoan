@@ -29,25 +29,21 @@ class AppDrawerWidget extends StatelessWidget {
                 onTap: () => Navigator.pushReplacementNamed(
                       context,
                       Routes.loanCalculatorWidget,
-                      arguments:
-                          new LoanCalculatorResultScreenArgumentsModel(null),
+                      arguments: new LoanCalculatorResultScreenArgumentsModel(null),
                     )),
             _createDrawerItem(
                 context: context,
                 icon: Icons.contacts,
                 text: 'My collection',
-                onTap: () => Navigator.pushReplacementNamed(
-                    context, Routes.myCollectionWidget)),
+                onTap: () => Navigator.pushReplacementNamed(context, Routes.myCollectionWidget)),
             _createDrawerItem(
                 context: context,
                 icon: Icons.event,
                 text: 'Stamp duty calculator',
-                onTap: () => Navigator.pushReplacementNamed(
-                    context, Routes.stampDutyCalculatorWidget)),
+                onTap: () => Navigator.pushReplacementNamed(context, Routes.stampDutyCalculatorWidget)),
             Divider(),
             ListTile(
-              title: Text('v.1.0.1 - Lambda Dev - All right reserved - ',
-                  style: TextStyle(color: Colors.white70, fontSize: 10)),
+              title: Text('v.1.0.1 - Lambda Dev - All right reserved', style: TextStyle(color: Colors.white70, fontSize: 10)),
               onTap: () {},
             ),
           ],
@@ -72,21 +68,13 @@ class AppDrawerWidget extends StatelessWidget {
               ),
             ),
             Center(
-              child: Text("My Oz Loan",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w500)),
+              child: Text("My Oz Loan", style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w500)),
             ),
           ]),
         ));
   }
 
-  Widget _createDrawerItem(
-      {BuildContext context,
-      IconData icon,
-      String text,
-      GestureTapCallback onTap}) {
+  Widget _createDrawerItem({BuildContext context, IconData icon, String text, GestureTapCallback onTap}) {
     return ListTile(
       title: Row(
         children: <Widget>[

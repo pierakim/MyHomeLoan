@@ -7,9 +7,7 @@ class DropDownInputWidget extends StatefulWidget {
   final String informationMessage;
   final String validationText;
 
-  DropDownInputWidget(
-      {this.inputLabelText, this.icon, this.informationMessage, this.validationText, Key key})
-      : super(key: key);
+  DropDownInputWidget({this.inputLabelText, this.icon, this.informationMessage, this.validationText, Key key}) : super(key: key);
 
   @override
   DropDownInputWidgetState createState() => DropDownInputWidgetState();

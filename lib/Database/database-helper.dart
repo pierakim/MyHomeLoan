@@ -36,8 +36,7 @@ class DatabaseHelper {
   _initDatabase() async {
     // Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(await getDatabasesPath(), _databaseName);
-    return await openDatabase(path,
-        version: _databaseVersion, onCreate: _onCreate);
+    return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
   // SQL code to create the database table
@@ -76,8 +75,7 @@ class DatabaseHelper {
   // raw SQL commands. This method uses a raw query to give the row count.
   Future<int> queryRowCount() async {
     Database db = await instance.database;
-    return Sqflite.firstIntValue(
-        await db.rawQuery('SELECT COUNT(*) FROM $table'));
+    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table'));
   }
 
   // We are assuming here that the id column in the map is set. The other

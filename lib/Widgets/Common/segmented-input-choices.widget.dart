@@ -6,8 +6,7 @@ class SegmentedInputChoicesWidget extends StatefulWidget {
   final Icon icon;
   final List<Widget> choices;
   final String informationMessage;
-  SegmentedInputChoicesWidget({this.icon, this.informationMessage, this.choices, Key key})
-      : super(key: key);
+  SegmentedInputChoicesWidget({this.icon, this.informationMessage, this.choices, Key key}) : super(key: key);
 
   @override
   _SegmentInputChoicesWidgetState createState() => _SegmentInputChoicesWidgetState();

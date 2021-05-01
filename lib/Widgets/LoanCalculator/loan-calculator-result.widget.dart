@@ -12,12 +12,10 @@ class LoanCalculatorResultWidget extends StatefulWidget {
   State<StatefulWidget> createState() => _LoanCalculatorResultWidgetState();
 }
 
-class _LoanCalculatorResultWidgetState
-    extends State<LoanCalculatorResultWidget> {
+class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget> {
   final _loanCalculatorRepo = LoanCalculatorRepository();
   //MAIN STATE: LoanCalculatorResultScreenArgumentsModel
-  LoanCalculatorResultScreenArgumentsModel
-      loanCalculatorResultScreenArgumentsModel;
+  LoanCalculatorResultScreenArgumentsModel loanCalculatorResultScreenArgumentsModel;
   bool hasResultBeenSaved = false;
 
   @override
@@ -34,8 +32,7 @@ class _LoanCalculatorResultWidgetState
   @override
   Widget build(BuildContext context) {
     // ROUTE ARGUMENT
-    final LoanCalculatorResultScreenArgumentsModel screenArguments =
-        ModalRoute.of(context).settings.arguments;
+    final LoanCalculatorResultScreenArgumentsModel screenArguments = ModalRoute.of(context).settings.arguments;
 
     setState(() {
       this.loanCalculatorResultScreenArgumentsModel = screenArguments;
@@ -43,73 +40,29 @@ class _LoanCalculatorResultWidgetState
 
     // PARAMETERS TO CONTROLLER
     final _modelIdController = TextEditingController(
-        text: this
-                    .loanCalculatorResultScreenArgumentsModel
-                    .loanCalculatorResultModel
-                    .id !=
-                null
-            ? this
-                .loanCalculatorResultScreenArgumentsModel
-                .loanCalculatorResultModel
-                .id
-                .toString()
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id.toString()
             : null);
     final _modelTitleController = TextEditingController(
-        text: this
-                    .loanCalculatorResultScreenArgumentsModel
-                    .loanCalculatorResultModel
-                    .title !=
-                null
-            ? this
-                .loanCalculatorResultScreenArgumentsModel
-                .loanCalculatorResultModel
-                .title
-                .toString()
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title.toString()
             : null);
     final _modelValue01Controller = TextEditingController(
-        text: this
-                    .loanCalculatorResultScreenArgumentsModel
-                    .loanCalculatorResultModel
-                    .value01 !=
-                null
-            ? this
-                .loanCalculatorResultScreenArgumentsModel
-                .loanCalculatorResultModel
-                .value01
-                .toString()
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value01 != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value01.toString()
             : null);
     final _modelValue02Controller = TextEditingController(
-        text: this
-                    .loanCalculatorResultScreenArgumentsModel
-                    .loanCalculatorResultModel
-                    .value02 !=
-                null
-            ? this
-                .loanCalculatorResultScreenArgumentsModel
-                .loanCalculatorResultModel
-                .value02
-                .toString()
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02 != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02.toString()
             : null);
     final _modelResultController = TextEditingController(
-        text: this
-                    .loanCalculatorResultScreenArgumentsModel
-                    .loanCalculatorResultModel
-                    .result !=
-                null
-            ? this
-                .loanCalculatorResultScreenArgumentsModel
-                .loanCalculatorResultModel
-                .result
-                .toString()
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result.toString()
             : null);
 
     // WIDGET
     return Scaffold(
-      appBar: AppBar(
-          title: Text(this
-              .loanCalculatorResultScreenArgumentsModel
-              .loanCalculatorResultModel
-              .title)),
+      appBar: AppBar(title: Text(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title)),
       body: ListView(
         children: <Widget>[
           // INFORMATION SUMMARY
@@ -130,14 +83,12 @@ class _LoanCalculatorResultWidgetState
                               Row(children: [
                                 Icon(
                                   Icons.description_outlined,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
+                                  color: Theme.of(context).colorScheme.secondary,
                                   size: 20.0,
                                 ),
                                 Expanded(
                                   child: TextField(
-                                    style: TextStyle(
-                                        fontSize: 15.0, color: Colors.black),
+                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
                                     controller: _modelTitleController,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
@@ -165,14 +116,12 @@ class _LoanCalculatorResultWidgetState
                               Row(children: [
                                 Icon(
                                   Icons.attach_money,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
+                                  color: Theme.of(context).colorScheme.secondary,
                                   size: 20.0,
                                 ),
                                 Expanded(
                                   child: TextField(
-                                    style: TextStyle(
-                                        fontSize: 15.0, color: Colors.black),
+                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
                                     controller: _modelValue01Controller,
                                     decoration: InputDecoration(
                                       prefixText: "\$",
@@ -197,14 +146,12 @@ class _LoanCalculatorResultWidgetState
                               Row(children: [
                                 Icon(
                                   Icons.not_listed_location_outlined,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
+                                  color: Theme.of(context).colorScheme.secondary,
                                   size: 20.0,
                                 ),
                                 Expanded(
                                   child: TextField(
-                                    style: TextStyle(
-                                        fontSize: 15.0, color: Colors.black),
+                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
                                     controller: _modelValue02Controller,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
@@ -261,11 +208,7 @@ class _LoanCalculatorResultWidgetState
             ),
           ),
           // SAVE NEW LOAN RESULT - SAVE - SAVED
-          if (this
-                  .loanCalculatorResultScreenArgumentsModel
-                  .loanCalculatorResultModel
-                  .id ==
-              null)
+          if (this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id == null)
             if (!hasResultBeenSaved)
               Center(
                 child: Padding(
@@ -274,14 +217,10 @@ class _LoanCalculatorResultWidgetState
                     child: Text('Save'),
                     onPressed: () async {
                       // this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title = _modelTitleController.text;
-                      var hasBeenSaved = await _loanCalculatorRepo
-                          .postLoanCalculatorResult(this
-                              .loanCalculatorResultScreenArgumentsModel
-                              .loanCalculatorResultModel);
+                      var hasBeenSaved =
+                          await _loanCalculatorRepo.postLoanCalculatorResult(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
                       if (hasBeenSaved) {
-                        setState(() => hasBeenSaved == true
-                            ? hasResultBeenSaved = true
-                            : hasResultBeenSaved = false);
+                        setState(() => hasBeenSaved == true ? hasResultBeenSaved = true : hasResultBeenSaved = false);
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: RichText(
@@ -315,8 +254,7 @@ class _LoanCalculatorResultWidgetState
                     ),
                     child: Text('Saved! Go to your collection'),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(
-                          context, Routes.myCollectionWidget);
+                      Navigator.pushReplacementNamed(context, Routes.myCollectionWidget);
                     },
                   ),
                 ),
@@ -332,13 +270,9 @@ class _LoanCalculatorResultWidgetState
                     onPressed: () async {
                       // this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title = _modelTitleController.text;
                       var hasBeenSaved =
-                          await _loanCalculatorRepo.putLoanCalculatorResult(this
-                              .loanCalculatorResultScreenArgumentsModel
-                              .loanCalculatorResultModel);
+                          await _loanCalculatorRepo.putLoanCalculatorResult(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
                       if (hasBeenSaved) {
-                        setState(() => hasBeenSaved == true
-                            ? hasResultBeenSaved = true
-                            : hasResultBeenSaved = false);
+                        setState(() => hasBeenSaved == true ? hasResultBeenSaved = true : hasResultBeenSaved = false);
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: RichText(
@@ -372,8 +306,7 @@ class _LoanCalculatorResultWidgetState
                     ),
                     child: Text('Changes saved! Go to your collection'),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(
-                          context, Routes.myCollectionWidget);
+                      Navigator.pushReplacementNamed(context, Routes.myCollectionWidget);
                     },
                   ),
                 ),
@@ -382,21 +315,13 @@ class _LoanCalculatorResultWidgetState
       ),
       // FLOATINGACTIONBUTTON CONDITIONAL EDIT LOAN RESULT USING
       floatingActionButton: Visibility(
-        visible: this
-                    .loanCalculatorResultScreenArgumentsModel
-                    .loanCalculatorResultModel
-                    .id ==
-                null
-            ? false
-            : true,
+        visible: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id == null ? false : true,
         child: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(
               context,
               Routes.loanCalculatorWidget,
-              arguments: new LoanCalculatorResultScreenArgumentsModel(this
-                  .loanCalculatorResultScreenArgumentsModel
-                  .loanCalculatorResultModel),
+              arguments: new LoanCalculatorResultScreenArgumentsModel(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel),
             );
           },
           child: const Icon(Icons.edit),

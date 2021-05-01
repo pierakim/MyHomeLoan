@@ -9,15 +9,12 @@ class StampDutyCalculatorResultModel extends ChangeNotifier {
   int buildingChoice = 0;
   int isFirstHomeBuyer = 0;
 
-  double get result =>
-      getResult(propertyValue, state, propertyChoice, buildingChoice, isFirstHomeBuyer);
+  double get result => getResult(propertyValue, state, propertyChoice, buildingChoice, isFirstHomeBuyer);
 
-  StampDutyCalculatorResultModel(this.propertyValue, this.state, this.propertyChoice,
-      this.buildingChoice, this.isFirstHomeBuyer);
+  StampDutyCalculatorResultModel(this.propertyValue, this.state, this.propertyChoice, this.buildingChoice, this.isFirstHomeBuyer);
 }
 
-double getResult(double propertyValue, String state, int propertyChoice, int buildingChoice,
-    int isFirstHomeBuyer) {
+double getResult(double propertyValue, String state, int propertyChoice, int buildingChoice, int isFirstHomeBuyer) {
   var stampDutyResult = 0.0;
   if (state == "South Australia") {
     if (propertyValue <= 12000) {
@@ -90,8 +87,7 @@ double getResult(double propertyValue, String state, int propertyChoice, int bui
     if (propertyValue <= 500000 && isFirstHomeBuyer == 0 && propertyChoice == 0) {
       stampDutyResult = 0;
     } else if (propertyValue <= 525000) {
-      stampDutyResult = (0.06571441 * propertyValue * 1 / 1000 * propertyValue * 1 / 1000) +
-          15 * propertyValue / 1000;
+      stampDutyResult = (0.06571441 * propertyValue * 1 / 1000 * propertyValue * 1 / 1000) + 15 * propertyValue / 1000;
     } else {
       if (propertyValue > 525000 && propertyValue <= 3000000) {
         stampDutyResult = 4.95 * propertyValue / 100;
@@ -105,10 +101,7 @@ double getResult(double propertyValue, String state, int propertyChoice, int bui
         }
       }
     }
-    if (propertyValue > 500000 &&
-        propertyValue < 650000 &&
-        isFirstHomeBuyer == 0 &&
-        propertyChoice == 0) {
+    if (propertyValue > 500000 && propertyValue < 650000 && isFirstHomeBuyer == 0 && propertyChoice == 0) {
       stampDutyResult = stampDutyResult - 23928.60;
     }
   }
@@ -162,16 +155,10 @@ double getResult(double propertyValue, String state, int propertyChoice, int bui
       stampDutyResult = 0;
     }
 
-    if (propertyValue >= 130000 &&
-        propertyValue <= 440000 &&
-        isFirstHomeBuyer == 1 &&
-        propertyChoice == 0) {
+    if (propertyValue >= 130000 && propertyValue <= 440000 && isFirstHomeBuyer == 1 && propertyChoice == 0) {
       stampDutyResult = stampDutyResult - (stampDutyResult * 14.2 / 100);
     }
-    if (propertyValue >= 440000 &&
-        propertyValue <= 500000 &&
-        isFirstHomeBuyer == 1 &&
-        propertyChoice == 0) {
+    if (propertyValue >= 440000 && propertyValue <= 500000 && isFirstHomeBuyer == 1 && propertyChoice == 0) {
       stampDutyResult = stampDutyResult - 3100;
     }
   }

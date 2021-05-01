@@ -70,8 +70,7 @@ class NumberInputWidgetState extends State<NumberInputWidget> {
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp('[0-9.,]+')),
               ],
-              onChanged: (val) =>
-                  setState(() => inputValue = val.isNotEmpty ? double.parse(val) : null),
+              onChanged: (val) => setState(() => inputValue = val.isNotEmpty ? double.parse(val) : null),
             ),
           ),
           if (widget.informationMessage != null && widget.informationMessage.isNotEmpty)

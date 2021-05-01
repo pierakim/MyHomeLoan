@@ -8,14 +8,7 @@ class SegmentedInputWidget extends StatefulWidget {
   final bool isMandatory;
   final bool isFormPristine;
 
-  SegmentedInputWidget(
-      {this.title,
-      this.mapping,
-      this.isValid,
-      this.isMandatory,
-      this.isFormPristine,
-      Key key})
-      : super(key: key);
+  SegmentedInputWidget({this.title, this.mapping, this.isValid, this.isMandatory, this.isFormPristine, Key key}) : super(key: key);
 
   @override
   SegmentedInputWidgetState createState() => SegmentedInputWidgetState();
@@ -37,8 +30,7 @@ class SegmentedInputWidgetState extends State<SegmentedInputWidget> {
                 child: Text(
                   widget.title,
                   textScaleFactor: 1.0,
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                  style: TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
               ),
             ],

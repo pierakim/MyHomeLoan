@@ -9,28 +9,21 @@ class StampDutyCalculatorResultWidget extends StatefulWidget {
   StampDutyCalculatorResultWidget({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() =>
-      _StampDutyCalculatorResultWidgetState();
+  State<StatefulWidget> createState() => _StampDutyCalculatorResultWidgetState();
 }
 
-class _StampDutyCalculatorResultWidgetState
-    extends State<StampDutyCalculatorResultWidget> {
+class _StampDutyCalculatorResultWidgetState extends State<StampDutyCalculatorResultWidget> {
   @override
   Widget build(BuildContext context) {
     // ROUTE ARGUMENT
-    final StampDutyCalculatorResultModel args =
-        ModalRoute.of(context).settings.arguments;
+    final StampDutyCalculatorResultModel args = ModalRoute.of(context).settings.arguments;
 
     // PARAMETERS TO CONTROLLER
-    final _propertyValueController =
-        TextEditingController(text: args.propertyValue.toString());
+    final _propertyValueController = TextEditingController(text: args.propertyValue.toString());
     final _stateController = TextEditingController(text: args.state.toString());
-    final _residenceTypeController = TextEditingController(
-        text: residenceTypeForDisplay[args.propertyChoice].data);
-    final _firstHomeBuyerController = TextEditingController(
-        text: isFirstHomeBuyerForDisplay[args.propertyChoice].data);
-    final _resultController =
-        TextEditingController(text: '\$ ' + args.result.toString());
+    final _residenceTypeController = TextEditingController(text: residenceTypeForDisplay[args.propertyChoice].data);
+    final _firstHomeBuyerController = TextEditingController(text: isFirstHomeBuyerForDisplay[args.propertyChoice].data);
+    final _resultController = TextEditingController(text: '\$ ' + args.result.toString());
 
     return Scaffold(
         appBar: AppBar(
@@ -56,14 +49,12 @@ class _StampDutyCalculatorResultWidgetState
                                 Row(children: [
                                   Icon(
                                     Icons.attach_money,
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
+                                    color: Theme.of(context).colorScheme.secondary,
                                     size: 20.0,
                                   ),
                                   Expanded(
                                     child: TextField(
-                                      style: TextStyle(
-                                          fontSize: 15.0, color: Colors.black),
+                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
                                       controller: _propertyValueController,
                                       decoration: InputDecoration(
                                         prefixText: "\$",
@@ -89,14 +80,12 @@ class _StampDutyCalculatorResultWidgetState
                                 Row(children: [
                                   Icon(
                                     Icons.not_listed_location_outlined,
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
+                                    color: Theme.of(context).colorScheme.secondary,
                                     size: 20.0,
                                   ),
                                   Expanded(
                                     child: TextField(
-                                      style: TextStyle(
-                                          fontSize: 15.0, color: Colors.black),
+                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
                                       controller: _stateController,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
@@ -124,14 +113,12 @@ class _StampDutyCalculatorResultWidgetState
                                 Row(children: [
                                   Icon(
                                     Icons.roofing,
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
+                                    color: Theme.of(context).colorScheme.secondary,
                                     size: 20.0,
                                   ),
                                   Expanded(
                                     child: TextField(
-                                      style: TextStyle(
-                                          fontSize: 15.0, color: Colors.black),
+                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
                                       controller: _firstHomeBuyerController,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
@@ -160,8 +147,7 @@ class _StampDutyCalculatorResultWidgetState
                                   ),
                                   Expanded(
                                     child: TextField(
-                                      style: TextStyle(
-                                          fontSize: 15.0, color: Colors.black),
+                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
                                       controller: _residenceTypeController,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
