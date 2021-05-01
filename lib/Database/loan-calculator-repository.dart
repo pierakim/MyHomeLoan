@@ -21,8 +21,16 @@ class LoanCalculatorRepository implements ILoanCalculatorRepository {
     final List<Map<String, dynamic>> maps = await db.query('userLoanRecords', orderBy: "isFavourite DESC");
     // await Future.delayed(Duration(seconds: 3));
     var paymentCalculatorResultsList = List.generate(maps.length, (i) {
-      return LoanCalculatorResultModel(maps[i]['id'], maps[i]['title'], maps[i]['value01'].toDouble(), maps[i]['value02'].toDouble(),
-          maps[i]['isFavourite'], maps[i]['creationDate'], maps[i]['modificationDate']);
+      return LoanCalculatorResultModel(
+          maps[i]['id'],
+          maps[i]['title'],
+          maps[i]['value01'].toDouble(),
+          maps[i]['value02'].toDouble(),
+          maps[i]['propertyValue'].toDouble(),
+          maps[i]['userDeposit'].toDouble(),
+          maps[i]['isFavourite'],
+          maps[i]['creationDate'],
+          maps[i]['modificationDate']);
     });
 
     return paymentCalculatorResultsList;

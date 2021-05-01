@@ -55,6 +55,14 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02 != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02.toString()
             : null);
+    final _propertyValue = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyValue != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyValue.toString()
+            : null);
+    final _userDeposit = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.userDeposit != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.userDeposit.toString()
+            : null);
     final _modelResultController = TextEditingController(
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result.toString()
@@ -157,6 +165,74 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                                       border: InputBorder.none,
                                       filled: false,
                                       labelText: "Value02",
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ],
+                          ),
+                        )),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                            child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Column(
+                            children: [
+                              Row(children: [
+                                Icon(
+                                  Icons.home_outlined,
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  size: 20.0,
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
+                                    controller: _propertyValue,
+                                    decoration: InputDecoration(
+                                      prefixText: "\$",
+                                      suffixText: ' AUD',
+                                      border: InputBorder.none,
+                                      filled: false,
+                                      labelText: "Property value",
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ],
+                          ),
+                        )),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                            child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Column(
+                            children: [
+                              Row(children: [
+                                Icon(
+                                  Icons.home_outlined,
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  size: 20.0,
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
+                                    controller: _userDeposit,
+                                    decoration: InputDecoration(
+                                      prefixText: "\$",
+                                      suffixText: ' AUD',
+                                      border: InputBorder.none,
+                                      filled: false,
+                                      labelText: "Deposit",
                                     ),
                                   ),
                                 ),

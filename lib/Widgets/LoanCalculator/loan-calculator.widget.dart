@@ -23,8 +23,11 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
   LoanCalculatorResultScreenArgumentsModel loanCalculatorResultScreenArgumentsModel;
   TextEditingController _modelIdController;
   TextEditingController _modelTitleController;
+  TextEditingController _userDeposit;
   TextEditingController _modelValue01Controller;
   TextEditingController _modelValue02Controller;
+  TextEditingController _propertyValueController;
+  TextEditingController _userDepositController;
   bool _inEditMode = false;
 
   // FORM KEY
@@ -49,12 +52,12 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
       else if (this.loanCalculatorResultScreenArgumentsModel == null) {
         print("NEW LOAN");
         setState(() {
-          this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(
-              new LoanCalculatorResultModel(null, null, null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()));
+          this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(new LoanCalculatorResultModel(
+              null, null, null, null, null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()));
           this._inEditMode = false;
         });
       }
-      // PARAMETERS TO CONTROLLERrthrf
+      // PARAMETERS TO CONTROLLER
       this._modelIdController = TextEditingController(
           text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id != null
               ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.id.toString()
@@ -71,6 +74,14 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
           text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02 != null
               ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02.toString()
               : null);
+      this._propertyValueController = TextEditingController(
+          text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyValue != null
+              ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyValue.toString()
+              : null);
+      this._userDepositController = TextEditingController(
+          text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.userDeposit != null
+              ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.userDeposit.toString()
+              : null);
     });
   }
 
@@ -80,6 +91,8 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
     _modelTitleController.dispose();
     _modelValue01Controller.dispose();
     _modelValue02Controller.dispose();
+    _propertyValueController.dispose();
+    _userDepositController.dispose();
     loanCalculatorResultScreenArgumentsModel = null;
     super.dispose();
   }
@@ -102,6 +115,8 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
               _modelTitleController.value.text.isNotEmpty ? _modelTitleController.value.text : '',
               double.parse(_modelValue01Controller.value.text) ?? 0.0,
               double.parse(_modelValue02Controller.value.text) ?? 0.0,
+              double.parse(_propertyValueController.value.text) ?? 0.0,
+              double.parse(_userDepositController.value.text) ?? 0.0,
               0,
               DateTime.now().toUtc().toString(),
               DateTime.now().toUtc().toString()));
@@ -171,6 +186,31 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                             inputLabelText: 'Value 02 (not mandatory)',
                             inputPrefixText: '\$ ',
                             inputSufixText: 'AUD'),
+                        NumberInputWidget(
+                          controller: _propertyValueController,
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          inputLabelText: 'Property value',
+                          inputPrefixText: '\$ ',
+                          inputSufixText: 'AUD',
+                          validationText: 'Enter a value',
+                          informationMessage: "The value of the property you're interested in.",
+                        ),
+                        NumberInputWidget(
+                          controller: _userDepositController,
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          inputLabelText: 'Deposit',
+                          inputPrefixText: '\$ ',
+                          inputSufixText: 'AUD',
+                          validationText: 'Enter a value',
+                          informationMessage:
+                              "The global deposit you're ready to put for that property. It includes taxes like stamp duty and/or solicitor fee.",
+                        ),
                       ],
                     ),
                   ),
