@@ -63,6 +63,14 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.userDeposit != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.userDeposit.toString()
             : null);
+    final _loanDuration = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.loanDuration != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.loanDuration.toString()
+            : null);
+    final _bankInterestRate = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.bankInterestRate != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.bankInterestRate.toString()
+            : null);
     final _modelResultController = TextEditingController(
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result.toString()
@@ -233,6 +241,72 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                                       border: InputBorder.none,
                                       filled: false,
                                       labelText: "Deposit",
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ],
+                          ),
+                        )),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                            child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Column(
+                            children: [
+                              Row(children: [
+                                Icon(
+                                  Icons.home_outlined,
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  size: 20.0,
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
+                                    controller: _loanDuration,
+                                    decoration: InputDecoration(
+                                      suffixText: ' year(s)',
+                                      border: InputBorder.none,
+                                      filled: false,
+                                      labelText: "Loan duration",
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ],
+                          ),
+                        )),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                            child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Column(
+                            children: [
+                              Row(children: [
+                                Icon(
+                                  Icons.home_outlined,
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  size: 20.0,
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
+                                    controller: _bankInterestRate,
+                                    decoration: InputDecoration(
+                                      suffixText: ' year(s)',
+                                      border: InputBorder.none,
+                                      filled: false,
+                                      labelText: "Bank interesst rate",
                                     ),
                                   ),
                                 ),

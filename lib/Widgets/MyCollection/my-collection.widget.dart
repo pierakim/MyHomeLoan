@@ -143,6 +143,8 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                               paymentCalculatorResult.value02,
                               paymentCalculatorResult.propertyValue,
                               paymentCalculatorResult.userDeposit,
+                              paymentCalculatorResult.loanDuration,
+                              paymentCalculatorResult.bankInterestRate,
                               paymentCalculatorResult.isFavourite,
                               paymentCalculatorResult.creationDate,
                               paymentCalculatorResult.modificationDate)),

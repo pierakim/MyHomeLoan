@@ -23,11 +23,12 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
   LoanCalculatorResultScreenArgumentsModel loanCalculatorResultScreenArgumentsModel;
   TextEditingController _modelIdController;
   TextEditingController _modelTitleController;
-  TextEditingController _userDeposit;
   TextEditingController _modelValue01Controller;
   TextEditingController _modelValue02Controller;
   TextEditingController _propertyValueController;
   TextEditingController _userDepositController;
+  TextEditingController _loanDurationController;
+  TextEditingController _bankInterestRateController;
   bool _inEditMode = false;
 
   // FORM KEY
@@ -53,7 +54,7 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
         print("NEW LOAN");
         setState(() {
           this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(new LoanCalculatorResultModel(
-              null, null, null, null, null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()));
+              null, null, null, null, null, null, null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()));
           this._inEditMode = false;
         });
       }
@@ -82,6 +83,14 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
           text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.userDeposit != null
               ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.userDeposit.toString()
               : null);
+      this._loanDurationController = TextEditingController(
+          text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.loanDuration != null
+              ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.loanDuration.toString()
+              : null);
+      this._bankInterestRateController = TextEditingController(
+          text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.loanDuration != null
+              ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.loanDuration.toString()
+              : null);
     });
   }
 
@@ -93,6 +102,8 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
     _modelValue02Controller.dispose();
     _propertyValueController.dispose();
     _userDepositController.dispose();
+    _loanDurationController.dispose();
+    _bankInterestRateController.dispose();
     loanCalculatorResultScreenArgumentsModel = null;
     super.dispose();
   }
@@ -117,6 +128,8 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
               double.parse(_modelValue02Controller.value.text) ?? 0.0,
               double.parse(_propertyValueController.value.text) ?? 0.0,
               double.parse(_userDepositController.value.text) ?? 0.0,
+              double.parse(_loanDurationController.value.text) ?? 0.0,
+              double.parse(_bankInterestRateController.value.text) ?? 0.0,
               0,
               DateTime.now().toUtc().toString(),
               DateTime.now().toUtc().toString()));
@@ -210,6 +223,28 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                           validationText: 'Enter a value',
                           informationMessage:
                               "The global deposit you're ready to put for that property. It includes taxes like stamp duty and/or solicitor fee.",
+                        ),
+                        NumberInputWidget(
+                          controller: _loanDurationController,
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          inputLabelText: 'Loan duration',
+                          inputSufixText: 'year(s)',
+                          validationText: 'Enter a value',
+                          informationMessage: "The length of your loan.",
+                        ),
+                        NumberInputWidget(
+                          controller: _bankInterestRateController,
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          inputLabelText: 'Bank interest rate',
+                          inputSufixText: '%',
+                          validationText: 'Enter a value',
+                          informationMessage: "The interest rate you have for this loan",
                         ),
                       ],
                     ),
