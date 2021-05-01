@@ -145,6 +145,8 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                               paymentCalculatorResult.userDeposit,
                               paymentCalculatorResult.loanDuration,
                               paymentCalculatorResult.bankInterestRate,
+                              paymentCalculatorResult.solicitorFee,
+                              paymentCalculatorResult.pestAndBuildingFee,
                               paymentCalculatorResult.isFavourite,
                               paymentCalculatorResult.creationDate,
                               paymentCalculatorResult.modificationDate)),

@@ -29,6 +29,8 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
   TextEditingController _userDepositController;
   TextEditingController _loanDurationController;
   TextEditingController _bankInterestRateController;
+  TextEditingController _solicitorFeeController;
+  TextEditingController _pestAndBuildingFeeController;
   bool _inEditMode = false;
 
   // FORM KEY
@@ -54,7 +56,7 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
         print("NEW LOAN");
         setState(() {
           this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(new LoanCalculatorResultModel(
-              null, null, null, null, null, null, null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()));
+              null, null, null, null, null, null, null, null, null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()));
           this._inEditMode = false;
         });
       }
@@ -86,6 +88,14 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
       this._loanDurationController = TextEditingController(
           text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.loanDuration != null
               ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.loanDuration.toString()
+              : null);
+      this._solicitorFeeController = TextEditingController(
+          text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.solicitorFee != null
+              ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.solicitorFee.toString()
+              : null);
+      this._pestAndBuildingFeeController = TextEditingController(
+          text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.pestAndBuildingFee != null
+              ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.pestAndBuildingFee.toString()
               : null);
       this._bankInterestRateController = TextEditingController(
           text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.loanDuration != null
@@ -130,6 +140,8 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
               double.parse(_userDepositController.value.text) ?? 0.0,
               double.parse(_loanDurationController.value.text) ?? 0.0,
               double.parse(_bankInterestRateController.value.text) ?? 0.0,
+              double.parse(_solicitorFeeController.value.text) ?? 0.0,
+              double.parse(_pestAndBuildingFeeController.value.text) ?? 0.0,
               0,
               DateTime.now().toUtc().toString(),
               DateTime.now().toUtc().toString()));
@@ -245,6 +257,28 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
                           inputSufixText: '%',
                           validationText: 'Enter a value',
                           informationMessage: "The interest rate you have for this loan",
+                        ),
+                        NumberInputWidget(
+                          controller: _solicitorFeeController,
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          inputLabelText: 'Solicitor fee',
+                          inputSufixText: 'AUD',
+                          validationText: 'Enter a value',
+                          informationMessage: "The solicitor fee.",
+                        ),
+                        NumberInputWidget(
+                          controller: _pestAndBuildingFeeController,
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          inputLabelText: 'Pest and building fee',
+                          inputSufixText: 'AUD',
+                          validationText: 'Enter a value',
+                          informationMessage: "The pest and building inspection fee.",
                         ),
                       ],
                     ),

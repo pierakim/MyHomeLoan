@@ -71,6 +71,14 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.bankInterestRate != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.bankInterestRate.toString()
             : null);
+    final _solicitorFee = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.solicitorFee != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.solicitorFee.toString()
+            : null);
+    final _pestAndBuildingFee = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.pestAndBuildingFee != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.pestAndBuildingFee.toString()
+            : null);
     final _modelResultController = TextEditingController(
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result.toString()
@@ -307,6 +315,72 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                                       border: InputBorder.none,
                                       filled: false,
                                       labelText: "Bank interesst rate",
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ],
+                          ),
+                        )),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                            child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Column(
+                            children: [
+                              Row(children: [
+                                Icon(
+                                  Icons.home_outlined,
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  size: 20.0,
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
+                                    controller: _solicitorFee,
+                                    decoration: InputDecoration(
+                                      suffixText: 'AUD',
+                                      border: InputBorder.none,
+                                      filled: false,
+                                      labelText: "Solicitor fee",
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ],
+                          ),
+                        )),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                            child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Column(
+                            children: [
+                              Row(children: [
+                                Icon(
+                                  Icons.home_outlined,
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  size: 20.0,
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
+                                    controller: _pestAndBuildingFee,
+                                    decoration: InputDecoration(
+                                      suffixText: 'AUD',
+                                      border: InputBorder.none,
+                                      filled: false,
+                                      labelText: "Pest and building fee",
                                     ),
                                   ),
                                 ),
