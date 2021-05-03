@@ -545,7 +545,7 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
             Navigator.pushNamed(
               context,
               Routes.loanCalculatorWidget,
-              arguments: new LoanCalculatorResultScreenArgumentsModel(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel),
+              arguments: new LoanCalculatorResultScreenArgumentsModel(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel, true),
             );
           },
           child: const Icon(Icons.edit),
