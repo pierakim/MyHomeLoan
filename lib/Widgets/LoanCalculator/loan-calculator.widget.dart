@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result.model.dart';
-import 'package:my_home_loan/Routes/router.component.dart';
 import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result-screen-arguments-model.dart';
 
 import '../app-drawer.widget.dart';
@@ -17,23 +15,12 @@ class LoanCalculatorWidget extends StatefulWidget {
 }
 
 class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
-  bool _inEditMode = false;
+  Future<LoanCalculatorResultScreenArgumentsModel> _loanCalculatorResultScreenArgumentsModel;
 
   @override
   void initState() {
-    // https://stackoverflow.com/a/59881577
-    // Accesssing the context to get the arguments (if needed) from the route here.
     super.initState();
-
-    Future.delayed(Duration.zero, () {
-      LoanCalculatorResultScreenArgumentsModel screenArguments = ModalRoute.of(context).settings.arguments;
-      if (screenArguments.loanCalculatorResultModel != null) {
-        print("EXISTING LOAN");
-        setState(() {
-          this._inEditMode = true;
-        });
-      }
-    });
+    _loanCalculatorResultScreenArgumentsModel = getModelData();
   }
 
   @override
@@ -43,10 +30,33 @@ class _LoanCalculatorWidgetState extends State<LoanCalculatorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // WIDGET
-    return Scaffold(
-        appBar: AppBar(title: Text(this._inEditMode ? "Edit your data" : "Loan Calculator")),
-        drawer: !_inEditMode ? AppDrawerWidget() : null,
-        body: LoanCalculatorCardWidget());
+    return FutureBuilder<LoanCalculatorResultScreenArgumentsModel>(
+      future: _loanCalculatorResultScreenArgumentsModel, // function where you call your api
+      builder: (BuildContext context, AsyncSnapshot<LoanCalculatorResultScreenArgumentsModel> snapshot) {
+        // AsyncSnapshot<Your object type>
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: Text('Please wait its loading...'));
+        } else {
+          if (snapshot.hasError)
+            return Center(child: Text('Error: ${snapshot.error}'));
+          else
+            return Scaffold(
+                appBar: AppBar(title: Text(snapshot.data.isInEditMode ? "Edit your data" : "Loan Calculator")),
+                drawer: snapshot.data != null && !snapshot.data.isInEditMode ? AppDrawerWidget() : null,
+                body: LoanCalculatorCardWidget(
+                  loanCalculatorResultScreenArgumentsModelParam: snapshot.data,
+                ));
+        }
+      },
+    );
+  }
+
+  Future<LoanCalculatorResultScreenArgumentsModel> getModelData() async {
+    LoanCalculatorResultScreenArgumentsModel arguments;
+    await Future.delayed(Duration.zero, () {
+      // From the AppDrawerWidget initialisation the value
+      arguments = ModalRoute.of(context).settings.arguments;
+    });
+    return Future.value(arguments); // return your response
   }
 }

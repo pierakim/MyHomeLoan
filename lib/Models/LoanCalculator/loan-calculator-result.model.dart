@@ -11,13 +11,33 @@ class LoanCalculatorResultModel extends ChangeNotifier {
   double bankInterestRate = 0.0;
   double solicitorFee = 0.0;
   double pestAndBuildingFee = 0.0;
+  String state = '';
+  int propertyType;
+  int buildingType;
+  int isFirstTimeBuyer;
   double get result => value01 + value02;
   int isFavourite = 0;
   String creationDate = '';
   String modificationDate = '';
 
-  LoanCalculatorResultModel(this.id, this.title, this.value01, this.value02, this.propertyValue, this.userDeposit, this.loanDuration,
-      this.bankInterestRate, this.solicitorFee, this.pestAndBuildingFee, this.isFavourite, this.creationDate, this.modificationDate);
+  LoanCalculatorResultModel(
+      this.id,
+      this.title,
+      this.value01,
+      this.value02,
+      this.propertyValue,
+      this.userDeposit,
+      this.loanDuration,
+      this.bankInterestRate,
+      this.solicitorFee,
+      this.pestAndBuildingFee,
+      this.state,
+      this.propertyType,
+      this.buildingType,
+      this.isFirstTimeBuyer,
+      this.isFavourite,
+      this.creationDate,
+      this.modificationDate);
 
   Map<String, dynamic> toMap() {
     return {
@@ -31,6 +51,10 @@ class LoanCalculatorResultModel extends ChangeNotifier {
       'bankInterestRate': bankInterestRate,
       'solicitorFee': solicitorFee,
       'pestAndBuildingFee': pestAndBuildingFee,
+      'state': state,
+      'propertyType': propertyType,
+      'buildingType': buildingType,
+      'isFirstTimeBuyer': isFirstTimeBuyer,
       'result': result,
       'isFavourite': isFavourite,
       'creationDate': creationDate,

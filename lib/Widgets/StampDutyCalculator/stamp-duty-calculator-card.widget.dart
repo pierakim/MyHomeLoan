@@ -22,18 +22,10 @@ class StampDutyCalculatorCardWidget extends StatefulWidget {
 class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardWidget> {
   final _formKey = GlobalKey<FormState>();
 
-  // FORM VALUE HANDLING
-  final GlobalKey<DropDownInputWidgetState> _australianStateKey = GlobalKey();
-  final GlobalKey<NumberInputWidgetState> _propertyValueStateKey = GlobalKey();
-  final GlobalKey<SegmentedInputWidgetState> _propertyTypeKey = GlobalKey();
-  final GlobalKey<SegmentedInputWidgetState> _buildingTypeKey = GlobalKey();
-  final GlobalKey<SegmentedInputWidgetState> _firstHomeBuyerKey = GlobalKey();
-  final _propertyValueController = TextEditingController();
+  TextEditingController _propertyValueController;
 
-  // INIT STAMP DUTY MODEL RESULT
-  StampDutyCalculatorResultModel stampDutyCalculatorResult = StampDutyCalculatorResultModel(0.0, '', null, null, null);
+  StampDutyCalculatorResultModel stampDutyCalculatorResult;
 
-  bool isSegmentedFormPristine = true;
   bool isPropertyTypeValid = true;
   bool isBuildingTypeValid = true;
   bool isFirstHomeBuyerValid = true;
@@ -43,7 +35,7 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
     final form = _formKey.currentState;
     var formValidationValid = form.validate();
 
-    if (_propertyTypeKey.currentState.currentSelection == null) {
+    if (this.stampDutyCalculatorResult.propertyChoice == null) {
       setState(() {
         isPropertyTypeValid = false;
         print('isPropertyTypeValid : false');
@@ -54,7 +46,7 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
         print('isPropertyTypeValid : false');
       });
 
-    if (_buildingTypeKey.currentState.currentSelection == null) {
+    if (this.stampDutyCalculatorResult.buildingChoice == null) {
       setState(() {
         isBuildingTypeValid = false;
         print('isBuildingTypeValid : false');
@@ -65,7 +57,7 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
         print('isBuildingTypeValid : false');
       });
 
-    if (_firstHomeBuyerKey.currentState.currentSelection == null) {
+    if (this.stampDutyCalculatorResult.isFirstHomeBuyer == null) {
       setState(() {
         isFirstHomeBuyerValid = false;
         print('isFirstHomeBuyerValid : false');
@@ -75,20 +67,6 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
         isFirstHomeBuyerValid = true;
         print('isFirstHomeBuyerValid : false');
       });
-
-    if (_propertyTypeKey.currentState.currentSelection == null &&
-        _buildingTypeKey.currentState.currentSelection == null &&
-        _firstHomeBuyerKey.currentState.currentSelection == null) {
-      setState(() {
-        isSegmentedFormPristine = true;
-        print('isFormPristine : TRUE');
-      });
-    } else {
-      setState(() {
-        isSegmentedFormPristine = false;
-        print('isFormPristine : FALSE');
-      });
-    }
 
     var segmentedValidationValid = isPropertyTypeValid && isBuildingTypeValid && isFirstHomeBuyerValid;
 
@@ -100,11 +78,11 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
         context,
         Routes.stampDutyCalculatorResultWidget,
         arguments: new StampDutyCalculatorResultModel(
-            _propertyValueStateKey.currentState.inputValue,
-            _australianStateKey.currentState.dropdownValue,
-            _propertyTypeKey.currentState.currentSelection,
-            _buildingTypeKey.currentState.currentSelection,
-            _firstHomeBuyerKey.currentState.currentSelection),
+            this.stampDutyCalculatorResult.propertyValue,
+            this.stampDutyCalculatorResult.state,
+            this.stampDutyCalculatorResult.propertyChoice,
+            this.stampDutyCalculatorResult.buildingChoice,
+            this.stampDutyCalculatorResult.isFirstHomeBuyer),
       );
     }
     print('The form is not valid');
@@ -113,11 +91,14 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
   @override
   void initState() {
     super.initState();
+
+    setState(() {
+      this.stampDutyCalculatorResult = new StampDutyCalculatorResultModel(0.0, null, null, null, null);
+    });
   }
 
   @override
   void dispose() {
-    _propertyValueController.dispose();
     super.dispose();
   }
 
@@ -145,9 +126,9 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        // STATE
                         DropDownInputWidget(
-                          key: _australianStateKey,
+                          value: this.stampDutyCalculatorResult.state,
+                          updateDropDownValue: updateDropDownValue,
                           validationText: 'Select a state',
                           inputLabelText: 'State / Territory of the property',
                           icon: Icon(
@@ -158,9 +139,10 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                           informationMessage:
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
                         ),
-                        // PROPERTY VALUE
-                        NumberInputWidget(
-                          key: _propertyValueStateKey,
+                        NumberInputWidgetTest(
+                          controller: _propertyValueController,
+                          //value: this.stampDutyCalculatorResult.propertyValue,
+                          updateNumberInputValue: updatePropertyValue,
                           icon: Icon(
                             Icons.attach_money,
                             color: Theme.of(context).accentColor,
@@ -183,14 +165,13 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                             ),
                             informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                             choices: [
-                              SegmentedInputWidget(
-                                key: _propertyTypeKey,
-                                title: 'Property type',
-                                mapping: residenceType,
-                                isValid: isPropertyTypeValid,
-                                isMandatory: true,
-                                isFormPristine: isSegmentedFormPristine,
-                              ),
+                              SegmentedInputWidgetTest(
+                                  value: this.stampDutyCalculatorResult.propertyChoice,
+                                  updateSegmentedInputValue: updatePropertyType,
+                                  title: 'Property type',
+                                  mapping: residenceType,
+                                  isValid: isPropertyTypeValid,
+                                  isMandatory: true),
                             ]),
                         // BUILDING TYPE
                         SegmentedInputChoicesWidget(
@@ -201,13 +182,13 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                             ),
                             informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                             choices: [
-                              SegmentedInputWidget(
-                                key: _buildingTypeKey,
+                              SegmentedInputWidgetTest(
+                                value: this.stampDutyCalculatorResult.buildingChoice,
+                                updateSegmentedInputValue: updateBuildingType,
                                 title: 'Building type',
                                 mapping: buildingType,
                                 isValid: isBuildingTypeValid,
                                 isMandatory: true,
-                                isFormPristine: isSegmentedFormPristine,
                               ),
                             ]),
                         // FIRST TIME BUYER
@@ -219,13 +200,13 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                             ),
                             informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                             choices: [
-                              SegmentedInputWidget(
-                                key: _firstHomeBuyerKey,
+                              SegmentedInputWidgetTest(
+                                value: this.stampDutyCalculatorResult.isFirstHomeBuyer,
+                                updateSegmentedInputValue: updateIsFirstTimeBuyer,
                                 title: 'Are you first time buyer',
                                 mapping: isFirstHomeBuyer,
                                 isValid: isFirstHomeBuyerValid,
                                 isMandatory: true,
-                                isFormPristine: isSegmentedFormPristine,
                               ),
                             ]),
                         // TELL ME BUTTON
@@ -251,5 +232,35 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
         ),
       ),
     );
+  }
+
+  updateDropDownValue(state) {
+    setState(() {
+      this.stampDutyCalculatorResult.state = state;
+    });
+  }
+
+  updatePropertyType(propertyType) {
+    setState(() {
+      this.stampDutyCalculatorResult.propertyChoice = propertyType;
+    });
+  }
+
+  updateBuildingType(propertyType) {
+    setState(() {
+      this.stampDutyCalculatorResult.buildingChoice = propertyType;
+    });
+  }
+
+  updateIsFirstTimeBuyer(isFirstTimeBuyer) {
+    setState(() {
+      this.stampDutyCalculatorResult.isFirstHomeBuyer = isFirstTimeBuyer;
+    });
+  }
+
+  updatePropertyValue(propertyValue) {
+    setState(() {
+      this.stampDutyCalculatorResult.propertyValue = propertyValue;
+    });
   }
 }

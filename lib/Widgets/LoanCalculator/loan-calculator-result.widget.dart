@@ -79,6 +79,10 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.pestAndBuildingFee != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.pestAndBuildingFee.toString()
             : null);
+    final _state = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.state != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.state.toString()
+            : null);
     final _modelResultController = TextEditingController(
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result.toString()
@@ -391,6 +395,38 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                       ),
                     ],
                   ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                            child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Column(
+                            children: [
+                              Row(children: [
+                                Icon(
+                                  Icons.home_outlined,
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  size: 20.0,
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
+                                    controller: _state,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      filled: false,
+                                      labelText: "State",
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ],
+                          ),
+                        )),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -441,8 +477,8 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                     child: Text('Save'),
                     onPressed: () async {
                       // this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title = _modelTitleController.text;
-                      var hasBeenSaved =
-                          await _loanCalculatorRepo.postLoanCalculatorResult(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
+                      var hasBeenSaved = await _loanCalculatorRepo.postLoanCalculatorResult(
+                          this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
                       if (hasBeenSaved) {
                         setState(() => hasBeenSaved == true ? hasResultBeenSaved = true : hasResultBeenSaved = false);
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -493,8 +529,8 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                     child: Text('Save changes'),
                     onPressed: () async {
                       // this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title = _modelTitleController.text;
-                      var hasBeenSaved =
-                          await _loanCalculatorRepo.putLoanCalculatorResult(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
+                      var hasBeenSaved = await _loanCalculatorRepo.putLoanCalculatorResult(
+                          this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
                       if (hasBeenSaved) {
                         setState(() => hasBeenSaved == true ? hasResultBeenSaved = true : hasResultBeenSaved = false);
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -545,7 +581,8 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
             Navigator.pushNamed(
               context,
               Routes.loanCalculatorWidget,
-              arguments: new LoanCalculatorResultScreenArgumentsModel(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel, true),
+              arguments: new LoanCalculatorResultScreenArgumentsModel(
+                  this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel, true),
             );
           },
           child: const Icon(Icons.edit),

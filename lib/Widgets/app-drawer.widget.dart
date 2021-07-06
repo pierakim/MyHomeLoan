@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result.model.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
 
 import '../Models/LoanCalculator/loan-calculator-result-screen-arguments-model.dart';
@@ -29,7 +30,26 @@ class AppDrawerWidget extends StatelessWidget {
                 onTap: () => Navigator.pushReplacementNamed(
                       context,
                       Routes.loanCalculatorWidget,
-                      arguments: new LoanCalculatorResultScreenArgumentsModel(null),
+                      arguments: new LoanCalculatorResultScreenArgumentsModel(
+                          new LoanCalculatorResultModel(
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              0,
+                              DateTime.now().toUtc().toString(),
+                              DateTime.now().toUtc().toString()),
+                          false),
                     )),
             _createDrawerItem(
                 context: context,
@@ -43,7 +63,8 @@ class AppDrawerWidget extends StatelessWidget {
                 onTap: () => Navigator.pushReplacementNamed(context, Routes.stampDutyCalculatorWidget)),
             Divider(),
             ListTile(
-              title: Text('v.1.0.1 - Lambda Dev - All right reserved', style: TextStyle(color: Colors.white70, fontSize: 10)),
+              title: Text('v.1.0.1 - Lambda Dev - All right reserved',
+                  style: TextStyle(color: Colors.white70, fontSize: 10)),
               onTap: () {},
             ),
           ],
@@ -68,7 +89,8 @@ class AppDrawerWidget extends StatelessWidget {
               ),
             ),
             Center(
-              child: Text("My Oz Loan", style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w500)),
+              child: Text("My Oz Loan",
+                  style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w500)),
             ),
           ]),
         ));

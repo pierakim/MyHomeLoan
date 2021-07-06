@@ -32,6 +32,10 @@ class LoanCalculatorRepository implements ILoanCalculatorRepository {
           maps[i]['bankInterestRate'].toDouble(),
           maps[i]['solicitorFee'].toDouble(),
           maps[i]['pestAndBuildingFee'].toDouble(),
+          maps[i]['state'],
+          maps[i]['propertyType'],
+          maps[i]['buildingType'],
+          maps[i]['isFirstTimeBuyer'],
           maps[i]['isFavourite'],
           maps[i]['creationDate'],
           maps[i]['modificationDate']);

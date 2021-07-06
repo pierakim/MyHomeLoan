@@ -71,14 +71,17 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                   future: _paymentCalculatorResults,
                   builder: (BuildContext context, AsyncSnapshot<List<LoanCalculatorResultModel>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return SizedBox(height: MediaQuery.of(context).size.width, child: Center(child: CircularProgressIndicator()));
+                      return SizedBox(
+                          height: MediaQuery.of(context).size.width, child: Center(child: CircularProgressIndicator()));
                     } else {
                       if (snapshot.hasError)
                         return SizedBox(
                             height: MediaQuery.of(context).size.width,
                             child: Center(child: Text('Ouups, something happened..please restart the app')));
                       else if (snapshot.data.length == 0)
-                        return SizedBox(height: MediaQuery.of(context).size.width, child: Center(child: Text('Collection is empty')));
+                        return SizedBox(
+                            height: MediaQuery.of(context).size.width,
+                            child: Center(child: Text('Collection is empty')));
                       else
                         return Card(child: tableBody(context, snapshot.data));
                     }
@@ -93,7 +96,10 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
           Navigator.pushNamed(
             ctx,
             Routes.loanCalculatorWidget,
-            arguments: new LoanCalculatorResultScreenArgumentsModel(null),
+            arguments: new LoanCalculatorResultScreenArgumentsModel(
+                new LoanCalculatorResultModel(null, null, null, null, null, null, null, null, null, null, null, null,
+                    null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()),
+                false),
           );
         },
         child: const Icon(Icons.add),
@@ -147,6 +153,10 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                               paymentCalculatorResult.bankInterestRate,
                               paymentCalculatorResult.solicitorFee,
                               paymentCalculatorResult.pestAndBuildingFee,
+                              paymentCalculatorResult.state,
+                              paymentCalculatorResult.propertyType,
+                              paymentCalculatorResult.buildingType,
+                              paymentCalculatorResult.isFirstTimeBuyer,
                               paymentCalculatorResult.isFavourite,
                               paymentCalculatorResult.creationDate,
                               paymentCalculatorResult.modificationDate)),

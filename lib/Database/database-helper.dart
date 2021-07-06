@@ -15,9 +15,14 @@ class DatabaseHelper {
   static final userDeposit = 'userDeposit';
   static final loanDuration = 'loanDuration';
   static final bankInterestRate = 'bankInterestRate';
-  //static final stampDutyFee = 'stampDutyFee';
   static final solicitorFee = 'solicitorFee';
   static final pestAndBuildingFee = 'pestAndBuildingFee';
+  static final state = 'state';
+
+  static final propertyType = 'propertyType';
+  static final buildingType = 'buildingType';
+  static final isFirstTimeBuyer = 'isFirstTimeBuyer';
+
   static final result = 'result';
   static final isFavourite = 'isFavourite';
   static final creationDate = 'creationDate';
@@ -60,6 +65,10 @@ class DatabaseHelper {
             $bankInterestRate INTEGER NOT NULL,
             $solicitorFee INTEGER NOT NULL,
             $pestAndBuildingFee INTEGER NOT NULL,
+            $state TEXT NOT NULL,
+            $propertyType INTEGER NOT NULL,
+            $buildingType INTEGER NOT NULL,
+            $isFirstTimeBuyer INTEGER NOT NULL,
             $result INTEGER NOT NULL,
             $isFavourite INTEGER NOT NULL,
             $creationDate TEXT NOT NULL,
