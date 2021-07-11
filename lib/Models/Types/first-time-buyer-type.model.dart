@@ -4,7 +4,7 @@ Map<int, Widget> isFirstHomeBuyer = {
   // 0: Text('Primary residence'),
   0: Container(
     child: Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(10.0),
       child: Center(
         child: Text(
           'Yes',
@@ -16,7 +16,7 @@ Map<int, Widget> isFirstHomeBuyer = {
   // 1: Text('Investment residence'),
   1: Container(
     child: Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(10.0),
       child: Center(
         child: Text(
           'No',

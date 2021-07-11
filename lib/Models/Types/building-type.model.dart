@@ -7,7 +7,7 @@ Map<int, Widget> buildingType = {
       padding: const EdgeInsets.all(10.0),
       child: Center(
         child: Text(
-          'New build',
+          'New',
           textAlign: TextAlign.center,
         ),
       ),
@@ -19,7 +19,7 @@ Map<int, Widget> buildingType = {
       padding: const EdgeInsets.all(10.0),
       child: Center(
         child: Text(
-          'Established build',
+          'Established',
           textAlign: TextAlign.center,
         ),
       ),
@@ -28,8 +28,6 @@ Map<int, Widget> buildingType = {
 };
 
 Map<int, Text> buildingTypeForDisplay = {
-  // 0: Text('Primary residence'),
   0: Text('New build'),
-  // 1: Text('Investment residence'),
   1: Text('Established build'),
 };

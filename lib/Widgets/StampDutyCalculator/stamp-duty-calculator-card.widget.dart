@@ -156,59 +156,60 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                           informationMessage:
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                         ),
-                        // PROPERTY TYPE
-                        SegmentedInputChoicesWidget(
+                        // RESIDENCE TYPE
+                        SegmentedInputChoicesWidgetTest(choices: [
+                          SegmentedInputWidgetTest(
+                            value: this.stampDutyCalculatorResult.propertyChoice,
+                            updateSegmentedInputValue: updatePropertyType,
+                            title: 'Residence type',
+                            mapping: residenceType,
+                            isValid: isPropertyTypeValid,
+                            isMandatory: true,
+                            informationMessage:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
                             icon: Icon(
-                              Icons.foundation,
+                              Icons.money,
                               color: Theme.of(context).accentColor,
-                              size: 24.0,
+                              // size: 24.0,
                             ),
-                            informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                            choices: [
-                              SegmentedInputWidget(
-                                  value: this.stampDutyCalculatorResult.propertyChoice,
-                                  updateSegmentedInputValue: updatePropertyType,
-                                  title: 'Property type',
-                                  mapping: residenceType,
-                                  isValid: isPropertyTypeValid,
-                                  isMandatory: true),
-                            ]),
+                          ),
+                        ]),
                         // BUILDING TYPE
-                        SegmentedInputChoicesWidget(
+                        SegmentedInputChoicesWidgetTest(choices: [
+                          SegmentedInputWidgetTest(
+                            value: this.stampDutyCalculatorResult.buildingChoice,
+                            updateSegmentedInputValue: updateBuildingType,
+                            title: 'Building type',
+                            mapping: buildingType,
+                            isValid: isBuildingTypeValid,
+                            isMandatory: true,
+                            informationMessage:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
                             icon: Icon(
                               Icons.foundation,
                               color: Theme.of(context).accentColor,
-                              size: 24.0,
+                              // size: 24.0,
                             ),
-                            informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                            choices: [
-                              SegmentedInputWidget(
-                                value: this.stampDutyCalculatorResult.buildingChoice,
-                                updateSegmentedInputValue: updateBuildingType,
-                                title: 'Building type',
-                                mapping: buildingType,
-                                isValid: isBuildingTypeValid,
-                                isMandatory: true,
-                              ),
-                            ]),
+                          ),
+                        ]),
                         // FIRST TIME BUYER
-                        SegmentedInputChoicesWidget(
+                        SegmentedInputChoicesWidgetTest(choices: [
+                          SegmentedInputWidgetTest(
+                            value: this.stampDutyCalculatorResult.isFirstHomeBuyer,
+                            updateSegmentedInputValue: updateIsFirstTimeBuyer,
+                            title: 'Are you first time buyer',
+                            mapping: isFirstHomeBuyer,
+                            isValid: isFirstHomeBuyerValid,
+                            isMandatory: true,
+                            informationMessage:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
                             icon: Icon(
                               Icons.roofing,
                               color: Theme.of(context).accentColor,
-                              size: 24.0,
+                              // size: 24.0,
                             ),
-                            informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                            choices: [
-                              SegmentedInputWidget(
-                                value: this.stampDutyCalculatorResult.isFirstHomeBuyer,
-                                updateSegmentedInputValue: updateIsFirstTimeBuyer,
-                                title: 'Are you first time buyer',
-                                mapping: isFirstHomeBuyer,
-                                isValid: isFirstHomeBuyerValid,
-                                isMandatory: true,
-                              ),
-                            ]),
+                          ),
+                        ]),
                         // TELL ME BUTTON
                         Center(
                           child: Padding(
@@ -263,7 +264,6 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
   }
 
   updatePropertyValue(propertyValue) {
-    FocusManager.instance.primaryFocus?.unfocus();
     setState(() {
       this.stampDutyCalculatorResult.propertyValue = propertyValue;
     });

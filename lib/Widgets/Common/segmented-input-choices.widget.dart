@@ -21,10 +21,9 @@ class _SegmentInputChoicesWidgetState extends State<SegmentedInputChoicesWidget>
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(flex: 1, child: Container(child: widget.icon)),
-          Expanded(flex: 8, child: Row(mainAxisSize: MainAxisSize.min, children: widget.choices)),
+          Expanded(flex: 8, child: Row(children: widget.choices)),
           if (widget.informationMessage != null && widget.informationMessage.isNotEmpty)
             Expanded(
-              flex: 1,
               child: IconButton(
                 color: Theme.of(context).colorScheme.primary,
                 onPressed: () => showDialog(
@@ -35,8 +34,34 @@ class _SegmentInputChoicesWidgetState extends State<SegmentedInputChoicesWidget>
                 icon: Icon(Icons.info_outline, color: Theme.of(context).accentColor),
               ),
             )
-          else
-            Expanded(flex: 1, child: Container())
+        ],
+      ),
+    );
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///
+///
+///
+
+class SegmentedInputChoicesWidgetTest extends StatefulWidget {
+  final List<Widget> choices;
+  SegmentedInputChoicesWidgetTest({this.choices, Key key}) : super(key: key);
+
+  @override
+  _SegmentInputChoicesWidgetStateTest createState() => _SegmentInputChoicesWidgetStateTest();
+}
+
+class _SegmentInputChoicesWidgetStateTest extends State<SegmentedInputChoicesWidgetTest> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(flex: 8, child: Row(children: widget.choices)),
         ],
       ),
     );
