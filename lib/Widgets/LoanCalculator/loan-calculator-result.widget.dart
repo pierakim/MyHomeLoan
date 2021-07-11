@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_home_loan/Database/loan-calculator-repository.dart';
 import 'package:my_home_loan/Routes/router.component.dart';
 import 'package:my_home_loan/Models/LoanCalculator/loan-calculator-result-screen-arguments-model.dart';
+import 'package:my_home_loan/Widgets/Common/text-display.widget.dart';
 
 class LoanCalculatorResultWidget extends StatefulWidget {
   static const String routeName = '/readOnlyLoan';
@@ -90,7 +91,10 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
 
     // WIDGET
     return Scaffold(
-      appBar: AppBar(title: Text(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title)),
+      // Not sure what to display here. Title or Item or Your item...
+      // appBar: AppBar(title: Text(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title)),
+      // appBar: AppBar(title: Text("Item")),
+      appBar: AppBar(),
       body: ListView(
         children: <Widget>[
           // INFORMATION SUMMARY
@@ -99,332 +103,158 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
             child: Container(
               child: Column(
                 children: [
-                  // TITLE ROW
+                  // TITLE
                   Row(
                     children: [
                       Expanded(
-                        child: Card(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Column(
-                            children: [
-                              Row(children: [
-                                Icon(
-                                  Icons.description_outlined,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                  size: 20.0,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                    controller: _modelTitleController,
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      filled: false,
-                                      labelText: "Title",
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ],
+                        child: TextDisplayWidget(
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20.0,
                           ),
-                        )),
-                      ),
+                          controller: _modelTitleController,
+                          labelText: "Title",
+                        ),
+                      )
+                    ],
+                  ),
+                  //STATE ROW
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextDisplayWidget(
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20.0,
+                          ),
+                          controller: _state,
+                          labelText: "State",
+                        ),
+                      )
                     ],
                   ),
                   // VALUE 01 + VALUE 02 ROW
                   Row(
                     children: [
                       Expanded(
-                        child: Card(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Column(
-                            children: [
-                              Row(children: [
-                                Icon(
-                                  Icons.attach_money,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                  size: 20.0,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                    controller: _modelValue01Controller,
-                                    decoration: InputDecoration(
-                                      prefixText: "\$",
-                                      suffixText: ' AUD',
-                                      border: InputBorder.none,
-                                      filled: false,
-                                      labelText: "Value01",
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ],
+                        child: TextDisplayWidget(
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20.0,
                           ),
-                        )),
+                          controller: _modelValue01Controller,
+                          labelText: "Value 01",
+                          prefixText: "\$",
+                          suffixText: ' AUD',
+                        ),
                       ),
                       Expanded(
-                        child: Card(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Column(
-                            children: [
-                              Row(children: [
-                                Icon(
-                                  Icons.not_listed_location_outlined,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                  size: 20.0,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                    controller: _modelValue02Controller,
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      filled: false,
-                                      labelText: "Value02",
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ],
+                        child: TextDisplayWidget(
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20.0,
                           ),
-                        )),
-                      ),
+                          controller: _modelValue02Controller,
+                          labelText: "Value 02",
+                          prefixText: "\$",
+                          suffixText: ' AUD',
+                        ),
+                      )
                     ],
                   ),
+                  // PROPERTY VALUE + DEPOSIT ROW
                   Row(
                     children: [
                       Expanded(
-                        child: Card(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Column(
-                            children: [
-                              Row(children: [
-                                Icon(
-                                  Icons.home_outlined,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                  size: 20.0,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                    controller: _propertyValue,
-                                    decoration: InputDecoration(
-                                      prefixText: "\$",
-                                      suffixText: ' AUD',
-                                      border: InputBorder.none,
-                                      filled: false,
-                                      labelText: "Property value",
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ],
+                        child: TextDisplayWidget(
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20.0,
                           ),
-                        )),
+                          controller: _propertyValue,
+                          labelText: "Property value",
+                          prefixText: "\$",
+                          suffixText: ' AUD',
+                        ),
                       ),
+                      Expanded(
+                        child: TextDisplayWidget(
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20.0,
+                          ),
+                          controller: _userDeposit,
+                          labelText: "Deposit",
+                          prefixText: "\$",
+                          suffixText: ' AUD',
+                        ),
+                      )
                     ],
                   ),
+                  // LOAN DURATION + BANK INTEREST RATE ROW
                   Row(
                     children: [
                       Expanded(
-                        child: Card(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Column(
-                            children: [
-                              Row(children: [
-                                Icon(
-                                  Icons.home_outlined,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                  size: 20.0,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                    controller: _userDeposit,
-                                    decoration: InputDecoration(
-                                      prefixText: "\$",
-                                      suffixText: ' AUD',
-                                      border: InputBorder.none,
-                                      filled: false,
-                                      labelText: "Deposit",
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ],
+                        child: TextDisplayWidget(
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20.0,
                           ),
-                        )),
+                          controller: _loanDuration,
+                          labelText: "Loan duration",
+                          suffixText: ' YEAR(S)',
+                        ),
                       ),
+                      Expanded(
+                        child: TextDisplayWidget(
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20.0,
+                          ),
+                          controller: _bankInterestRate,
+                          labelText: "Bank interest rate",
+                          suffixText: ' %',
+                        ),
+                      )
                     ],
                   ),
+                  // SOLICITOR FEE + PEST AND BUILDING FEE ROW
                   Row(
                     children: [
                       Expanded(
-                        child: Card(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Column(
-                            children: [
-                              Row(children: [
-                                Icon(
-                                  Icons.home_outlined,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                  size: 20.0,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                    controller: _loanDuration,
-                                    decoration: InputDecoration(
-                                      suffixText: ' year(s)',
-                                      border: InputBorder.none,
-                                      filled: false,
-                                      labelText: "Loan duration",
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ],
+                        child: TextDisplayWidget(
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20.0,
                           ),
-                        )),
+                          controller: _solicitorFee,
+                          labelText: "Solicitor fee",
+                          prefixText: "\$",
+                          suffixText: ' AUD',
+                        ),
                       ),
-                    ],
-                  ),
-                  Row(
-                    children: [
                       Expanded(
-                        child: Card(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Column(
-                            children: [
-                              Row(children: [
-                                Icon(
-                                  Icons.home_outlined,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                  size: 20.0,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                    controller: _bankInterestRate,
-                                    decoration: InputDecoration(
-                                      suffixText: ' year(s)',
-                                      border: InputBorder.none,
-                                      filled: false,
-                                      labelText: "Bank interesst rate",
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ],
+                        child: TextDisplayWidget(
+                          icon: Icon(
+                            Icons.home_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20.0,
                           ),
-                        )),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Card(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Column(
-                            children: [
-                              Row(children: [
-                                Icon(
-                                  Icons.home_outlined,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                  size: 20.0,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                    controller: _solicitorFee,
-                                    decoration: InputDecoration(
-                                      suffixText: 'AUD',
-                                      border: InputBorder.none,
-                                      filled: false,
-                                      labelText: "Solicitor fee",
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ],
-                          ),
-                        )),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Card(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Column(
-                            children: [
-                              Row(children: [
-                                Icon(
-                                  Icons.home_outlined,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                  size: 20.0,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                    controller: _pestAndBuildingFee,
-                                    decoration: InputDecoration(
-                                      suffixText: 'AUD',
-                                      border: InputBorder.none,
-                                      filled: false,
-                                      labelText: "Pest and building fee",
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ],
-                          ),
-                        )),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Card(
-                            child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: Column(
-                            children: [
-                              Row(children: [
-                                Icon(
-                                  Icons.home_outlined,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                  size: 20.0,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                    controller: _state,
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      filled: false,
-                                      labelText: "State",
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ],
-                          ),
-                        )),
-                      ),
+                          controller: _pestAndBuildingFee,
+                          labelText: "Pest and building fee",
+                          prefixText: "\$",
+                          suffixText: ' AUD',
+                        ),
+                      )
                     ],
                   ),
                 ],
@@ -452,6 +282,7 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                           child: TextField(
                             textAlign: TextAlign.end,
                             controller: _modelResultController,
+                            readOnly: true,
                             decoration: InputDecoration(
                               suffixText: ' AUD',
                               border: InputBorder.none,

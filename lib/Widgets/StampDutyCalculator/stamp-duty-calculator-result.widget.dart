@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_home_loan/Models/Types/building-type.model.dart';
 import 'package:my_home_loan/Models/Types/first-time-buyer-type.model.dart';
 import 'package:my_home_loan/Models/Types/residence-type.model.dart';
 import 'package:my_home_loan/Models/StampDuty/stamp-duty-calculator-result.model.dart';
+import 'package:my_home_loan/Widgets/Common/text-display.widget.dart';
 
 class StampDutyCalculatorResultWidget extends StatefulWidget {
   static const String routeName = '/stampDutyCalculatorResult';
@@ -22,6 +24,7 @@ class _StampDutyCalculatorResultWidgetState extends State<StampDutyCalculatorRes
     final _propertyValueController = TextEditingController(text: args.propertyValue.toString());
     final _stateController = TextEditingController(text: args.state.toString());
     final _residenceTypeController = TextEditingController(text: residenceTypeForDisplay[args.propertyChoice].data);
+    final _buildingTypeController = TextEditingController(text: buildingTypeForDisplay[args.buildingChoice].data);
     final _firstHomeBuyerController = TextEditingController(text: isFirstHomeBuyerForDisplay[args.propertyChoice].data);
     final _resultController = TextEditingController(text: '\$ ' + args.result.toString());
 
@@ -39,127 +42,78 @@ class _StampDutyCalculatorResultWidgetState extends State<StampDutyCalculatorRes
                   children: [
                     Row(
                       children: [
-                        // PROPERTY VALUE
                         Expanded(
-                          child: Card(
-                              child: Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  Icon(
-                                    Icons.attach_money,
-                                    color: Theme.of(context).colorScheme.secondary,
-                                    size: 20.0,
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                      controller: _propertyValueController,
-                                      decoration: InputDecoration(
-                                        prefixText: "\$",
-                                        suffixText: ' AUD',
-                                        border: InputBorder.none,
-                                        filled: false,
-                                        labelText: "Property value",
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                              ],
+                          child: TextDisplayWidget(
+                            icon: Icon(
+                              Icons.attach_money,
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 20.0,
                             ),
-                          )),
-                        ),
-                        // STATE
-                        Expanded(
-                          child: Card(
-                              child: Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  Icon(
-                                    Icons.not_listed_location_outlined,
-                                    color: Theme.of(context).colorScheme.secondary,
-                                    size: 20.0,
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                      controller: _stateController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        filled: false,
-                                        labelText: "State",
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                              ],
-                            ),
-                          )),
+                            controller: _propertyValueController,
+                            labelText: "Property value",
+                            prefixText: "\$",
+                            suffixText: ' AUD',
+                          ),
                         ),
                       ],
                     ),
                     Row(
                       children: [
-                        // FIRST TIME BUYER
                         Expanded(
-                          child: Card(
-                              child: Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  Icon(
-                                    Icons.roofing,
-                                    color: Theme.of(context).colorScheme.secondary,
-                                    size: 20.0,
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                      controller: _firstHomeBuyerController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        filled: false,
-                                        labelText: "First time buyer",
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                              ],
+                          child: TextDisplayWidget(
+                            icon: Icon(
+                              Icons.not_listed_location_outlined,
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 20.0,
                             ),
-                          )),
+                            controller: _stateController,
+                            labelText: "State",
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextDisplayWidget(
+                            icon: Icon(
+                              Icons.foundation,
+                              color: Colors.pink,
+                              size: 20.0,
+                            ),
+                            controller: _firstHomeBuyerController,
+                            labelText: "First time buyer",
+                          ),
                         ),
-                        // PROPERTY TYPE
+                      ],
+                    ),
+                    Row(
+                      children: [
                         Expanded(
-                          child: Card(
-                              child: Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  Icon(
-                                    Icons.foundation,
-                                    color: Colors.pink,
-                                    size: 20.0,
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      style: TextStyle(fontSize: 15.0, color: Colors.black),
-                                      controller: _residenceTypeController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        filled: false,
-                                        labelText: "Property type",
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                              ],
+                          child: TextDisplayWidget(
+                            icon: Icon(
+                              Icons.not_listed_location_outlined,
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 20.0,
                             ),
-                          )),
+                            controller: _residenceTypeController,
+                            labelText: "Property type",
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextDisplayWidget(
+                            icon: Icon(
+                              Icons.not_listed_location_outlined,
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 20.0,
+                            ),
+                            controller: _buildingTypeController,
+                            labelText: "Building type",
+                          ),
                         )
                       ],
                     ),
