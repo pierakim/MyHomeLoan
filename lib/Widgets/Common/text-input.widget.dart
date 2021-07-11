@@ -41,7 +41,7 @@ class TextInputWidgetState extends State<TextInputWidget> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               onTap: () => setState(() => hasBeenTouched = true),
               decoration: InputDecoration(
-                filled: true,
+                filled: false,
                 border: const OutlineInputBorder(),
                 labelText: widget.inputLabelText,
               ),

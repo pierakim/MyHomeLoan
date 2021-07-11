@@ -157,8 +157,8 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                         ),
                         // RESIDENCE TYPE
-                        SegmentedInputChoicesWidgetTest(choices: [
-                          SegmentedInputWidgetTest(
+                        SegmentedInputChoicesWidget(choices: [
+                          SegmentedInputWidget(
                             value: this.stampDutyCalculatorResult.propertyChoice,
                             updateSegmentedInputValue: updatePropertyType,
                             title: 'Residence type',
@@ -175,8 +175,8 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                           ),
                         ]),
                         // BUILDING TYPE
-                        SegmentedInputChoicesWidgetTest(choices: [
-                          SegmentedInputWidgetTest(
+                        SegmentedInputChoicesWidget(choices: [
+                          SegmentedInputWidget(
                             value: this.stampDutyCalculatorResult.buildingChoice,
                             updateSegmentedInputValue: updateBuildingType,
                             title: 'Building type',
@@ -193,8 +193,8 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                           ),
                         ]),
                         // FIRST TIME BUYER
-                        SegmentedInputChoicesWidgetTest(choices: [
-                          SegmentedInputWidgetTest(
+                        SegmentedInputChoicesWidget(choices: [
+                          SegmentedInputWidget(
                             value: this.stampDutyCalculatorResult.isFirstHomeBuyer,
                             updateSegmentedInputValue: updateIsFirstTimeBuyer,
                             title: 'Are you first time buyer',

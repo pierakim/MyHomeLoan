@@ -407,7 +407,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                             : null,
                         updateDropDownValue: updateDropDownValue,
                         validationText: 'Select a state',
-                        inputLabelText: 'State / Territory of the property',
+                        inputLabelText: 'State',
                         icon: Icon(
                           Icons.not_listed_location_outlined,
                           color: Theme.of(context).accentColor,
@@ -417,59 +417,56 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
                       ),
                       // PROPERTY TYPE
-                      SegmentedInputChoicesWidget(
+                      SegmentedInputChoicesWidget(choices: [
+                        SegmentedInputWidget(
+                          value: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyType,
+                          updateSegmentedInputValue: updatePropertyType,
+                          title: 'Property type',
+                          mapping: residenceType,
+                          isValid: isPropertyTypeValid,
+                          isMandatory: true,
                           icon: Icon(
                             Icons.foundation,
                             color: Theme.of(context).accentColor,
                             size: 24.0,
                           ),
                           informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                          choices: [
-                            SegmentedInputWidget(
-                              value: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyType,
-                              updateSegmentedInputValue: updatePropertyType,
-                              title: 'Property type',
-                              mapping: residenceType,
-                              isValid: isPropertyTypeValid,
-                              isMandatory: true,
-                            ),
-                          ]),
+                        ),
+                      ]),
                       // BUILDING TYPE
-                      SegmentedInputChoicesWidget(
+                      SegmentedInputChoicesWidget(choices: [
+                        SegmentedInputWidget(
+                          value: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.buildingType,
+                          updateSegmentedInputValue: updateBuildingType,
+                          title: 'Building type',
+                          mapping: buildingType,
+                          isValid: isBuildingTypeValid,
+                          isMandatory: true,
                           icon: Icon(
                             Icons.foundation,
                             color: Theme.of(context).accentColor,
                             size: 24.0,
                           ),
                           informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                          choices: [
-                            SegmentedInputWidget(
-                              value: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.buildingType,
-                              updateSegmentedInputValue: updateBuildingType,
-                              title: 'Building type',
-                              mapping: buildingType,
-                              isValid: isBuildingTypeValid,
-                              isMandatory: true,
-                            ),
-                          ]),
+                        ),
+                      ]),
                       // FIRST TIME BUYER
-                      SegmentedInputChoicesWidget(
+                      SegmentedInputChoicesWidget(choices: [
+                        SegmentedInputWidget(
+                          value: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.isFirstTimeBuyer,
+                          updateSegmentedInputValue: updateIsFirstTimeBuyer,
+                          title: 'Are you first time buyer',
+                          mapping: isFirstHomeBuyer,
+                          isValid: isFirstHomeBuyerValid,
+                          isMandatory: true,
                           icon: Icon(
                             Icons.roofing,
                             color: Theme.of(context).accentColor,
                             size: 24.0,
                           ),
                           informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                          choices: [
-                            SegmentedInputWidget(
-                              value: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.isFirstTimeBuyer,
-                              updateSegmentedInputValue: updateIsFirstTimeBuyer,
-                              title: 'Are you first time buyer',
-                              mapping: isFirstHomeBuyer,
-                              isValid: isFirstHomeBuyerValid,
-                              isMandatory: true,
-                            ),
-                          ]),
+                        ),
+                      ]),
                     ],
                   ),
                 ],
