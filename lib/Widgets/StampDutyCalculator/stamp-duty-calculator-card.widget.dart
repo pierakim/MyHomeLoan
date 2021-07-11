@@ -112,7 +112,7 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
             children: [
               // STAMP DUTY INFORMATION CARD
               CardInformationWidget(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.home, color: Theme.of(context).accentColor),
                 title: "Stamp duty calculator",
                 description:
                     "Stamp duty is a tax on a property transaction that is charged by each state and territory, the amounts can and do vary.\nThe stamp duty rate will depend on factors such as the value of the property, if it is your primary residence and your residency status.",
@@ -130,7 +130,7 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                           value: this.stampDutyCalculatorResult.state,
                           updateDropDownValue: updateDropDownValue,
                           validationText: 'Select a state',
-                          inputLabelText: 'State / Territory of the property',
+                          inputLabelText: 'State',
                           icon: Icon(
                             Icons.not_listed_location_outlined,
                             color: Theme.of(context).accentColor,
@@ -235,30 +235,35 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
   }
 
   updateDropDownValue(state) {
+    FocusManager.instance.primaryFocus?.unfocus();
     setState(() {
       this.stampDutyCalculatorResult.state = state;
     });
   }
 
   updatePropertyType(propertyType) {
+    FocusManager.instance.primaryFocus?.unfocus();
     setState(() {
       this.stampDutyCalculatorResult.propertyChoice = propertyType;
     });
   }
 
   updateBuildingType(propertyType) {
+    FocusManager.instance.primaryFocus?.unfocus();
     setState(() {
       this.stampDutyCalculatorResult.buildingChoice = propertyType;
     });
   }
 
   updateIsFirstTimeBuyer(isFirstTimeBuyer) {
+    FocusManager.instance.primaryFocus?.unfocus();
     setState(() {
       this.stampDutyCalculatorResult.isFirstHomeBuyer = isFirstTimeBuyer;
     });
   }
 
   updatePropertyValue(propertyValue) {
+    FocusManager.instance.primaryFocus?.unfocus();
     setState(() {
       this.stampDutyCalculatorResult.propertyValue = propertyValue;
     });

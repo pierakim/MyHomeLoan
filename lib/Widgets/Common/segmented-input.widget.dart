@@ -12,8 +12,7 @@ class SegmentedInputWidget extends StatelessWidget {
   //callback
   final updateSegmentedInputValue;
 
-  const SegmentedInputWidget(
-      {this.value, this.updateSegmentedInputValue, this.title, this.mapping, this.isValid, this.isMandatory, Key key})
+  const SegmentedInputWidget({this.value, this.updateSegmentedInputValue, this.title, this.mapping, this.isValid, this.isMandatory, Key key})
       : super(key: key);
 
   @override
@@ -43,11 +42,6 @@ class SegmentedInputWidget extends StatelessWidget {
                   borderColor: Colors.grey,
                   children: this.mapping,
                   onValueChanged: (val) => updateSegmentedInputValue(val),
-                  // onValueChanged: (int val) {
-                  //   setState(() {
-                  //     currentSelection = val;
-                  //   });
-                  // },
                   groupValue: value,
                 ),
               ),

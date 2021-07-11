@@ -12,13 +12,7 @@ class DropDownInputWidget extends StatelessWidget {
   //callback
   final updateDropDownValue;
 
-  const DropDownInputWidget(
-      {this.updateDropDownValue,
-      this.value,
-      this.inputLabelText,
-      this.icon,
-      this.informationMessage,
-      this.validationText});
+  const DropDownInputWidget({this.updateDropDownValue, this.value, this.inputLabelText, this.icon, this.informationMessage, this.validationText});
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +33,10 @@ class DropDownInputWidget extends StatelessWidget {
                 return null;
               },
               decoration: InputDecoration(
-                filled: true,
+                filled: false,
                 border: const OutlineInputBorder(),
                 labelText: inputLabelText,
+                hintStyle: TextStyle(fontSize: 10.0),
               ),
               isExpanded: true,
               value: value,

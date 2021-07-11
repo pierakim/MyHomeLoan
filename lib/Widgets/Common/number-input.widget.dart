@@ -48,7 +48,7 @@ class NumberInputWidget extends StatelessWidget {
               // onTap: () => setState(() => hasBeenTouched = true),
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(
-                filled: true,
+                filled: false,
                 border: const OutlineInputBorder(),
                 labelText: this.inputLabelText,
                 prefixText: this.inputPrefixText,

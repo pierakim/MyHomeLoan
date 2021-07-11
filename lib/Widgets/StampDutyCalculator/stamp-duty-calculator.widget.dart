@@ -25,11 +25,13 @@ class _StampDutyCalculatorWidgetState extends State<StampDutyCalculatorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Stamp duty calculator"),
-        ),
-        drawer: AppDrawerWidget(),
-        body: StampDutyCalculatorCardWidget());
+    return GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text("Stamp duty calculator"),
+            ),
+            drawer: AppDrawerWidget(),
+            body: StampDutyCalculatorCardWidget()));
   }
 }
