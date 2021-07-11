@@ -264,7 +264,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                             inputLabelText: 'Title / description',
                             informationMessage:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis."),
-                        NumberInputWidgetTest(
+                        NumberInputWidget(
                           controller: _modelValue01Controller,
                           updateNumberInputValue: updateValue01,
                           //updateTileValidation: validateHomeInformationTile,
@@ -280,7 +280,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           informationMessage:
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
                         ),
-                        NumberInputWidgetTest(
+                        NumberInputWidget(
                             controller: _modelValue02Controller,
                             updateNumberInputValue: updateValue02,
                             // updateBlockVality: updateHomeInformationValidity,
@@ -288,7 +288,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                             inputLabelText: 'Value 02 (not mandatory)',
                             inputPrefixText: '\$ ',
                             inputSufixText: 'AUD'),
-                        NumberInputWidgetTest(
+                        NumberInputWidget(
                           controller: _propertyValueController,
                           updateNumberInputValue: updatePropertyValue,
                           // updateBlockVality: updateHomeInformationValidity,
@@ -302,7 +302,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           validationText: 'Enter a value',
                           informationMessage: "The value of the property you're interested in.",
                         ),
-                        NumberInputWidgetTest(
+                        NumberInputWidget(
                           controller: _userDepositController,
                           updateNumberInputValue: updateDepositValue,
                           // updateBlockVality: updateHomeInformationValidity,
@@ -317,7 +317,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           informationMessage:
                               "The global deposit you're ready to put for that property. It includes taxes like stamp duty and/or solicitor fee.",
                         ),
-                        NumberInputWidgetTest(
+                        NumberInputWidget(
                           controller: _loanDurationController,
                           updateNumberInputValue: updateLoanDurationValue,
                           // updateBlockVality: updateHomeInformationValidity,
@@ -330,7 +330,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           validationText: 'Enter a value',
                           informationMessage: "The length of your loan.",
                         ),
-                        NumberInputWidgetTest(
+                        NumberInputWidget(
                           controller: _bankInterestRateController,
                           updateNumberInputValue: updateBankInterestRateValue,
                           // updateBlockVality: updateHomeInformationValidity,
@@ -343,7 +343,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           validationText: 'Enter a value',
                           informationMessage: "The interest rate you have for this loan",
                         ),
-                        NumberInputWidgetTest(
+                        NumberInputWidget(
                           controller: _solicitorFeeController,
                           updateNumberInputValue: updateSolicitorFee,
                           // updateBlockVality: updateHomeInformationValidity,
@@ -356,7 +356,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           validationText: 'Enter a value',
                           informationMessage: "The solicitor fee.",
                         ),
-                        NumberInputWidgetTest(
+                        NumberInputWidget(
                           controller: _pestAndBuildingFeeController,
                           updateNumberInputValue: updatePestAndBuildingFee,
                           // updateBlockVality: updateHomeInformationValidity,
@@ -429,7 +429,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           ),
                           informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                           choices: [
-                            SegmentedInputWidgetTest(
+                            SegmentedInputWidget(
                               value:
                                   this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyType,
                               updateSegmentedInputValue: updatePropertyType,
@@ -448,7 +448,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           ),
                           informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                           choices: [
-                            SegmentedInputWidgetTest(
+                            SegmentedInputWidget(
                               value:
                                   this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.buildingType,
                               updateSegmentedInputValue: updateBuildingType,
@@ -467,7 +467,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           ),
                           informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                           choices: [
-                            SegmentedInputWidgetTest(
+                            SegmentedInputWidget(
                               value: this
                                   .loanCalculatorResultScreenArgumentsModel
                                   .loanCalculatorResultModel

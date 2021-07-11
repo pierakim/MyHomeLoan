@@ -139,7 +139,7 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                           informationMessage:
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
                         ),
-                        NumberInputWidgetTest(
+                        NumberInputWidget(
                           controller: _propertyValueController,
                           //value: this.stampDutyCalculatorResult.propertyValue,
                           updateNumberInputValue: updatePropertyValue,
@@ -165,7 +165,7 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                             ),
                             informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                             choices: [
-                              SegmentedInputWidgetTest(
+                              SegmentedInputWidget(
                                   value: this.stampDutyCalculatorResult.propertyChoice,
                                   updateSegmentedInputValue: updatePropertyType,
                                   title: 'Property type',
@@ -182,7 +182,7 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                             ),
                             informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                             choices: [
-                              SegmentedInputWidgetTest(
+                              SegmentedInputWidget(
                                 value: this.stampDutyCalculatorResult.buildingChoice,
                                 updateSegmentedInputValue: updateBuildingType,
                                 title: 'Building type',
@@ -200,7 +200,7 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                             ),
                             informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                             choices: [
-                              SegmentedInputWidgetTest(
+                              SegmentedInputWidget(
                                 value: this.stampDutyCalculatorResult.isFirstHomeBuyer,
                                 updateSegmentedInputValue: updateIsFirstTimeBuyer,
                                 title: 'Are you first time buyer',
