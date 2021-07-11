@@ -185,25 +185,24 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
         FocusScope.of(context).unfocus();
 
         setState(() {
-          this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(
-              new LoanCalculatorResultModel(
-                  _modelIdController.value.text != null ? int.tryParse(_modelIdController.value.text) : null,
-                  _modelTitleController.value.text.isNotEmpty ? _modelTitleController.value.text : '',
-                  double.parse(_modelValue01Controller.value.text) ?? 0.0,
-                  double.parse(_modelValue02Controller.value.text) ?? 0.0,
-                  this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyValue ?? 0.0,
-                  double.parse(_userDepositController.value.text) ?? 0.0,
-                  double.parse(_loanDurationController.value.text) ?? 0.0,
-                  double.parse(_bankInterestRateController.value.text) ?? 0.0,
-                  double.parse(_solicitorFeeController.value.text) ?? 0.0,
-                  double.parse(_pestAndBuildingFeeController.value.text) ?? 0.0,
-                  this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.state,
-                  this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyType,
-                  this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.buildingType,
-                  this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.isFirstTimeBuyer,
-                  0,
-                  DateTime.now().toUtc().toString(),
-                  DateTime.now().toUtc().toString()));
+          this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(new LoanCalculatorResultModel(
+              _modelIdController.value.text != null ? int.tryParse(_modelIdController.value.text) : null,
+              _modelTitleController.value.text.isNotEmpty ? _modelTitleController.value.text : '',
+              double.parse(_modelValue01Controller.value.text) ?? 0.0,
+              double.parse(_modelValue02Controller.value.text) ?? 0.0,
+              this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyValue ?? 0.0,
+              double.parse(_userDepositController.value.text) ?? 0.0,
+              double.parse(_loanDurationController.value.text) ?? 0.0,
+              double.parse(_bankInterestRateController.value.text) ?? 0.0,
+              double.parse(_solicitorFeeController.value.text) ?? 0.0,
+              double.parse(_pestAndBuildingFeeController.value.text) ?? 0.0,
+              this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.state,
+              this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyType,
+              this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.buildingType,
+              this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.isFirstTimeBuyer,
+              0,
+              DateTime.now().toUtc().toString(),
+              DateTime.now().toUtc().toString()));
         });
 
         Navigator.pushNamed(
@@ -249,14 +248,11 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                       title: Text(
                         "Home information",
                         style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500,
+                            // fontSize: 16.0,
+                            // fontWeight: FontWeight.w500,
                             color: !this.isHomeInformationExpansionTileValid ? Colors.red : Colors.black),
                       ),
-                      subtitle: Text(
-                        'The home infomormation details',
-                        style: TextStyle(color: Colors.black.withOpacity(0.6)),
-                      ),
+                      subtitle: Text('The home infomormation details', style: TextStyle(fontWeight: FontWeight.w300)),
                       children: <Widget>[
                         TextInputWidget(
                             controller: _modelTitleController,
@@ -396,13 +392,13 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                     title: Text(
                       "Stamp duty information",
                       style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
+                          // fontSize: 16.0,
+                          // fontWeight: FontWeight.w500,
                           color: !this.isStampDutyExpansionTileValid ? Colors.red : Colors.black),
                     ),
                     subtitle: Text(
                       'Taxes and stamp duty inputs',
-                      style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                      style: TextStyle(fontWeight: FontWeight.w300),
                     ),
                     children: <Widget>[
                       DropDownInputWidget(
@@ -430,8 +426,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                           choices: [
                             SegmentedInputWidget(
-                              value:
-                                  this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyType,
+                              value: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyType,
                               updateSegmentedInputValue: updatePropertyType,
                               title: 'Property type',
                               mapping: residenceType,
@@ -449,8 +444,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                           choices: [
                             SegmentedInputWidget(
-                              value:
-                                  this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.buildingType,
+                              value: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.buildingType,
                               updateSegmentedInputValue: updateBuildingType,
                               title: 'Building type',
                               mapping: buildingType,
@@ -468,10 +462,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                           informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                           choices: [
                             SegmentedInputWidget(
-                              value: this
-                                  .loanCalculatorResultScreenArgumentsModel
-                                  .loanCalculatorResultModel
-                                  .isFirstTimeBuyer,
+                              value: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.isFirstTimeBuyer,
                               updateSegmentedInputValue: updateIsFirstTimeBuyer,
                               title: 'Are you first time buyer',
                               mapping: isFirstHomeBuyer,

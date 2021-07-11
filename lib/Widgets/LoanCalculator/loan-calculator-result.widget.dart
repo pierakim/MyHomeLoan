@@ -88,6 +88,10 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.result.toString()
             : null);
+    final _modelStampDutyResultController = TextEditingController(
+        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.stampDutyResult != null
+            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.stampDutyResult.toString()
+            : null);
 
     // WIDGET
     return Scaffold(
@@ -97,201 +101,248 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
       appBar: AppBar(),
       body: ListView(
         children: <Widget>[
-          // INFORMATION SUMMARY
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
+            child: Card(
+              clipBehavior: Clip.antiAlias,
               child: Column(
                 children: [
-                  // TITLE
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextDisplayWidget(
-                          icon: Icon(
-                            Icons.home_outlined,
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: 20.0,
-                          ),
-                          controller: _modelTitleController,
-                          labelText: "Title",
-                        ),
-                      )
-                    ],
-                  ),
-                  //STATE ROW
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextDisplayWidget(
-                          icon: Icon(
-                            Icons.home_outlined,
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: 20.0,
-                          ),
-                          controller: _state,
-                          labelText: "State",
-                        ),
-                      )
-                    ],
-                  ),
-                  // VALUE 01 + VALUE 02 ROW
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextDisplayWidget(
-                          icon: Icon(
-                            Icons.home_outlined,
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: 20.0,
-                          ),
-                          controller: _modelValue01Controller,
-                          labelText: "Value 01",
-                          prefixText: "\$",
-                          suffixText: ' AUD',
-                        ),
+                  ExpansionTile(
+                      leading: Icon(
+                        Icons.house_outlined,
+                        color: Theme.of(context).accentColor,
                       ),
-                      Expanded(
-                        child: TextDisplayWidget(
-                          icon: Icon(
-                            Icons.home_outlined,
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: 20.0,
-                          ),
-                          controller: _modelValue02Controller,
-                          labelText: "Value 02",
-                          prefixText: "\$",
-                          suffixText: ' AUD',
-                        ),
-                      )
-                    ],
-                  ),
-                  // PROPERTY VALUE + DEPOSIT ROW
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextDisplayWidget(
-                          icon: Icon(
-                            Icons.home_outlined,
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: 20.0,
-                          ),
-                          controller: _propertyValue,
-                          labelText: "Property value",
-                          prefixText: "\$",
-                          suffixText: ' AUD',
-                        ),
+                      maintainState: true,
+                      title: Text(
+                        _modelTitleController.text,
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.normal),
                       ),
-                      Expanded(
-                        child: TextDisplayWidget(
-                          icon: Icon(
-                            Icons.home_outlined,
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: 20.0,
+                      children: <Widget>[
+                        // INFORMATION SUMMARY
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            child: Column(
+                              children: [
+                                //STATE ROW
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextDisplayWidget(
+                                        icon: Icon(
+                                          Icons.home_outlined,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                          size: 20.0,
+                                        ),
+                                        controller: _state,
+                                        labelText: "State",
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                // VALUE 01 + VALUE 02 ROW
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextDisplayWidget(
+                                        icon: Icon(
+                                          Icons.home_outlined,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                          size: 20.0,
+                                        ),
+                                        controller: _modelValue01Controller,
+                                        labelText: "Value 01",
+                                        prefixText: "\$",
+                                        suffixText: ' AUD',
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: TextDisplayWidget(
+                                        icon: Icon(
+                                          Icons.home_outlined,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                          size: 20.0,
+                                        ),
+                                        controller: _modelValue02Controller,
+                                        labelText: "Value 02",
+                                        prefixText: "\$",
+                                        suffixText: ' AUD',
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                // PROPERTY VALUE + DEPOSIT ROW
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextDisplayWidget(
+                                        icon: Icon(
+                                          Icons.home_outlined,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                          size: 20.0,
+                                        ),
+                                        controller: _propertyValue,
+                                        labelText: "Property value",
+                                        prefixText: "\$",
+                                        suffixText: ' AUD',
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: TextDisplayWidget(
+                                        icon: Icon(
+                                          Icons.home_outlined,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                          size: 20.0,
+                                        ),
+                                        controller: _userDeposit,
+                                        labelText: "Deposit",
+                                        prefixText: "\$",
+                                        suffixText: ' AUD',
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                // LOAN DURATION + BANK INTEREST RATE ROW
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextDisplayWidget(
+                                        icon: Icon(
+                                          Icons.home_outlined,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                          size: 20.0,
+                                        ),
+                                        controller: _loanDuration,
+                                        labelText: "Loan duration",
+                                        suffixText: ' YEAR(S)',
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: TextDisplayWidget(
+                                        icon: Icon(
+                                          Icons.home_outlined,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                          size: 20.0,
+                                        ),
+                                        controller: _bankInterestRate,
+                                        labelText: "Bank interest rate",
+                                        suffixText: ' %',
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                // SOLICITOR FEE + PEST AND BUILDING FEE ROW
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextDisplayWidget(
+                                        icon: Icon(
+                                          Icons.home_outlined,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                          size: 20.0,
+                                        ),
+                                        controller: _solicitorFee,
+                                        labelText: "Solicitor fee",
+                                        prefixText: "\$",
+                                        suffixText: ' AUD',
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: TextDisplayWidget(
+                                        icon: Icon(
+                                          Icons.home_outlined,
+                                          color: Theme.of(context).colorScheme.secondary,
+                                          size: 20.0,
+                                        ),
+                                        controller: _pestAndBuildingFee,
+                                        labelText: "Pest and building fee",
+                                        prefixText: "\$",
+                                        suffixText: ' AUD',
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                          controller: _userDeposit,
-                          labelText: "Deposit",
-                          prefixText: "\$",
-                          suffixText: ' AUD',
                         ),
-                      )
-                    ],
-                  ),
-                  // LOAN DURATION + BANK INTEREST RATE ROW
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextDisplayWidget(
-                          icon: Icon(
-                            Icons.home_outlined,
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: 20.0,
-                          ),
-                          controller: _loanDuration,
-                          labelText: "Loan duration",
-                          suffixText: ' YEAR(S)',
-                        ),
-                      ),
-                      Expanded(
-                        child: TextDisplayWidget(
-                          icon: Icon(
-                            Icons.home_outlined,
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: 20.0,
-                          ),
-                          controller: _bankInterestRate,
-                          labelText: "Bank interest rate",
-                          suffixText: ' %',
-                        ),
-                      )
-                    ],
-                  ),
-                  // SOLICITOR FEE + PEST AND BUILDING FEE ROW
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextDisplayWidget(
-                          icon: Icon(
-                            Icons.home_outlined,
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: 20.0,
-                          ),
-                          controller: _solicitorFee,
-                          labelText: "Solicitor fee",
-                          prefixText: "\$",
-                          suffixText: ' AUD',
-                        ),
-                      ),
-                      Expanded(
-                        child: TextDisplayWidget(
-                          icon: Icon(
-                            Icons.home_outlined,
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: 20.0,
-                          ),
-                          controller: _pestAndBuildingFee,
-                          labelText: "Pest and building fee",
-                          prefixText: "\$",
-                          suffixText: ' AUD',
-                        ),
-                      )
-                    ],
-                  ),
+                      ]),
                 ],
               ),
             ),
           ),
+
           // RESULT SUMMARY
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
-              child: Card(
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     // RESULT DESCRIPTION
-                    const ListTile(
-                      title: Text('Result'),
-                      subtitle: Text('blablabla blabla bla blablabla'),
-                    ),
-                    // RESULT VALUE
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Flexible(
-                          child: TextField(
-                            textAlign: TextAlign.end,
-                            controller: _modelResultController,
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              suffixText: ' AUD',
-                              border: InputBorder.none,
-                              filled: false,
+                    ListTile(
+                      title: Container(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Result',
+                                style: TextStyle(fontSize: 15.0, color: Theme.of(context).colorScheme.primary),
+                              ),
                             ),
-                          ),
+                            Expanded(
+                              child: TextField(
+                                textAlign: TextAlign.end,
+                                //style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.normal),
+                                controller: _modelResultController,
+                                readOnly: true,
+                                decoration: InputDecoration(
+                                  suffixText: ' AUD',
+                                  border: InputBorder.none,
+                                  filled: false,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 8),
-                      ],
+                      ),
+                      subtitle: Text(
+                        'The addition of value 01 and value 02.',
+                        style: TextStyle(fontSize: 10.0),
+                      ),
+                    ),
+                    ListTile(
+                      title: Container(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Stamp duty result',
+                                style: TextStyle(fontSize: 15.0, color: Theme.of(context).colorScheme.secondary),
+                              ),
+                            ),
+                            Expanded(
+                              child: TextField(
+                                textAlign: TextAlign.end,
+                                // style: TextStyle(fontSize: 15.0),
+                                controller: _modelStampDutyResultController,
+                                readOnly: true,
+                                decoration: InputDecoration(
+                                  suffixText: ' AUD',
+                                  border: InputBorder.none,
+                                  filled: false,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      subtitle: Text(
+                        'What your are going to pay as stamp duty fees.',
+                        style: TextStyle(fontSize: 10.0),
+                      ),
                     ),
                   ],
                 ),
@@ -308,8 +359,8 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                     child: Text('Save'),
                     onPressed: () async {
                       // this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title = _modelTitleController.text;
-                      var hasBeenSaved = await _loanCalculatorRepo.postLoanCalculatorResult(
-                          this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
+                      var hasBeenSaved =
+                          await _loanCalculatorRepo.postLoanCalculatorResult(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
                       if (hasBeenSaved) {
                         setState(() => hasBeenSaved == true ? hasResultBeenSaved = true : hasResultBeenSaved = false);
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -360,8 +411,8 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                     child: Text('Save changes'),
                     onPressed: () async {
                       // this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title = _modelTitleController.text;
-                      var hasBeenSaved = await _loanCalculatorRepo.putLoanCalculatorResult(
-                          this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
+                      var hasBeenSaved =
+                          await _loanCalculatorRepo.putLoanCalculatorResult(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel);
                       if (hasBeenSaved) {
                         setState(() => hasBeenSaved == true ? hasResultBeenSaved = true : hasResultBeenSaved = false);
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -412,8 +463,7 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
             Navigator.pushNamed(
               context,
               Routes.loanCalculatorWidget,
-              arguments: new LoanCalculatorResultScreenArgumentsModel(
-                  this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel, true),
+              arguments: new LoanCalculatorResultScreenArgumentsModel(this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel, true),
             );
           },
           child: const Icon(Icons.edit),

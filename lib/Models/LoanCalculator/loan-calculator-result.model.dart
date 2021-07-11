@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:my_home_loan/Models/StampDuty/stamp-duty-calculator-result.model.dart';
 
 class LoanCalculatorResultModel extends ChangeNotifier {
   int id;
@@ -15,10 +16,13 @@ class LoanCalculatorResultModel extends ChangeNotifier {
   int propertyType;
   int buildingType;
   int isFirstTimeBuyer;
-  double get result => value01 + value02;
   int isFavourite = 0;
   String creationDate = '';
   String modificationDate = '';
+
+  // Results attached to models
+  double get stampDutyResult => getStampDutyResult(propertyValue, state, propertyType, buildingType, isFirstTimeBuyer);
+  double get result => value01 + value02;
 
   LoanCalculatorResultModel(
       this.id,
@@ -38,6 +42,11 @@ class LoanCalculatorResultModel extends ChangeNotifier {
       this.isFavourite,
       this.creationDate,
       this.modificationDate);
+
+  double getStampDutyResult(double propertyValue, String state, int propertyType, int buildingType, int isFirstTimeBuyer) {
+    var stampDutyCalculatorResultModel = new StampDutyCalculatorResultModel(propertyValue, state, propertyType, buildingType, isFirstTimeBuyer);
+    return stampDutyCalculatorResultModel.result;
+  }
 
   Map<String, dynamic> toMap() {
     return {
