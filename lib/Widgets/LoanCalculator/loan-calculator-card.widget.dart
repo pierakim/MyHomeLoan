@@ -242,7 +242,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                               color: Colors.red,
                             )
                           : Icon(
-                              Icons.check_box_outline_blank_outlined,
+                              Icons.question_answer_outlined,
                               color: Colors.black,
                             ),
                       title: Text(
@@ -386,7 +386,7 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                             color: Colors.red,
                           )
                         : Icon(
-                            Icons.check_box_outline_blank_outlined,
+                            Icons.question_answer_outlined,
                             color: Colors.black,
                           ),
                     title: Text(
@@ -451,22 +451,25 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                         ),
                       ]),
                       // FIRST TIME BUYER
-                      SegmentedInputChoicesWidget(choices: [
-                        SegmentedInputWidget(
-                          value: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.isFirstTimeBuyer,
-                          updateSegmentedInputValue: updateIsFirstTimeBuyer,
-                          title: 'Are you first time buyer',
-                          mapping: isFirstHomeBuyer,
-                          isValid: isFirstHomeBuyerValid,
-                          isMandatory: true,
-                          icon: Icon(
-                            Icons.roofing,
-                            color: Theme.of(context).accentColor,
-                            size: 24.0,
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: SegmentedInputChoicesWidget(choices: [
+                          SegmentedInputWidget(
+                            value: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.isFirstTimeBuyer,
+                            updateSegmentedInputValue: updateIsFirstTimeBuyer,
+                            title: 'Are you first time buyer',
+                            mapping: isFirstHomeBuyer,
+                            isValid: isFirstHomeBuyerValid,
+                            isMandatory: true,
+                            icon: Icon(
+                              Icons.family_restroom,
+                              color: Theme.of(context).accentColor,
+                              size: 24.0,
+                            ),
+                            informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                           ),
-                          informationMessage: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                        ),
-                      ]),
+                        ]),
+                      ),
                     ],
                   ),
                 ],

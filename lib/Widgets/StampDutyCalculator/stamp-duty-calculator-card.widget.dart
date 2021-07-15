@@ -204,7 +204,7 @@ class _StampDutyCalculatorCardWidgetState extends State<StampDutyCalculatorCardW
                             informationMessage:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in",
                             icon: Icon(
-                              Icons.roofing,
+                              Icons.family_restroom,
                               color: Theme.of(context).accentColor,
                               // size: 24.0,
                             ),
