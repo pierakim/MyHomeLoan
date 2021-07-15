@@ -71,17 +71,14 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                   future: _paymentCalculatorResults,
                   builder: (BuildContext context, AsyncSnapshot<List<LoanCalculatorResultModel>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return SizedBox(
-                          height: MediaQuery.of(context).size.width, child: Center(child: CircularProgressIndicator()));
+                      return SizedBox(height: MediaQuery.of(context).size.width, child: Center(child: CircularProgressIndicator()));
                     } else {
                       if (snapshot.hasError)
                         return SizedBox(
                             height: MediaQuery.of(context).size.width,
                             child: Center(child: Text('Ouups, something happened..please restart the app')));
                       else if (snapshot.data.length == 0)
-                        return SizedBox(
-                            height: MediaQuery.of(context).size.width,
-                            child: Center(child: Text('Collection is empty')));
+                        return SizedBox(height: MediaQuery.of(context).size.width, child: Center(child: Text('Collection is empty')));
                       else
                         return Card(child: tableBody(context, snapshot.data));
                     }
@@ -97,8 +94,8 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
             ctx,
             Routes.loanCalculatorWidget,
             arguments: new LoanCalculatorResultScreenArgumentsModel(
-                new LoanCalculatorResultModel(null, null, null, null, null, null, null, null, null, null, null, null,
-                    null, null, 0, DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()),
+                new LoanCalculatorResultModel(null, null, null, null, null, null, null, null, null, null, null, null, 0,
+                    DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()),
                 false),
           );
         },
@@ -145,8 +142,6 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                           arguments: new LoanCalculatorResultScreenArgumentsModel(new LoanCalculatorResultModel(
                               paymentCalculatorResult.id,
                               paymentCalculatorResult.title,
-                              paymentCalculatorResult.value01,
-                              paymentCalculatorResult.value02,
                               paymentCalculatorResult.propertyValue,
                               paymentCalculatorResult.userDeposit,
                               paymentCalculatorResult.loanDuration,
@@ -206,12 +201,7 @@ class _MyCollectionWidgetState extends State<MyCollectionWidget> {
                                 alignment: Alignment.topLeft,
                                 child: Container(
                                   // width: 150,
-                                  child: Text(
-                                      "Value 01: " +
-                                          paymentCalculatorResult.value01.toString() +
-                                          "  " +
-                                          "Value 02: " +
-                                          paymentCalculatorResult.value02.toString(),
+                                  child: Text("Property Value: " + paymentCalculatorResult.propertyValue.toString(),
                                       style: new TextStyle(
                                         fontSize: 15.0,
                                       ),

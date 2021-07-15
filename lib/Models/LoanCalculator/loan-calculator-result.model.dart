@@ -4,8 +4,6 @@ import 'package:my_home_loan/Models/StampDuty/stamp-duty-calculator-result.model
 class LoanCalculatorResultModel extends ChangeNotifier {
   int id;
   String title = '';
-  double value01 = 0.0;
-  double value02 = 0.0;
   double propertyValue = 0.0;
   double userDeposit = 0.0;
   double loanDuration = 0.0;
@@ -22,13 +20,11 @@ class LoanCalculatorResultModel extends ChangeNotifier {
 
   // Results attached to models
   double get stampDutyResult => getStampDutyResult(propertyValue, state, propertyType, buildingType, isFirstTimeBuyer);
-  double get result => value01 + value02;
+  double get result => propertyValue + userDeposit;
 
   LoanCalculatorResultModel(
       this.id,
       this.title,
-      this.value01,
-      this.value02,
       this.propertyValue,
       this.userDeposit,
       this.loanDuration,
@@ -52,8 +48,6 @@ class LoanCalculatorResultModel extends ChangeNotifier {
     return {
       'id': id,
       'title': title,
-      'value01': value01,
-      'value02': value02,
       'propertyValue': propertyValue,
       'userDeposit': userDeposit,
       'loanDuration': loanDuration,

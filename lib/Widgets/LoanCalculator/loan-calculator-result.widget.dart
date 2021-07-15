@@ -48,14 +48,6 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title.toString()
             : null);
-    final _modelValue01Controller = TextEditingController(
-        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value01 != null
-            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value01.toString()
-            : null);
-    final _modelValue02Controller = TextEditingController(
-        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02 != null
-            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02.toString()
-            : null);
     final _propertyValue = TextEditingController(
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyValue != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyValue.toString()
@@ -136,37 +128,6 @@ class _LoanCalculatorResultWidgetState extends State<LoanCalculatorResultWidget>
                                         ),
                                         controller: _state,
                                         labelText: "State",
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                // VALUE 01 + VALUE 02 ROW
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: TextDisplayWidget(
-                                        icon: Icon(
-                                          Icons.home_outlined,
-                                          color: Theme.of(context).colorScheme.secondary,
-                                          size: 20.0,
-                                        ),
-                                        controller: _modelValue01Controller,
-                                        labelText: "Value 01",
-                                        prefixText: "\$",
-                                        suffixText: ' AUD',
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: TextDisplayWidget(
-                                        icon: Icon(
-                                          Icons.home_outlined,
-                                          color: Theme.of(context).colorScheme.secondary,
-                                          size: 20.0,
-                                        ),
-                                        controller: _modelValue02Controller,
-                                        labelText: "Value 02",
-                                        prefixText: "\$",
-                                        suffixText: ' AUD',
                                       ),
                                     )
                                   ],

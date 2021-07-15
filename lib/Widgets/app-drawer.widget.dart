@@ -31,7 +31,7 @@ class AppDrawerWidget extends StatelessWidget {
                       context,
                       Routes.loanCalculatorWidget,
                       arguments: new LoanCalculatorResultScreenArgumentsModel(
-                          new LoanCalculatorResultModel(null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0,
+                          new LoanCalculatorResultModel(null, null, null, null, null, null, null, null, null, null, null, null, 0,
                               DateTime.now().toUtc().toString(), DateTime.now().toUtc().toString()),
                           false),
                     )),
