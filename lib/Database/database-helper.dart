@@ -9,8 +9,6 @@ class DatabaseHelper {
 
   static final id = 'id';
   static final title = 'title';
-  static final columnValue01 = 'value01';
-  static final columnValue02 = 'value02';
   static final propertyValue = 'propertyValue';
   static final userDeposit = 'userDeposit';
   static final loanDuration = 'loanDuration';
@@ -57,8 +55,6 @@ class DatabaseHelper {
           CREATE TABLE $table (
             $id INTEGER PRIMARY KEY AUTOINCREMENT,
             $title TEXT NOT NULL,
-            $columnValue01 INTEGER NOT NULL,
-            $columnValue02 INTEGER NOT NULL,
             $propertyValue INTEGER NOT NULL,
             $userDeposit INTEGER NOT NULL,
             $loanDuration INTEGER NOT NULL,

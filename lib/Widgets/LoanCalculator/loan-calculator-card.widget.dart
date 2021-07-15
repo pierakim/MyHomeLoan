@@ -31,8 +31,6 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
   // Controller
   TextEditingController _modelIdController;
   TextEditingController _modelTitleController;
-  TextEditingController _modelValue01Controller;
-  TextEditingController _modelValue02Controller;
   TextEditingController _propertyValueController;
   TextEditingController _userDepositController;
   TextEditingController _loanDurationController;
@@ -69,14 +67,6 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.title.toString()
             : '');
-    this._modelValue01Controller = TextEditingController(
-        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value01 != null
-            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value01.toString()
-            : '');
-    this._modelValue02Controller = TextEditingController(
-        text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02 != null
-            ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02.toString()
-            : '');
     this._propertyValueController = TextEditingController(
         text: this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyValue != null
             ? this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyValue.toString()
@@ -107,8 +97,6 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
   void dispose() {
     _modelIdController.dispose();
     _modelTitleController.dispose();
-    _modelValue01Controller.dispose();
-    _modelValue02Controller.dispose();
     _propertyValueController.dispose();
     _userDepositController.dispose();
     _loanDurationController.dispose();
@@ -188,8 +176,6 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
           this.loanCalculatorResultScreenArgumentsModel = new LoanCalculatorResultScreenArgumentsModel(new LoanCalculatorResultModel(
               _modelIdController.value.text != null ? int.tryParse(_modelIdController.value.text) : null,
               _modelTitleController.value.text.isNotEmpty ? _modelTitleController.value.text : '',
-              double.parse(_modelValue01Controller.value.text) ?? 0.0,
-              double.parse(_modelValue02Controller.value.text) ?? 0.0,
               this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.propertyValue ?? 0.0,
               double.parse(_userDepositController.value.text) ?? 0.0,
               double.parse(_loanDurationController.value.text) ?? 0.0,
@@ -260,30 +246,6 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
                             inputLabelText: 'Title / description',
                             informationMessage:
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis."),
-                        NumberInputWidget(
-                          controller: _modelValue01Controller,
-                          updateNumberInputValue: updateValue01,
-                          //updateTileValidation: validateHomeInformationTile,
-                          // updateBlockVality: updateHomeInformationValidity,
-                          icon: Icon(
-                            Icons.attach_money,
-                            color: Theme.of(context).accentColor,
-                          ),
-                          inputLabelText: 'Value 01 (mandatory)',
-                          inputPrefixText: '\$ ',
-                          inputSufixText: 'AUD',
-                          validationText: 'Enter a value',
-                          informationMessage:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget lorem massa. Nulla diam arcu, sodales eu dui in, euismod mollis augue. Curabitur varius ultricies purus vitae venenatis.",
-                        ),
-                        NumberInputWidget(
-                            controller: _modelValue02Controller,
-                            updateNumberInputValue: updateValue02,
-                            // updateBlockVality: updateHomeInformationValidity,
-                            icon: Icon(Icons.attach_money, color: Theme.of(context).accentColor),
-                            inputLabelText: 'Value 02 (not mandatory)',
-                            inputPrefixText: '\$ ',
-                            inputSufixText: 'AUD'),
                         NumberInputWidget(
                           controller: _propertyValueController,
                           updateNumberInputValue: updatePropertyValue,
@@ -529,20 +491,6 @@ class _LoanCalculatorCardWidgetState extends State<LoanCalculatorCardWidget> {
   //     });
   //   }
   // }
-
-  updateValue01(value01) {
-    setState(() {
-      this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value01 = value01;
-      this.hasFormChanged = true;
-    });
-  }
-
-  updateValue02(value02) {
-    setState(() {
-      this.loanCalculatorResultScreenArgumentsModel.loanCalculatorResultModel.value02 = value02;
-      this.hasFormChanged = true;
-    });
-  }
 
   updateDropDownValue(state) {
     setState(() {

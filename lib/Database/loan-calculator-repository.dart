@@ -24,8 +24,6 @@ class LoanCalculatorRepository implements ILoanCalculatorRepository {
       return LoanCalculatorResultModel(
           maps[i]['id'],
           maps[i]['title'],
-          maps[i]['value01'].toDouble(),
-          maps[i]['value02'].toDouble(),
           maps[i]['propertyValue'].toDouble(),
           maps[i]['userDeposit'].toDouble(),
           maps[i]['loanDuration'].toDouble(),
